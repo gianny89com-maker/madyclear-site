@@ -26,3 +26,10 @@
 .selection-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:70;background:#082f49;color:#fff;padding:12px 18px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.22);font-weight:800;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s ease;max-width:min(92vw,560px);text-align:center}
 .selection-toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:620px){.choice-hint{margin-top:12px}.selection-toast{bottom:92px;border-radius:16px}}
+
+
+/* Images maître ChatGPT intégrées */
+.brand img{width:190px;max-height:58px;object-fit:contain}
+.hero-visual img{width:100%;border-radius:28px;object-fit:cover;aspect-ratio:1.25/1;box-shadow:0 26px 56px rgba(2,25,44,.18)}
+.results-section img{border-radius:28px;box-shadow:0 24px 50px rgba(2,25,44,.16);border:1px solid rgba(216,229,236,.9)}
+@media(max-width:620px){.brand img{width:150px}.hero-visual img{border-radius:20px}}
