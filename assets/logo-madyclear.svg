@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180">
-<rect width="720" height="180" rx="32" fill="#0b6b61"/>
-<circle cx="85" cy="90" r="46" fill="#b8fff3"/>
-<path d="M48 106c35-3 54-18 79-46 25-29 46-43 77-46-12 13-16 28-14 43 2 24-10 47-34 62-29 18-69 17-108-13Z" fill="#fff"/>
-<text x="235" y="111" font-family="Arial,sans-serif" font-size="58" font-weight="700" fill="#fff">MADYCLEAR</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 170">
+<circle cx="75" cy="84" r="55" fill="#0a6c63"/>
+<path d="M40 95c24-4 40-14 56-33 15-18 28-27 47-31-8 12-10 24-7 36 4 19-5 36-22 47-21 13-46 7-74-19Z" fill="#dff5ef"/>
+<path d="M49 109c25 8 52 2 77-18" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/>
+<text x="158" y="91" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="800" letter-spacing="2" fill="#102321">MADYCLEAR</text>
+<text x="160" y="128" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="5" fill="#0a6c63">LA PROPRETÉ EN TOUTE SIMPLICITÉ</text>
 </svg>

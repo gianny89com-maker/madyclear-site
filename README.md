@@ -1,10 +1,12 @@
-# MADYCLEAR — GitHub Ready
+# MADYCLEAR_GITHUB_READY — REFONTE DOSSIER MAÎTRE
 
-Dossier prêt à être téléversé à la racine du dépôt GitHub Pages.
+Version construite à partir du dossier maître MADYCLEAR.
 
-- `index.html` : site public
-- `assets/` : styles, scripts et visuels
-- `CNAME` : domaine `madyclear.fr`
-- `robots.txt` et `sitemap.xml` : SEO de base
+Piliers affichés à égalité :
+- Automobile
+- Textile
+- Vitres & vitrines
+- Professionnels
 
-Le dossier `/app/` de MADYCLEAR Personal doit rester séparé dans le dépôt.
+Conversion principale : WhatsApp.
+Site volontairement léger : HTML/CSS natifs, SVG locaux, aucune librairie externe.
