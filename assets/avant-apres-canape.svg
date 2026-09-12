@@ -1,8 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="520" viewBox="0 0 720 520" role="img" aria-label="Avant et après nettoyage d'un canapé">
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9f7fd"/><stop offset="1" stop-color="#ffffff"/></linearGradient><linearGradient id="clean" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbeafe"/><stop offset="1" stop-color="#7dd3fc"/></linearGradient></defs>
-<rect width="720" height="520" rx="34" fill="url(#bg)"/><rect x="36" y="38" width="648" height="444" rx="28" fill="#fff" stroke="#cde7f3"/>
-<text x="80" y="94" font-family="Arial" font-size="21" font-weight="700" fill="#64748b">AVANT</text><text x="543" y="94" font-family="Arial" font-size="21" font-weight="700" fill="#0369a1">APRÈS</text>
-<path d="M360 70v370" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="8 9"/>
-<g transform="translate(70 155)"><rect x="0" y="65" width="250" height="130" rx="25" fill="#9a8d7e"/><rect x="20" y="0" width="95" height="105" rx="24" fill="#a99b8b"/><rect x="135" y="0" width="95" height="105" rx="24" fill="#a99b8b"/><rect x="16" y="185" width="30" height="38" rx="8" fill="#725f4f"/><rect x="204" y="185" width="30" height="38" rx="8" fill="#725f4f"/><ellipse cx="72" cy="106" rx="28" ry="13" fill="#786556" opacity=".6"/><ellipse cx="173" cy="135" rx="40" ry="15" fill="#6e5c4e" opacity=".48"/></g>
-<g transform="translate(400 155)"><rect x="0" y="65" width="250" height="130" rx="25" fill="url(#clean)"/><rect x="20" y="0" width="95" height="105" rx="24" fill="#dbeafe"/><rect x="135" y="0" width="95" height="105" rx="24" fill="#dbeafe"/><rect x="16" y="185" width="30" height="38" rx="8" fill="#0c4a6e"/><rect x="204" y="185" width="30" height="38" rx="8" fill="#0c4a6e"/><path d="M225 22l8 15 16 8-16 8-8 16-8-16-16-8 16-8 8-15Z" fill="#fff"/><path d="M65 95l5 9 10 5-10 5-5 10-5-10-10-5 10-5 5-9Z" fill="#fff"/></g>
-<rect x="225" y="420" width="270" height="38" rx="19" fill="#e0f2fe"/><text x="360" y="445" text-anchor="middle" font-family="Arial" font-size="17" font-weight="700" fill="#075985">NETTOYAGE PROFESSIONNEL</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+<rect width="900" height="520" rx="36" fill="#f4f7f6"/>
+<rect x="35" y="35" width="395" height="450" rx="26" fill="#d8c4aa"/>
+<rect x="470" y="35" width="395" height="450" rx="26" fill="#e7dccd"/>
+<text x="232" y="88" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#755f46">AVANT</text>
+<text x="667" y="88" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#0b6b61">APRÈS</text>
+<rect x="85" y="215" width="295" height="145" rx="28" fill="#a98d69"/>
+<rect x="520" y="215" width="295" height="145" rx="28" fill="#d7c5ad"/>
+<circle cx="220" cy="290" r="35" fill="#7f6a53" opacity=".7"/>
+</svg>

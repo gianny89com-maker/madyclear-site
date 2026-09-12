@@ -1,29 +1,10 @@
-# MADYCLEAR Personal V1
+# MADYCLEAR — GitHub Ready
 
-Application PWA installable, prévue pour être publiée dans `madyclear.fr/app/`.
+Dossier prêt à être téléversé à la racine du dépôt GitHub Pages.
 
-## Déploiement GitHub Pages
-Copier le dossier `app/` dans la racine du dépôt `madyclear-site`, puis commit sur `main`.
+- `index.html` : site public
+- `assets/` : styles, scripts et visuels
+- `CNAME` : domaine `madyclear.fr`
+- `robots.txt` et `sitemap.xml` : SEO de base
 
-Structure cible :
-- /app/index.html
-- /app/app.css
-- /app/app.js
-- /app/manifest.webmanifest
-- /app/sw.js
-- /app/icons/*
-
-URL publique attendue : https://madyclear.fr/app/
-
-## Fonctionnalités V1
-- Tableau de bord
-- Clients + recherche
-- Interventions / planning
-- Devis rapides
-- Tarifs repères
-- WhatsApp
-- Réglages
-- Export/import JSON
-- Stockage local
-- Mode hors-ligne
-- Installation PWA
+Le dossier `/app/` de MADYCLEAR Personal doit rester séparé dans le dépôt.
