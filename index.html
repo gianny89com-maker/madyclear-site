@@ -1,195 +1,131 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Madyclear | Nettoyage de Canapé, Matelas et Textiles en Martinique</title>
-  <meta name="description" content="Madyclear redonne vie à vos textiles en Martinique. Nettoyage professionnel de canapés, matelas, tapis, chaises et textiles auto. Devis gratuit.">
-  <meta name="theme-color" content="#0369a1">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://madyclear.fr/">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="assets/styles.css">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Madyclear — Nettoyage textile professionnel en Martinique">
-  <meta property="og:description" content="Canapés • Matelas • Tapis • Chaises en tissu — intervention à domicile en Martinique.">
-  <meta property="og:url" content="https://madyclear.fr/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b6b61" />
+  <meta name="description" content="MADYCLEAR Personal — gestion locale des clients, interventions et devis." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./app.css" />
+  <title>MADYCLEAR Personal</title>
 </head>
 <body>
-  <a class="skip-link" href="#main">Aller au contenu</a>
-
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a href="#accueil" class="brand" aria-label="Madyclear — Accueil">
-        <img src="assets/logo-madyclear.svg" alt="Madyclear" width="190" height="56">
-      </a>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
-      <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
-        <a href="#accueil">Accueil</a>
-        <a href="#services">Services</a>
-        <a href="#tarifs">Tarifs</a>
-        <a href="#methode">Méthode</a>
-        <a href="#faq">FAQ</a>
-        <a class="nav-cta" href="#devis">Devis gratuit</a>
-      </nav>
+  <header class="topbar">
+    <div>
+      <div class="brand">MADYCLEAR</div>
+      <div class="subtitle">Personal</div>
     </div>
+    <button id="installBtn" class="ghost" hidden>Installer</button>
   </header>
 
-  <main id="main">
-    <section id="accueil" class="hero section-pad">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Expertise textile à domicile • Martinique entière</p>
-          <h1>Nettoyage textile professionnel en Martinique</h1>
-          <p class="hero-line">Canapés • Matelas • Tapis • Chaises en tissu</p>
-          <p class="lead">Retrouvez des textiles propres, frais et agréables sans les transporter : Madyclear intervient directement chez vous, partout en Martinique.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#devis">Demander un devis gratuit</a>
-            <a class="btn btn-ghost" href="https://wa.me/596696017007?text=Bonjour%20Madyclear%2C%20je%20souhaite%20un%20devis%20pour%20le%20nettoyage%20de%20mes%20textiles." target="_blank" rel="noopener">WhatsApp</a>
-          </div>
-          <ul class="trust-list" aria-label="Avantages">
-            <li>Intervention à domicile</li>
-            <li>Diagnostic avant traitement</li>
-            <li>Devis transparent</li>
-          </ul>
-        </div>
-        <div class="hero-visual">
-          <img src="assets/hero-canape-madyclear.svg" alt="Canapé propre après nettoyage professionnel Madyclear" width="720" height="520">
-          <div class="visual-badge">La propreté jusque dans la fibre</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad soft-section">
-      <div class="container split-grid">
+  <main id="app">
+    <section class="view active" data-view="home">
+      <div class="hero card">
         <div>
-          <p class="eyebrow">La propreté jusque dans la fibre</p>
-          <h2>Vos textiles méritent mieux qu’un nettoyage de surface.</h2>
+          <span class="eyebrow">Tableau de bord</span>
+          <h1>Bonjour Gino 👋</h1>
+          <p>Ton activité MADYCLEAR, en un coup d’œil.</p>
         </div>
-        <div>
-          <p>Dans un climat tropical, humidité, transpiration, poussière et allergènes s’installent rapidement. Notre nettoyage textile à domicile agit au cœur des fibres pour retrouver fraîcheur, confort et sérénité.</p>
-          <p><strong>Intervention à domicile sur toute la Martinique.</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad warning-strip">
-      <div class="container">
-        <p class="eyebrow">Pourquoi agir maintenant ?</p>
-        <h2>Les traces du quotidien deviennent plus difficiles à traiter avec le temps.</h2>
-        <p>Boissons, nourriture, transpiration, poussière, humidité et odeurs s’installent progressivement dans les fibres. Un nettoyage professionnel aide à retirer les salissures incrustées, les auréoles et les odeurs accumulées. Chaque textile est d’abord diagnostiqué afin de choisir un traitement adapté.</p>
-      </div>
-    </section>
-
-    <section class="section-pad results-section">
-      <div class="container results-grid">
-        <div><p class="eyebrow">Résultat avant / après</p><h2>Un nettoyage visible, jusque dans la fibre.</h2><p>Le résultat varie selon la matière, l'ancienneté des taches et l'état du textile. Le diagnostic permet d'adapter le traitement avant intervention.</p></div>
-        <img src="assets/avant-apres-canape.svg" alt="Illustration avant et après nettoyage d'un canapé" width="720" height="520">
-      </div>
-    </section>
-
-    <section id="services" class="section-pad">
-      <div class="container">
-        <p class="eyebrow">Nos services</p>
-        <h2>Nos prestations textiles</h2>
-        <div class="cards services-grid">
-          <article class="card"><span class="card-icon">01</span><h3>Canapés & fauteuils</h3><p>Élimination des taches tenaces, auréoles et odeurs sur tous types de tissus. Traitement adapté à la fibre pour redonner fraîcheur et éclat à votre mobilier.</p></article>
-          <article class="card"><span class="card-icon">02</span><h3>Matelas</h3><p>Nettoyage en profondeur des surfaces textiles pour retrouver un couchage propre, frais et agréable.</p></article>
-          <article class="card"><span class="card-icon">03</span><h3>Tapis & chaises</h3><p>Nettoyage ciblé des fibres, assises et dossiers avec diagnostic préalable selon la matière et l’état.</p></article>
-          <article class="card"><span class="card-icon">04</span><h3>Textiles automobiles</h3><p>Remise à neuf des textiles auto : sièges, banquettes, moquettes et coffre pour retrouver un habitacle propre et agréable.</p></article>
-          <article class="card"><span class="card-icon">05</span><h3>Professionnels</h3><p>Solutions adaptées aux conciergeries, locations saisonnières, agences et entreprises selon fréquence et volume.</p></article>
-          <article class="card"><span class="card-icon">06</span><h3>Autres besoins</h3><p>Nettoyage de fin de chantier et entretien de locaux professionnels ou de maisons, sur étude de votre besoin.</p></article>
+        <div class="stats">
+          <div><strong id="statClients">0</strong><span>Clients</span></div>
+          <div><strong id="statJobs">0</strong><span>Interventions</span></div>
+          <div><strong id="statQuotes">0</strong><span>Devis</span></div>
         </div>
       </div>
+
+      <div class="quick-grid">
+        <button class="quick" data-go="clients">+ Client</button>
+        <button class="quick" data-go="jobs">+ Intervention</button>
+        <button class="quick" data-go="quotes">+ Devis</button>
+        <a class="quick link" href="https://wa.me/596696017007" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Prochaines interventions</h2>
+          <button class="text-btn" data-go="jobs">Voir tout</button>
+        </div>
+        <div id="upcomingJobs" class="list empty">Aucune intervention enregistrée.</div>
+      </section>
     </section>
 
-    <section id="tarifs" class="section-pad price-section">
-      <div class="container">
-        <p class="eyebrow">Tarifs</p>
-        <h2>Un prix annoncé avant l’intervention.</h2>
-        <p class="section-intro">Le tarif dépend du textile, de ses dimensions, de son état et du traitement nécessaire. Les éventuels suppléments sont annoncés avant l’intervention.</p>
-        <div class="tariff-grid">
-          <article class="tariff"><h3>Canapé 2 places</h3><strong>À partir de 75 €</strong></article>
-          <article class="tariff"><h3>Canapé 3 places</h3><strong>À partir de 95 €</strong></article>
-          <article class="tariff"><h3>Canapé d’angle</h3><strong>À partir de 120 €</strong></article>
-          <article class="tariff"><h3>Grand canapé ou U</h3><strong>Dès 140 €</strong></article>
-          <article class="tariff"><h3>Matelas 1 place</h3><strong>À partir de 50 €</strong></article>
-          <article class="tariff"><h3>Matelas 2 places</h3><strong>À partir de 65 €</strong></article>
-          <article class="tariff"><h3>Fauteuil 1 place</h3><strong>À partir de 50 €</strong></article>
-          <article class="tariff"><h3>Tapis</h3><strong>À partir de 50 € <small>ou 15 €/m²</small></strong></article>
-          <article class="tariff"><h3>Chaise rembourrée</h3><strong>À partir de 20 €</strong></article>
-        </div>
-        <div class="price-notes"><strong>Minimum d’intervention mobile : 59 €.</strong><span>Paiement possible jusqu’à 4 fois.</span><a class="btn btn-primary" href="#devis">Recevoir mon devis gratuit</a></div>
+    <section class="view" data-view="clients">
+      <div class="section-head">
+        <div><span class="eyebrow">CRM local</span><h1>Clients</h1></div>
+        <button class="primary" id="newClientBtn">Ajouter</button>
+      </div>
+      <input id="clientSearch" class="search" type="search" placeholder="Rechercher nom, commune, téléphone…" />
+      <div id="clientList" class="list empty">Aucun client.</div>
+    </section>
+
+    <section class="view" data-view="jobs">
+      <div class="section-head">
+        <div><span class="eyebrow">Planning</span><h1>Interventions</h1></div>
+        <button class="primary" id="newJobBtn">Ajouter</button>
+      </div>
+      <div id="jobList" class="list empty">Aucune intervention.</div>
+    </section>
+
+    <section class="view" data-view="quotes">
+      <div class="section-head">
+        <div><span class="eyebrow">Commercial</span><h1>Devis rapides</h1></div>
+        <button class="primary" id="newQuoteBtn">Créer</button>
+      </div>
+      <div id="quoteList" class="list empty">Aucun devis.</div>
+    </section>
+
+    <section class="view" data-view="prices">
+      <div><span class="eyebrow">Référence</span><h1>Tarifs MADYCLEAR</h1></div>
+      <div class="price-grid">
+        <article class="card"><h3>Minimum intervention</h3><strong>59 €</strong><p>Base commerciale actuelle.</p></article>
+        <article class="card"><h3>Textile</h3><strong>Sur devis</strong><p>Canapés, matelas, fauteuils, tapis, chaises, sièges auto.</p></article>
+        <article class="card"><h3>Panier cible textile</h3><strong>≥ 170 €</strong><p>Repère interne de rentabilité.</p></article>
       </div>
     </section>
 
-    <section id="methode" class="section-pad">
-      <div class="container">
-        <p class="eyebrow">Simple et transparent</p>
-        <h2>Comment se passe une intervention ?</h2>
-        <ol class="steps">
-          <li><span>01</span><div><h3>Diagnostic gratuit</h3><p>Envoyez des photos, les dimensions et les taches ou odeurs à traiter. Nous vérifions le textile avant de confirmer la prestation.</p></div></li>
-          <li><span>02</span><div><h3>Devis transparent</h3><p>Vous recevez le tarif, la méthode conseillée et le créneau. Les éventuels suppléments sont annoncés avant l’intervention.</p></div></li>
-          <li><span>03</span><div><h3>Nettoyage & contrôle</h3><p>Madyclear intervient chez vous, adapte le traitement à la fibre, contrôle le résultat et vous donne les consignes de séchage.</p></div></li>
-        </ol>
+    <section class="view" data-view="settings">
+      <div><span class="eyebrow">Application</span><h1>Réglages</h1></div>
+      <div class="card form-card">
+        <label>Nom affiché<input id="ownerName" value="Gino" /></label>
+        <label>Téléphone MADYCLEAR<input id="businessPhone" value="0696 017007" /></label>
+        <label>Zone principale<input id="businessZone" value="Martinique" /></label>
+        <button class="primary" id="saveSettings">Enregistrer</button>
       </div>
-    </section>
-
-    <section id="faq" class="section-pad soft-section">
-      <div class="container narrow">
-        <p class="eyebrow">Questions fréquentes</p>
-        <h2>FAQ</h2>
-        <div class="faq-list">
-          <details><summary>Intervenez-vous partout en Martinique ?</summary><p>Oui. Madyclear propose une intervention à domicile sur toute la Martinique, selon les disponibilités du planning.</p></details>
-          <details><summary>Pouvez-vous enlever toutes les taches ?</summary><p>Chaque fibre et chaque tache réagit différemment. Nous évaluons le textile avant traitement et vous expliquons le résultat attendu.</p></details>
-          <details><summary>Combien de temps faut-il pour le séchage ?</summary><p>Le délai dépend de la matière, de l’aération et de l’humidité. Nos recommandations vous sont données après l’intervention.</p></details>
+      <div class="card">
+        <h3>Données</h3>
+        <p>Les données sont stockées localement sur cet appareil.</p>
+        <div class="row">
+          <button class="ghost" id="exportBtn">Exporter</button>
+          <label class="ghost file-label">Importer<input id="importInput" type="file" accept="application/json" hidden /></label>
         </div>
-      </div>
-    </section>
-
-    <section id="devis" class="section-pad contact-section">
-      <div class="container contact-grid">
-        <div>
-          <p class="eyebrow">Devis gratuit</p>
-          <h2>Devis gratuit sous 24 h</h2>
-          <p>Décrivez votre besoin. Le bouton prépare automatiquement votre demande dans WhatsApp ; vous pourrez y ajouter vos photos avant l’envoi.</p>
-          <div class="contact-lines">
-            <a href="tel:+596696017007">06 96 01 70 07</a>
-            <a href="mailto:contact@madyclear.fr">contact@madyclear.fr</a>
-          </div>
-        </div>
-        <form id="quote-form" class="quote-form">
-          <label>Nom <input name="nom" required autocomplete="name"></label>
-          <label>Téléphone <input name="telephone" type="tel" required autocomplete="tel" placeholder="06 96 …"></label>
-          <label>Textile à nettoyer
-            <select name="service" required>
-              <option value="">Choisir</option>
-              <option>Canapé ou fauteuil</option>
-              <option>Matelas</option>
-              <option>Tapis ou moquette</option>
-              <option>Intérieur de véhicule</option>
-              <option>Nettoyage classique</option>
-            </select>
-          </label>
-          <label>Votre besoin <textarea name="details" rows="4" placeholder="Taches, odeurs, dimensions…"></textarea></label>
-          <button class="btn btn-primary btn-full" type="submit">Envoyer ma demande</button>
-          <p class="form-note">Aucune donnée n’est stockée sur ce site.</p>
-        </form>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div><img src="assets/logo-madyclear.svg" alt="Madyclear" width="170" height="50"><p>Nettoyage textile professionnel à domicile en Martinique.</p></div>
-      <div><strong>Contact</strong><a href="tel:+596696017007">06 96 01 70 07</a><a href="mailto:contact@madyclear.fr">contact@madyclear.fr</a></div>
-      <div><strong>Navigation</strong><a href="#services">Services</a><a href="#tarifs">Tarifs</a><a href="#devis">Devis</a></div>
-    </div>
-    <div class="container copyright">© <span id="year"></span> Madyclear — Martinique. Tous droits réservés.</div>
-  </footer>
+  <nav class="bottom-nav" aria-label="Navigation principale">
+    <button class="nav-btn active" data-go="home"><span>⌂</span><small>Accueil</small></button>
+    <button class="nav-btn" data-go="clients"><span>♙</span><small>Clients</small></button>
+    <button class="nav-btn" data-go="jobs"><span>◷</span><small>Planning</small></button>
+    <button class="nav-btn" data-go="quotes"><span>€</span><small>Devis</small></button>
+    <button class="nav-btn" data-go="settings"><span>⚙</span><small>Réglages</small></button>
+  </nav>
 
-  <a class="whatsapp-float" href="https://wa.me/596696017007?text=Bonjour%20Madyclear%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener" aria-label="Contacter Madyclear sur WhatsApp">WA</a>
-  <script src="assets/script.js" defer></script>
+  <dialog id="modal">
+    <form method="dialog" id="modalForm">
+      <div class="section-head">
+        <h2 id="modalTitle">Ajouter</h2>
+        <button value="cancel" class="icon-btn" aria-label="Fermer">×</button>
+      </div>
+      <div id="modalFields"></div>
+      <div class="modal-actions">
+        <button value="cancel" class="ghost">Annuler</button>
+        <button id="modalSave" value="default" class="primary">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
 </body>
 </html>

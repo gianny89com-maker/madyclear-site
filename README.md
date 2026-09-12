@@ -1,27 +1,29 @@
-# MADYCLEAR — Site officiel
+# MADYCLEAR Personal V1
 
-Package statique prêt pour GitHub Pages.
+Application PWA installable, prévue pour être publiée dans `madyclear.fr/app/`.
 
-## Mise en ligne GitHub Pages
-1. Créer un dépôt public `madyclear-site`.
-2. Téléverser **le contenu de ce dossier** à la racine du dépôt (pas le ZIP lui-même).
-3. Ouvrir **Settings → Pages**.
-4. Source : **Deploy from a branch**.
-5. Branch : **main** / dossier **/(root)** → Save.
-6. Le fichier `CNAME` prépare le domaine `madyclear.fr`.
-7. Configurer ensuite les DNS chez Viaduc sans toucher aux enregistrements email.
+## Déploiement GitHub Pages
+Copier le dossier `app/` dans la racine du dépôt `madyclear-site`, puis commit sur `main`.
 
-## Fichiers essentiels
-- `index.html` : site
-- `assets/styles.css` : design responsive
-- `assets/script.js` : menu + formulaire WhatsApp
-- `CNAME` : domaine personnalisé
-- `.nojekyll` : compatibilité GitHub Pages
-- `robots.txt` + `sitemap.xml` : SEO de base
+Structure cible :
+- /app/index.html
+- /app/app.css
+- /app/app.js
+- /app/manifest.webmanifest
+- /app/sw.js
+- /app/icons/*
 
-## Contact configuré
-- Téléphone / WhatsApp : +596 696 01 70 07
-- Email : contact@madyclear.fr
+URL publique attendue : https://madyclear.fr/app/
 
-## Dépendances
-Aucune. Pas de framework, pas de build, pas de base de données, pas d'abonnement technique requis pour faire fonctionner le site.
+## Fonctionnalités V1
+- Tableau de bord
+- Clients + recherche
+- Interventions / planning
+- Devis rapides
+- Tarifs repères
+- WhatsApp
+- Réglages
+- Export/import JSON
+- Stockage local
+- Mode hors-ligne
+- Installation PWA
