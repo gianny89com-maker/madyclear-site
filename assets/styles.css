@@ -33,3 +33,21 @@
 .hero-visual img{width:100%;border-radius:28px;object-fit:cover;aspect-ratio:1.25/1;box-shadow:0 26px 56px rgba(2,25,44,.18)}
 .results-section img{border-radius:28px;box-shadow:0 24px 50px rgba(2,25,44,.16);border:1px solid rgba(216,229,236,.9)}
 @media(max-width:620px){.brand img{width:150px}.hero-visual img{border-radius:20px}}
+
+/* MADYCLEAR hero premium final — 12/09/2026 */
+.hero{
+  position:relative;
+  min-height:720px;
+  display:flex;
+  align-items:center;
+  padding-top:92px;
+  padding-bottom:92px;
+  color:#fff;
+  background:
+    linear-gradient(90deg,rgba(2,25,44,.96) 0%,rgba(3,45,75,.88) 34%,rgba(3,45,75,.46) 55%,rgba(3,45,75,.10) 78%),
+    url("hero-canape-madyclear.webp") center right/cover no-repeat;
+  overflow:hidden;
+}
+.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:140px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff);pointer-events:none}.hero .container{position:relative;z-index:1}.hero-grid{display:block}.hero-copy{max-width:690px}.hero .eyebrow{color:#7dd3fc}.hero h1,.hero-line{color:#fff}.hero .lead{color:#dceef7}.hero-visual{display:none}.btn-ghost{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.34);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.20)}.trust-list{color:#eaf8ff}.trust-list li:before{color:#f59e0b}.site-header{background:rgba(255,255,255,.96)}.brand img{width:210px;max-height:58px;object-fit:contain}.results-grid img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}.quote-choice,.card,.tariff{background:#fff}
+@media(max-width:900px){.hero{min-height:auto;padding-top:76px;padding-bottom:76px;background:linear-gradient(180deg,rgba(2,25,44,.92),rgba(2,25,44,.72)),url("hero-canape-madyclear.webp") center/cover no-repeat}.hero-copy{max-width:100%}.brand img{width:170px}}
+@media(max-width:620px){.hero{padding-top:64px;padding-bottom:64px}.hero h1{font-size:2.45rem}.brand img{width:150px}}
