@@ -1,12 +1,12 @@
-# MADYCLEAR_GITHUB_READY — REFONTE DOSSIER MAÎTRE
+# MADYCLEAR_GITHUB_READY — FINAL REFONTE
 
-Version construite à partir du dossier maître MADYCLEAR.
+Version publique alignée sur le dossier maître MADYCLEAR.
 
-Piliers affichés à égalité :
+Pôles :
 - Automobile
 - Textile
 - Vitres & vitrines
 - Professionnels
 
-Conversion principale : WhatsApp.
-Site volontairement léger : HTML/CSS natifs, SVG locaux, aucune librairie externe.
+Objectif principal : transformer une visite en demande qualifiée WhatsApp.
+Architecture légère : HTML/CSS natifs, SVG locaux, aucune dépendance externe.
