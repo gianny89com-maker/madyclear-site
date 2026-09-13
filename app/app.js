@@ -1,175 +1,114 @@
+'use strict';
+const STORE='madyclear-personal-v1';
+const TODAY=()=>new Date().toISOString().slice(0,10);
+const money=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Number(n||0));
+const uid=()=>`${Date.now().toString(36)}${Math.random().toString(36).slice(2,7)}`;
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
-const DB_KEY = "madyclear-personal-v1";
-const defaultData = {
-  clients: [],
-  jobs: [],
-  quotes: [],
-  settings: { ownerName:"Gino", businessPhone:"0696 017007", businessZone:"Martinique" }
+const pricing={
+ textile:[
+  {id:'pouf',name:'Pouf',price:50,sap:true,detail:'Domicile • textile'},
+  {id:'chaise',name:'Chaise rembourrée',price:40,sap:true,detail:'Par unité'},
+  {id:'fauteuil',name:'Fauteuil 1 place',price:80,sap:true,detail:'Domicile'},
+  {id:'canape2',name:'Canapé 2 places',price:140,sap:true,detail:'Référence centrale • ≈ 70 € après avantage*'},
+  {id:'canape3',name:'Canapé 3 places',price:160,sap:true,detail:'≈ 80 € après avantage*'},
+  {id:'angle',name:'Canapé angle / 4–5 places',price:220,sap:true,detail:'À partir de'},
+  {id:'grand',name:'Grand canapé / U',price:280,sap:true,detail:'À partir de'},
+  {id:'mat1',name:'Matelas 1 place',price:100,sap:true,detail:'Domicile'},
+  {id:'mat2',name:'Matelas 2 places',price:130,sap:true,detail:'Domicile'},
+  {id:'queen',name:'Matelas Queen',price:150,sap:true,detail:'Domicile'},
+  {id:'king',name:'Matelas King',price:170,sap:true,detail:'Domicile'},
+  {id:'tapis',name:'Tapis synthétique — minimum',price:100,sap:true,detail:'30 €/m² • minimum affiché'}
+ ],
+ auto:[
+  {id:'ext',name:'Extérieur',price:45,sap:false,detail:'Tarif public de référence'},
+  {id:'int',name:'Intérieur',price:45,sap:false,detail:'Hors extraction lourde'},
+  {id:'complet',name:'Complet',price:85,sap:false,detail:'Formule prioritaire'},
+  {id:'profond',name:'Intérieur profond',price:90,sap:false,detail:'À partir de'},
+  {id:'etat',name:'Remise en état',price:120,sap:false,detail:'À partir de / devis'}
+ ],
+ vitres:[
+  {id:'vmin',name:'Minimum intervention',price:45,sap:false,detail:'Repère interne'},
+  {id:'vdevis',name:'Vitrage / baies / vitrines',price:0,sap:false,detail:'Sur devis selon surface et accès'}
+ ],
+ pros:[
+  {id:'banq',name:'Banquette professionnelle',price:75,sap:false,detail:'Minimum • volume sur devis'},
+  {id:'lot',name:'Lot / contrat récurrent',price:0,sap:false,detail:'Sur devis'}
+ ]
 };
-let data = loadData();
-let deferredPrompt = null;
-
-function loadData(){
-  try{
-    const raw = localStorage.getItem(DB_KEY);
-    return raw ? {...defaultData, ...JSON.parse(raw)} : structuredClone(defaultData);
-  }catch(e){ return structuredClone(defaultData); }
-}
-function saveData(){
-  localStorage.setItem(DB_KEY, JSON.stringify(data));
-  renderAll();
-}
-function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
-function esc(v=""){ return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m])); }
-function euro(n){ return new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(Number(n||0)); }
-
-function go(view){
-  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.dataset.view===view));
-  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.go===view));
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-document.querySelectorAll("[data-go]").forEach(el=>el.addEventListener("click",()=>go(el.dataset.go)));
-
-function renderAll(){
-  document.getElementById("statClients").textContent=data.clients.length;
-  document.getElementById("statJobs").textContent=data.jobs.length;
-  document.getElementById("statQuotes").textContent=data.quotes.length;
-  renderClients();
-  renderJobs();
-  renderQuotes();
-  renderUpcoming();
-  document.getElementById("ownerName").value=data.settings.ownerName||"";
-  document.getElementById("businessPhone").value=data.settings.businessPhone||"";
-  document.getElementById("businessZone").value=data.settings.businessZone||"";
-}
-function renderClients(filter=""){
-  const el=document.getElementById("clientList");
-  const q=filter.trim().toLowerCase();
-  const rows=data.clients.filter(c=>[c.name,c.phone,c.city].join(" ").toLowerCase().includes(q));
-  el.className="list"+(rows.length?"":" empty");
-  el.innerHTML=rows.length?rows.map(c=>`
-    <div class="item">
-      <div><strong>${esc(c.name)}</strong><div class="meta">${esc(c.phone||"")} ${c.city?("• "+esc(c.city)):""}</div></div>
-      <button class="text-btn" onclick="deleteClient('${c.id}')">Suppr.</button>
-    </div>`).join(""):"Aucun client.";
-}
-function renderJobs(){
-  const el=document.getElementById("jobList");
-  const rows=[...data.jobs].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
-  el.className="list"+(rows.length?"":" empty");
-  el.innerHTML=rows.length?rows.map(j=>`
-    <div class="item">
-      <div><strong>${esc(j.client)}</strong><div class="meta">${esc(j.date||"")} ${j.time?("à "+esc(j.time)):""}<br>${esc(j.service||"")}</div></div>
-      <span class="badge">${esc(j.status||"Prévue")}</span>
-    </div>`).join(""):"Aucune intervention.";
-}
-function renderQuotes(){
-  const el=document.getElementById("quoteList");
-  const rows=[...data.quotes].reverse();
-  el.className="list"+(rows.length?"":" empty");
-  el.innerHTML=rows.length?rows.map(q=>`
-    <div class="item">
-      <div><strong>${esc(q.client)}</strong><div class="meta">${esc(q.service||"")}<br>${esc(q.note||"")}</div></div>
-      <strong>${euro(q.amount)}</strong>
-    </div>`).join(""):"Aucun devis.";
-}
-function renderUpcoming(){
-  const el=document.getElementById("upcomingJobs");
-  const today=new Date().toISOString().slice(0,10);
-  const rows=data.jobs.filter(j=>!j.date || j.date>=today).sort((a,b)=>(a.date||"").localeCompare(b.date||"")).slice(0,3);
-  el.className="list"+(rows.length?"":" empty");
-  el.innerHTML=rows.length?rows.map(j=>`
-    <div class="item"><div><strong>${esc(j.client)}</strong><div class="meta">${esc(j.date||"Date à fixer")} ${j.time?("• "+esc(j.time)):""}<br>${esc(j.service||"")}</div></div><span class="badge">${esc(j.status||"Prévue")}</span></div>`).join(""):"Aucune intervention enregistrée.";
-}
-
-const modal=document.getElementById("modal");
-const modalFields=document.getElementById("modalFields");
-const modalTitle=document.getElementById("modalTitle");
-let modalType=null;
-
-function openModal(type){
-  modalType=type;
-  if(type==="client"){
-    modalTitle.textContent="Nouveau client";
-    modalFields.innerHTML=`
-      <label>Nom<input name="name" required></label>
-      <label>Téléphone<input name="phone" inputmode="tel"></label>
-      <label>Commune<input name="city"></label>`;
-  }else if(type==="job"){
-    modalTitle.textContent="Nouvelle intervention";
-    modalFields.innerHTML=`
-      <label>Client<input name="client" required></label>
-      <label>Service<input name="service" placeholder="Canapé, matelas, véhicule…"></label>
-      <label>Date<input name="date" type="date"></label>
-      <label>Heure<input name="time" type="time"></label>
-      <label>Statut<select name="status"><option>Prévue</option><option>À confirmer</option><option>Terminée</option></select></label>`;
-  }else{
-    modalTitle.textContent="Nouveau devis";
-    modalFields.innerHTML=`
-      <label>Client<input name="client" required></label>
-      <label>Prestation<input name="service"></label>
-      <label>Montant (€)<input name="amount" type="number" min="0" step="1" value="59"></label>
-      <label>Note<textarea name="note" rows="3"></textarea></label>`;
-  }
-  modal.showModal();
-}
-document.getElementById("newClientBtn").onclick=()=>openModal("client");
-document.getElementById("newJobBtn").onclick=()=>openModal("job");
-document.getElementById("newQuoteBtn").onclick=()=>openModal("quote");
-
-document.getElementById("modalForm").addEventListener("submit",(e)=>{
-  e.preventDefault();
-  const fd=new FormData(e.target);
-  const obj=Object.fromEntries(fd.entries());
-  obj.id=uid();
-  if(modalType==="client") data.clients.push(obj);
-  if(modalType==="job") data.jobs.push(obj);
-  if(modalType==="quote") data.quotes.push(obj);
-  saveData();
-  modal.close();
-});
-window.deleteClient=(id)=>{
-  if(confirm("Supprimer ce client ?")){
-    data.clients=data.clients.filter(c=>c.id!==id); saveData();
-  }
+const defaultState={
+ version:1,
+ settings:{monthlyGoal:2000,monthlyCA:0,avgBasket:160},
+ quote:{tab:'textile',qty:{}},quotes:[],notes:[],
+ projects:[
+  {id:'madyclear',name:'MADYCLEAR',label:'Priorité entrepreneuriale',status:'Prêt à lancer',progress:86,next:'Obtenir le SIRET puis lancer la déclaration SAP/NOVA.',tone:'cyan'},
+  {id:'digistaff',name:'DIGISTAFF',label:'Moteur personnel & IA',status:'Construction',progress:58,next:'Faire de ce cockpit le premier outil opérationnel DIGISTAFF.',tone:'violet'},
+  {id:'association',name:'Association Trois-Rivières',label:'Portail & structuration',status:'Avancé',progress:72,next:'Finaliser le dossier opérationnel puis remettre le portail en ligne.',tone:'gold'},
+  {id:'escale',name:'Escale Bleue',label:'Demande d’emplacement',status:'Dossier mairie',progress:64,next:'Obtenir un accord de principe avant tout engagement matériel.',tone:'coral'}
+ ],
+ contacts:[
+  {id:'bemude',name:'Bemude Charles',segment:'Particulier / carnet contacts',commune:'',phone:'06 96 80 66 91',email:'',status:'Prospect',priority:'Haute',value:140,followup:'',next:'Qualifier le besoin et la commune.',notes:'Contact initial transmis par Gino.'},
+  {id:'filao',name:'Résidence Filao',segment:'Piste prioritaire',commune:'Sainte-Luce',phone:'',email:'',status:'À contacter',priority:'Haute',value:0,followup:'',next:'Retrouver / confirmer le contact du locataire.',notes:'Piste marquée comme prioritaire.'},
+  {id:'pinkeys',name:'Pinkeys Conciergerie',segment:'Conciergerie',commune:'Trois-Rivières',phone:'06 96 78 32 17',email:'info@pinkeys.fr',status:'Prospect',priority:'Haute',value:300,followup:'',next:'Premier contact + proposition diagnostic photos.',notes:'Prospect A1 du dossier commercial.'},
+  {id:'terresdo',name:'Terres d’Ô',segment:'Conciergerie / Gestion',commune:'Chemin Ladour',phone:'06 96 03 83 07',email:'terresdomartinique@gmail.com',status:'Prospect',priority:'Haute',value:300,followup:'',next:'Premier contact + proposition diagnostic photos.',notes:'Prospect A1 du dossier commercial.'},
+  {id:'homer',name:'Home’R',segment:'Conciergerie / Gestion',commune:'Sainte-Luce',phone:'06 96 37 37 13',email:'contact@homer-martinique.com',status:'Prospect',priority:'Haute',value:300,followup:'',next:'Premier contact.',notes:'Prospect A1 du dossier commercial.'},
+  {id:'madivillas',name:'Madivillas',segment:'Conciergerie Premium',commune:'Sainte-Luce',phone:'06 68 28 63 92',email:'hello@madivillas.com',status:'Prospect',priority:'Haute',value:350,followup:'',next:'Premier contact.',notes:'Prospect A1 du dossier commercial.'},
+  {id:'karibea',name:'Karibea Sainte-Luce',segment:'Hôtel / Résidence',commune:'Désert',phone:'05 96 62 32 32',email:'commercial@karibeahotel.com',status:'Prospect',priority:'Haute',value:500,followup:'',next:'Identifier le décideur et proposer un test.',notes:'Prospect A1 du dossier commercial.'},
+  {id:'pv',name:'Pierre & Vacances',segment:'Village Vacances',commune:'Pointe Philippeau',phone:'05 96 62 12 62',email:'',status:'Prospect',priority:'Haute',value:500,followup:'',next:'Identifier le décideur et proposer un test.',notes:'Prospect A1 du dossier commercial.'},
+  {id:'cayalines',name:'Les Cayalines',segment:'Résidence hôtelière',commune:'Désert Plage',phone:'05 96 66 28 13',email:'contact@cayalines.com',status:'Prospect',priority:'Moyenne',value:400,followup:'',next:'Qualifier volume et fréquence.',notes:'Prospect A2.'},
+  {id:'brisemarine',name:'Brise Marine Résidence',segment:'Résidence hôtelière',commune:'Gros Raisins',phone:'05 96 62 46 94',email:'brisemarine97@wanadoo.fr',status:'Prospect',priority:'Moyenne',value:400,followup:'',next:'Qualifier volume et fréquence.',notes:'Prospect A2.'},
+  {id:'tiverger',name:'Ti Verger',segment:'Cottages',commune:'Sainte-Luce',phone:'06 96 39 85 30',email:'info@tiverger.com',status:'Prospect',priority:'Moyenne',value:300,followup:'',next:'Premier contact.',notes:'Prospect A2.'},
+  {id:'allogia',name:'ALLOGIA',segment:'Agence / Gestion',commune:'Bourg Sainte-Luce',phone:'05 96 53 75 92',email:'contact@allogia.fr',status:'Prospect',priority:'Moyenne',value:350,followup:'',next:'Premier contact.',notes:'Prospect A2.'},
+  {id:'archipel',name:'Archipel Évasion',segment:'Locations de vacances',commune:'Avenue des Sucriers',phone:'06 96 43 30 35',email:'contact@archipel-evasion.com',status:'Prospect',priority:'Moyenne',value:350,followup:'',next:'Premier contact.',notes:'Prospect A2.'}
+ ]
 };
-document.getElementById("clientSearch").addEventListener("input",e=>renderClients(e.target.value));
-document.getElementById("saveSettings").onclick=()=>{
-  data.settings={
-    ownerName:document.getElementById("ownerName").value.trim(),
-    businessPhone:document.getElementById("businessPhone").value.trim(),
-    businessZone:document.getElementById("businessZone").value.trim()
-  }; saveData(); alert("Réglages enregistrés.");
-};
+let state=load();
+let clientFilter='Tous';
+let deferredPrompt=null;
+const clone=x=>JSON.parse(JSON.stringify(x));
+function load(){try{const x=JSON.parse(localStorage.getItem(STORE));return x?merge(defaultState,x):clone(defaultState)}catch{return clone(defaultState)}}
+function merge(base,custom){return {...clone(base),...custom,settings:{...base.settings,...(custom.settings||{})},quote:{...base.quote,...(custom.quote||{})},contacts:Array.isArray(custom.contacts)?custom.contacts:base.contacts,projects:Array.isArray(custom.projects)?custom.projects:base.projects,quotes:Array.isArray(custom.quotes)?custom.quotes:[],notes:Array.isArray(custom.notes)?custom.notes:[]}}
+function save(){localStorage.setItem(STORE,JSON.stringify(state));renderAll()}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.add('hidden'),2200)}
+function nav(name){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.dataset.view===name));document.querySelectorAll('.bottom-nav [data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===name));window.scrollTo({top:0,behavior:'smooth'});if(name==='clients')renderClients();if(name==='mady')renderQuote();if(name==='digi')renderNotes();}
+document.addEventListener('click',e=>{const n=e.target.closest('[data-nav]');if(n){if(n.dataset.clientFilter)clientFilter=n.dataset.clientFilter;nav(n.dataset.nav)}const o=e.target.closest('[data-open]');if(o)openSheet(o.dataset.open)});
+function openSheet(id){document.getElementById('overlay').classList.remove('hidden');const s=document.getElementById(id);s.classList.add('open');s.setAttribute('aria-hidden','false')}
+function closeSheets(){document.getElementById('overlay').classList.add('hidden');document.querySelectorAll('.sheet.open').forEach(s=>{s.classList.remove('open');s.setAttribute('aria-hidden','true')})}
+document.getElementById('overlay').onclick=closeSheets;document.querySelectorAll('.close-sheet').forEach(b=>b.onclick=closeSheets);
 
-document.getElementById("exportBtn").onclick=()=>{
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a"); a.href=url; a.download="madyclear-personal-backup.json"; a.click();
-  URL.revokeObjectURL(url);
-};
-document.getElementById("importInput").addEventListener("change",async e=>{
-  const file=e.target.files?.[0]; if(!file) return;
-  try{
-    const imported=JSON.parse(await file.text());
-    data={...defaultData,...imported}; saveData(); alert("Sauvegarde importée.");
-  }catch{ alert("Fichier invalide."); }
-});
+function due(c){return c.followup&&c.followup<=TODAY()&&!['Gagné','Perdu'].includes(c.status)}
+function pipeline(){return state.contacts.filter(c=>!['Gagné','Perdu','Client'].includes(c.status)).reduce((s,c)=>s+Number(c.value||0),0)}
+function renderHome(){const {monthlyGoal,monthlyCA,avgBasket}=state.settings;const pct=monthlyGoal?Math.min(100,monthlyCA/monthlyGoal*100):0;document.getElementById('goalTitle').textContent=`${money(monthlyGoal).replace(',00','')} / mois`;document.getElementById('goalCA').textContent=money(monthlyCA).replace(',00','');document.getElementById('goalRemaining').textContent=money(Math.max(0,monthlyGoal-monthlyCA)).replace(',00','');document.getElementById('clientsNeeded').textContent=Math.ceil(Math.max(0,monthlyGoal-monthlyCA)/Math.max(1,avgBasket));document.getElementById('goalProgress').style.width=`${pct}%`;const d=state.contacts.filter(due);document.getElementById('metricRelances').textContent=d.length;document.getElementById('metricPipeline').textContent=money(pipeline()).replace(',00','');document.getElementById('metricProjects').textContent=state.projects.length;const badge=document.getElementById('navDue');badge.textContent=d.length;badge.classList.toggle('hidden',!d.length);if(d.length){document.getElementById('focusTitle').textContent=`${d.length} relance${d.length>1?'s':''} à traiter`;document.getElementById('focusText').textContent=`Commence par ${d[0].name} : ${d[0].next||'reprendre contact'}.`;}else{const next=state.projects.slice().sort((a,b)=>a.progress-b.progress)[0];document.getElementById('focusTitle').textContent='Prochain mouvement';document.getElementById('focusText').textContent=`${next.name} — ${next.next}`;}document.getElementById('homeProjects').innerHTML=state.projects.map(p=>`<button class="project-mini" data-nav="projects"><span class="chip ${p.tone==='gold'?'waiting':''}">${esc(p.status)}</span><h3>${esc(p.name)}</h3><p>${esc(p.next)}</p><div class="mini-progress"><i style="width:${p.progress}%"></i></div></button>`).join('')}
 
-window.addEventListener("beforeinstallprompt",e=>{
-  e.preventDefault(); deferredPrompt=e;
-  document.getElementById("installBtn").hidden=false;
-});
-document.getElementById("installBtn").onclick=async()=>{
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt=null;
-  document.getElementById("installBtn").hidden=true;
-};
+function renderQuote(){const tab=state.quote.tab;document.querySelectorAll('[data-quote-tab]').forEach(b=>b.classList.toggle('active',b.dataset.quoteTab===tab));document.getElementById('quoteItems').innerHTML=pricing[tab].map(x=>{const q=state.quote.qty[x.id]||0;return `<div class="service-item"><div><h3>${esc(x.name)}</h3><p>${esc(x.detail)}${x.sap?' • SAP potentiel':''}</p><div class="price">${x.price?money(x.price).replace(',00',''):'Sur devis'}</div></div>${x.price?`<div class="stepper"><button data-step="-1" data-id="${x.id}">−</button><span>${q}</span><button data-step="1" data-id="${x.id}">＋</button></div>`:'<span class="tag">Devis</span>'}</div>`}).join('');calcQuote();renderQuoteHistory()}
+document.getElementById('quoteTabs').onclick=e=>{const b=e.target.closest('[data-quote-tab]');if(!b)return;state.quote.tab=b.dataset.quoteTab;state.quote.qty={};save()};document.getElementById('quoteItems').onclick=e=>{const b=e.target.closest('[data-step]');if(!b)return;const id=b.dataset.id;state.quote.qty[id]=Math.max(0,(state.quote.qty[id]||0)+Number(b.dataset.step));save()};
+function calcQuote(){let total=0,sap=0,labels=[];Object.entries(state.quote.qty).forEach(([id,q])=>{const x=Object.values(pricing).flat().find(y=>y.id===id);if(!x||!q)return;total+=x.price*q;if(x.sap)sap+=x.price*q;labels.push(`${q}× ${x.name}`)});const net=(total-sap)+(sap/2);document.getElementById('quoteTotal').textContent=money(total).replace(',00','');document.getElementById('quoteSap').textContent=money(sap).replace(',00','');document.getElementById('quoteNet').textContent=money(net).replace(',00','');document.getElementById('quoteNote').textContent=total?`${labels.join(' • ')}. *Estimation SAP uniquement après activation et éligibilité.`:'Ajoute une prestation pour commencer.';return{total,sap,net,labels}}
+document.getElementById('clearQuote').onclick=()=>{state.quote.qty={};save()};document.getElementById('saveQuote').onclick=()=>{const q=calcQuote();if(!q.total)return toast('Ajoute au moins une prestation.');state.quotes.unshift({id:uid(),date:new Date().toISOString(),tab:state.quote.tab,total:q.total,sap:q.sap,net:q.net,labels:q.labels});state.quotes=state.quotes.slice(0,30);state.quote.qty={};save();toast('Devis brouillon enregistré.')} 
+function renderQuoteHistory(){const el=document.getElementById('quoteHistory');if(!state.quotes.length){el.innerHTML='<div class="history-card"><strong>Aucun devis enregistré</strong><p>Les brouillons resteront ici, sur cet appareil.</p></div>';return}el.innerHTML=state.quotes.slice(0,6).map(q=>`<div class="history-card"><strong>${money(q.total).replace(',00','')} • ${esc(q.labels.join(', '))}</strong><small>${new Date(q.date).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'})}</small><p>Reste estimé : ${money(q.net).replace(',00','')} • part SAP potentielle : ${money(q.sap).replace(',00','')}</p></div>`).join('')}
 
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.error));
-}
+function renderClients(){const q=document.getElementById('clientSearch').value.trim().toLowerCase();let list=state.contacts.filter(c=>[c.name,c.segment,c.commune,c.phone,c.email,c.status,c.next,c.notes].join(' ').toLowerCase().includes(q));if(clientFilter==='À relancer')list=list.filter(due);else if(clientFilter==='Prospect')list=list.filter(c=>['Prospect','À contacter','Relance','Devis envoyé','RDV'].includes(c.status));else if(clientFilter==='Client')list=list.filter(c=>['Client','Gagné'].includes(c.status));else if(clientFilter==='Haute')list=list.filter(c=>c.priority==='Haute');list.sort((a,b)=>(due(b)-due(a))||({Haute:0,Moyenne:1,Basse:2}[a.priority]-({Haute:0,Moyenne:1,Basse:2}[b.priority]))||a.name.localeCompare(b.name));document.getElementById('clientList').innerHTML=list.length?list.map(contactCard).join(''):'<div class="history-card"><strong>Aucun résultat.</strong><p>Change le filtre ou ajoute un contact.</p></div>';document.getElementById('crmCount').textContent=state.contacts.length;document.getElementById('crmDue').textContent=state.contacts.filter(due).length;document.getElementById('crmValue').textContent=money(pipeline()).replace(',00','');document.querySelectorAll('#clientFilters button').forEach(b=>b.classList.toggle('active',b.dataset.filter===clientFilter))}
+function contactCard(c){const pc=c.priority==='Haute'?'high':c.priority==='Basse'?'low':'medium';const wh=c.phone?`https://wa.me/${c.phone.replace(/\D/g,'').replace(/^0/,'596')}`:'#';return `<article class="contact-card"><div class="contact-top"><div><h3>${esc(c.name)}</h3><div class="contact-sub">${esc(c.segment||'Contact')} ${c.commune?'• '+esc(c.commune):''}</div></div><i class="priority ${pc}"></i></div><div class="contact-meta"><span class="tag">${esc(c.status)}</span><span class="tag">${esc(c.priority)}</span>${c.value?`<span class="tag">${money(c.value).replace(',00','')}</span>`:''}${due(c)?'<span class="tag due">Relance due</span>':''}</div><div class="contact-next"><b>Prochaine action :</b> ${esc(c.next||'À définir')}${c.followup?`<br><b>Date :</b> ${new Date(c.followup+'T12:00:00').toLocaleDateString('fr-FR')}`:''}</div><div class="contact-actions">${c.phone?`<a href="tel:${esc(c.phone)}">Appeler</a><a href="${wh}" target="_blank" rel="noopener">WhatsApp</a>`:'<button disabled>Sans tél.</button><button disabled>WhatsApp</button>'}<button data-edit-contact="${esc(c.id)}">Fiche</button></div></article>`}
+document.getElementById('clientSearch').oninput=renderClients;document.getElementById('clientFilters').onclick=e=>{const b=e.target.closest('[data-filter]');if(!b)return;clientFilter=b.dataset.filter;renderClients()};document.getElementById('addContactBtn').onclick=()=>editContact();document.getElementById('clientList').onclick=e=>{const b=e.target.closest('[data-edit-contact]');if(b)editContact(b.dataset.editContact)};
+function editContact(id){const c=id?state.contacts.find(x=>x.id===id):null;document.getElementById('contactSheetTitle').textContent=c?'Fiche contact':'Nouveau contact';document.getElementById('contactId').value=c?.id||'';document.getElementById('contactName').value=c?.name||'';document.getElementById('contactSegment').value=c?.segment||'';document.getElementById('contactCommune').value=c?.commune||'';document.getElementById('contactPhone').value=c?.phone||'';document.getElementById('contactEmail').value=c?.email||'';document.getElementById('contactStatus').value=c?.status||'Prospect';document.getElementById('contactPriority').value=c?.priority||'Moyenne';document.getElementById('contactValue').value=c?.value||'';document.getElementById('contactFollowup').value=c?.followup||'';document.getElementById('contactNext').value=c?.next||'';document.getElementById('contactNotes').value=c?.notes||'';document.getElementById('deleteContact').classList.toggle('hidden',!c);openSheet('contactSheet')}
+document.getElementById('contactForm').onsubmit=e=>{e.preventDefault();const id=document.getElementById('contactId').value||uid();const c={id,name:document.getElementById('contactName').value.trim(),segment:document.getElementById('contactSegment').value.trim(),commune:document.getElementById('contactCommune').value.trim(),phone:document.getElementById('contactPhone').value.trim(),email:document.getElementById('contactEmail').value.trim(),status:document.getElementById('contactStatus').value,priority:document.getElementById('contactPriority').value,value:Number(document.getElementById('contactValue').value||0),followup:document.getElementById('contactFollowup').value,next:document.getElementById('contactNext').value.trim(),notes:document.getElementById('contactNotes').value.trim()};const i=state.contacts.findIndex(x=>x.id===id);if(i>=0)state.contacts[i]=c;else state.contacts.unshift(c);closeSheets();save();toast('Contact enregistré.')};document.getElementById('deleteContact').onclick=()=>{const id=document.getElementById('contactId').value;if(!id)return;if(confirm('Supprimer ce contact de l’appareil ?')){state.contacts=state.contacts.filter(c=>c.id!==id);closeSheets();save();toast('Contact supprimé.')}};
+
+function renderNotes(){const el=document.getElementById('noteList');el.innerHTML=state.notes.length?state.notes.slice(0,10).map(n=>`<div class="note-card"><strong>${esc(n.project)}</strong><small>${new Date(n.date).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'})}</small><p>${esc(n.text)}</p></div>`).join(''):'<div class="note-card"><strong>La mémoire est prête.</strong><p>Utilise “Capturer” pour enregistrer une idée ou une décision sans quitter ton cockpit.</p></div>'}
+document.getElementById('noteForm').onsubmit=e=>{e.preventDefault();state.notes.unshift({id:uid(),date:new Date().toISOString(),project:document.getElementById('noteProject').value,text:document.getElementById('quickNote').value.trim()});document.getElementById('quickNote').value='';closeSheets();save();toast('Note capturée.')};
+function renderProjects(){document.getElementById('projectList').innerHTML=state.projects.map(p=>`<article class="project-card"><div class="project-card-head"><div><span class="eyebrow">${esc(p.label)}</span><h3>${esc(p.name)}</h3></div><span class="chip ${p.tone==='gold'?'waiting':''}">${esc(p.status)}</span></div><p>${projectDescription(p.id)}</p><div class="project-progress"><span style="width:${p.progress}%"></span></div><div class="project-next"><b>PROCHAINE ACTION</b><br>${esc(p.next)}</div></article>`).join('')}
+function projectDescription(id){return {madyclear:'Entreprise pilote : site, offre, acquisition, devis et lancement terrain.',digistaff:'Moteur virtuel qui rassemble recherche, mémoire, CRM et futurs employés IA.',association:'Projet associatif et portail documentaire de Trois-Rivières.',escale:'Point de pause commercial léger à Trois-Rivières — démarche d’emplacement.'}[id]||''}
+
+function searchDigi(){const raw=document.getElementById('digiSearch').value.trim();const q=raw.toLowerCase();const box=document.getElementById('digiAnswer');if(!q){box.innerHTML='<span class="eyebrow">Prêt</span><h2>Qu’est-ce qu’on cherche ?</h2><p>Recherche un client, un tarif, un projet ou une note.</p>';return}let results=[];state.contacts.forEach(c=>{const hay=[c.name,c.segment,c.commune,c.phone,c.email,c.status,c.next,c.notes].join(' ').toLowerCase();if(hay.includes(q))results.push({type:'Contact',title:c.name,sub:`${c.status} • ${c.commune||'commune non renseignée'} • ${c.next||'action à définir'}`})});state.projects.forEach(p=>{const hay=[p.name,p.label,p.status,p.next,projectDescription(p.id)].join(' ').toLowerCase();if(hay.includes(q))results.push({type:'Projet',title:p.name,sub:`${p.status} • ${p.next}`})});Object.entries(pricing).forEach(([cat,items])=>items.forEach(x=>{if([x.name,x.detail,cat].join(' ').toLowerCase().includes(q))results.push({type:'Tarif',title:x.name,sub:`${x.price?money(x.price).replace(',00',''):'Sur devis'} • ${x.detail}`})}));state.notes.forEach(n=>{if([n.project,n.text].join(' ').toLowerCase().includes(q))results.push({type:'Note',title:n.project,sub:n.text})});if(!results.length){box.innerHTML=`<span class="eyebrow">DIGISTAFF LOCAL</span><h2>Aucun résultat exact</h2><p>“${esc(raw)}” n’est pas encore dans la mémoire locale. Capture l’information pour l’ajouter.</p>`;return}box.innerHTML=`<span class="eyebrow">DIGISTAFF LOCAL</span><h2>${results.length} résultat${results.length>1?'s':''}</h2><p>Recherche effectuée uniquement dans ton cockpit.</p>${results.slice(0,12).map(r=>`<div class="search-result"><b>${esc(r.type)} • ${esc(r.title)}</b><small>${esc(r.sub)}</small></div>`).join('')}`}
+document.getElementById('digiGo').onclick=searchDigi;document.getElementById('digiSearch').addEventListener('keydown',e=>{if(e.key==='Enter')searchDigi()});
+
+function renderGoalForm(){document.getElementById('monthlyGoal').value=state.settings.monthlyGoal;document.getElementById('monthlyCA').value=state.settings.monthlyCA;document.getElementById('avgBasket').value=state.settings.avgBasket}
+document.querySelector('[data-open="goalSheet"]').addEventListener('click',renderGoalForm);document.getElementById('goalForm').onsubmit=e=>{e.preventDefault();state.settings.monthlyGoal=Number(document.getElementById('monthlyGoal').value||0);state.settings.monthlyCA=Number(document.getElementById('monthlyCA').value||0);state.settings.avgBasket=Math.max(1,Number(document.getElementById('avgBasket').value||1));closeSheets();save();toast('Objectif mis à jour.')};
+
+function renderAll(){renderHome();renderQuote();renderClients();renderNotes();renderProjects()}
+
+// Backup / restore
+function download(name,text,type='application/json'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+document.getElementById('exportData').onclick=()=>download(`MADYCLEAR-cockpit-backup-${TODAY()}.json`,JSON.stringify(state,null,2));document.getElementById('importData').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());state=merge(defaultState,data);closeSheets();save();toast('Sauvegarde importée.')}catch{toast('Fichier de sauvegarde invalide.')}e.target.value=''};document.getElementById('resetData').onclick=()=>{if(confirm('Réinitialiser toutes les données locales de cette application ?')){state=clone(defaultState);closeSheets();save();toast('Données réinitialisées.')}};
+
+// PWA
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').classList.remove('hidden')});document.getElementById('installBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById('installBtn').classList.add('hidden')};
 renderAll();
