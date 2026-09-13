@@ -1,131 +1,19 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b6b61" />
-  <meta name="description" content="MADYCLEAR Personal — gestion locale des clients, interventions et devis." />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <link rel="stylesheet" href="./app.css" />
-  <title>MADYCLEAR Personal</title>
-</head>
-<body>
-  <header class="topbar">
-    <div>
-      <div class="brand">MADYCLEAR</div>
-      <div class="subtitle">Personal</div>
-    </div>
-    <button id="installBtn" class="ghost" hidden>Installer</button>
-  </header>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>MADYCLEAR — Application</title><meta name="description" content="Application MADYCLEAR : demande de nettoyage, estimation textile SAP, rendez-vous et contact client."><meta name="theme-color" content="#149FA7"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="MADYCLEAR"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png"><style>
+:root{--navy:#0D2B45;--teal:#149FA7;--gold:#D8A64A;--bg:#F4F8FA;--line:#DFEAEE;--muted:#71808C;--text:#10202D}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#F8FCFD,#EEF6F7);font-family:Inter,system-ui,sans-serif;color:var(--text)}.wrap{max-width:620px;margin:auto;padding:18px 14px 44px}.brand{text-align:center}.brand img{width:150px;max-height:150px;object-fit:contain}.brand h1{margin:4px 0 0;color:var(--navy);font-size:25px}.brand p{margin:5px 0 22px;color:var(--teal);font-weight:700}.card{background:white;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 20px 60px rgba(13,43,69,.08)}.progress{display:flex;gap:6px;margin-bottom:18px}.bar{height:6px;background:#E7EFF2;border-radius:99px;flex:1}.bar.on{background:var(--teal)}h2{color:var(--navy);font-size:23px;margin:0 0 6px}.intro{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 16px}.choicegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{border:1px solid var(--line);background:#FAFDFE;border-radius:18px;padding:15px;text-align:left;font-weight:800;color:var(--navy);cursor:pointer}.choice.selected{border-color:var(--teal);background:#ECFAFA;color:var(--teal)}.choice small{display:block;color:var(--muted);font-weight:600;margin-top:4px}.field{margin:12px 0}.field label{display:block;font-size:12px;font-weight:800;color:var(--navy);margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font:inherit;background:#FBFDFE}.field textarea{min-height:94px;resize:vertical}.btns{display:flex;gap:9px;margin-top:17px}.btn{border:0;border-radius:14px;padding:14px 16px;font-weight:900;cursor:pointer;flex:1}.primary{background:var(--teal);color:white}.secondary{background:#EDF4F6;color:var(--navy)}.note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}.success{text-align:center;padding:26px 5px}.success .icon{width:68px;height:68px;border-radius:50%;background:#E7FAF1;color:#1B9664;display:grid;place-items:center;font-size:34px;margin:0 auto 14px}.hidden{display:none}.geo{display:flex;gap:8px;align-items:center}.geo button{border:1px solid var(--line);background:white;border-radius:12px;padding:11px;font-weight:800;color:var(--teal)}.check{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);line-height:1.45}.check input{margin-top:3px}.honeypot{position:absolute;left:-9999px}.install-tip{display:none;margin:0 0 12px;padding:10px 12px;border-radius:14px;background:#ECFAFA;color:var(--navy);font-size:12px;font-weight:700;border:1px solid #BFECEE}.install-tip.show{display:block}@media(max-width:480px){.choicegrid{grid-template-columns:1fr}.wrap{padding:10px 9px 30px}.card{padding:16px;border-radius:20px}}
+</style></head><body><div class="wrap"><div class="brand"><img src="logo.png" alt="Logo application MADYCLEAR" width="180" height="180"><p>La propreté en toute simplicité</p></div><div class="card"><div id="installTip" class="install-tip">Application installable : utilisez “Ajouter à l’écran d’accueil” depuis le navigateur.</div><div class="progress"><div class="bar on"></div><div class="bar"></div><div class="bar"></div></div>
+<section id="s1"><h2>Que souhaitez-vous nettoyer ?</h2><p class="intro">Choisissez votre besoin. Cela prend environ une minute.</p><div class="choicegrid">
+<button class="choice" data-code="textile_canape_2p" data-value="140" data-summary="Nettoyage textile — canapé 2 places — tarif public 140 €">🛋️ Textile<small>Canapé 2 places : 140 € • env. 70 € après crédit d’impôt*</small></button>
+<button class="choice" data-code="auto_interieur" data-value="85" data-summary="Nettoyage automobile intérieur">🚘 Automobile<small>Intérieur / extérieur</small></button>
+<button class="choice" data-code="vitres_standard" data-value="95" data-summary="Nettoyage vitres / baies vitrées">🪟 Vitres<small>Maison, baies vitrées, vitrines</small></button>
+<button class="choice" data-code="nautique_entretien" data-value="180" data-summary="Entretien nautique">🛥️ Nautique<small>Diagnostic et devis</small></button></div>
+<div class="field"><label>Précisez votre besoin</label><textarea id="summary" placeholder="Ex. canapé 3 places + matelas, quelques taches visibles…"></textarea></div><p class="note"><strong>*Avantage fiscal :</strong> estimation à 50 % pour les prestations à domicile éligibles aux services à la personne. Le prix facturé reste le tarif public ; conditions, plafonds et Avance immédiate selon éligibilité et activation du service.</p><div class="btns"><button class="btn primary" onclick="next(2)">Continuer</button></div></section>
+<section id="s2" class="hidden"><h2>Où et comment vous joindre ?</h2><p class="intro">Nous utilisons ces informations uniquement pour traiter votre demande et votre rendez-vous.</p><div class="field"><label>Prénom *</label><input id="first" autocomplete="given-name"></div><div class="field"><label>Nom</label><input id="last" autocomplete="family-name"></div><div class="field"><label>Téléphone *</label><input id="phone" inputmode="tel" autocomplete="tel"></div><div class="field"><label>E-mail</label><input id="email" type="email" autocomplete="email"></div><div class="field"><label>Commune *</label><input id="commune" placeholder="Ex. Sainte-Luce"></div><div class="field"><label>Adresse d'intervention</label><input id="address" placeholder="Adresse ou repère utile"></div><div class="geo"><button type="button" onclick="getGeo()">📍 Utiliser ma position</button><span id="geoText" class="note">Facultatif</span></div><div class="btns"><button class="btn secondary" onclick="next(1)">Retour</button><button class="btn primary" onclick="next(3)">Continuer</button></div></section>
+<section id="s3" class="hidden"><h2>Quel créneau vous conviendrait ?</h2><p class="intro">Le créneau est une demande de réservation. MADYCLEAR le confirme après vérification du trajet et de la durée.</p><div class="field"><label>Date et heure souhaitées</label><input id="requested" type="datetime-local"></div><div class="field"><label>Un détail utile ?</label><textarea id="note" placeholder="Accès, étage, stationnement, urgence…"></textarea></div><label class="check"><input id="marketing" type="checkbox"> <span>J'accepte de recevoir occasionnellement des offres MADYCLEAR. Facultatif.</span></label><input class="honeypot" id="website" tabindex="-1" autocomplete="off"><div class="btns"><button class="btn secondary" onclick="next(2)">Retour</button><button class="btn primary" id="submitBtn" onclick="submitLead()">Envoyer ma demande</button></div><div id="err" class="note"></div></section>
+<section id="success" class="success hidden"><div class="icon">✓</div><h2>Demande enregistrée</h2><p class="intro" id="successText">MADYCLEAR vous recontacte rapidement pour confirmer le diagnostic et le créneau.</p><button class="btn secondary" onclick="location.reload()">Nouvelle demande</button></section>
+</div></div><script>
+const ENDPOINT='https://trvmbwpwnpimrxrmvrgd.supabase.co/functions/v1/madyclear-capture';let service=null,lat=null,lng=null;const params=new URLSearchParams(location.search);document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');service={code:b.dataset.code,value:Number(b.dataset.value),summary:b.dataset.summary};if(!summary.value)summary.value=b.dataset.summary});function next(n){if(n===2&&!service){alert('Choisissez un type de prestation.');return}if(n===3&&(!first.value.trim()||!phone.value.trim()||!commune.value.trim())){alert('Prénom, téléphone et commune sont nécessaires.');return}['s1','s2','s3'].forEach((id,i)=>document.getElementById(id).classList.toggle('hidden',i!==n-1));document.querySelectorAll('.bar').forEach((b,i)=>b.classList.toggle('on',i<n));window.scrollTo({top:0,behavior:'smooth'})}function getGeo(){if(!navigator.geolocation){geoText.textContent='Géolocalisation indisponible';return}geoText.textContent='Localisation…';navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude;lng=p.coords.longitude;geoText.textContent='Position ajoutée ✓'},()=>geoText.textContent='Position non partagée')}async function submitLead(){err.textContent='';submitBtn.disabled=true;submitBtn.textContent='Envoi…';try{const payload={workspace_slug:'madyclear',first_name:first.value.trim(),last_name:last.value.trim(),phone:phone.value.trim(),email:email.value.trim(),commune:commune.value.trim(),address_line:address.value.trim(),summary:summary.value.trim(),source_channel:params.get('src')||params.get('utm_source')||'web',campaign_code:params.get('campaign')||null,service_code:service?.code||null,estimated_value:service?.value||null,requested_at:requested.value?new Date(requested.value).toISOString():null,latitude:lat,longitude:lng,marketing_consent:marketing.checked,client_note:note.value.trim(),photos_count:0,website:website.value};const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();if(!r.ok)throw new Error(data.error||'Erreur');s3.classList.add('hidden');success.classList.remove('hidden');successText.textContent=data.next_step||'MADYCLEAR vous recontacte rapidement.';document.querySelectorAll('.bar').forEach(b=>b.classList.add('on'))}catch(e){err.textContent='Impossible d\'envoyer la demande pour le moment. Réessayez ou contactez MADYCLEAR.';submitBtn.disabled=false;submitBtn.textContent='Envoyer ma demande'}}
 
-  <main id="app">
-    <section class="view active" data-view="home">
-      <div class="hero card">
-        <div>
-          <span class="eyebrow">Tableau de bord</span>
-          <h1>Bonjour Gino 👋</h1>
-          <p>Ton activité MADYCLEAR, en un coup d’œil.</p>
-        </div>
-        <div class="stats">
-          <div><strong id="statClients">0</strong><span>Clients</span></div>
-          <div><strong id="statJobs">0</strong><span>Interventions</span></div>
-          <div><strong id="statQuotes">0</strong><span>Devis</span></div>
-        </div>
-      </div>
-
-      <div class="quick-grid">
-        <button class="quick" data-go="clients">+ Client</button>
-        <button class="quick" data-go="jobs">+ Intervention</button>
-        <button class="quick" data-go="quotes">+ Devis</button>
-        <a class="quick link" href="https://wa.me/596696017007" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-
-      <section class="card">
-        <div class="section-head">
-          <h2>Prochaines interventions</h2>
-          <button class="text-btn" data-go="jobs">Voir tout</button>
-        </div>
-        <div id="upcomingJobs" class="list empty">Aucune intervention enregistrée.</div>
-      </section>
-    </section>
-
-    <section class="view" data-view="clients">
-      <div class="section-head">
-        <div><span class="eyebrow">CRM local</span><h1>Clients</h1></div>
-        <button class="primary" id="newClientBtn">Ajouter</button>
-      </div>
-      <input id="clientSearch" class="search" type="search" placeholder="Rechercher nom, commune, téléphone…" />
-      <div id="clientList" class="list empty">Aucun client.</div>
-    </section>
-
-    <section class="view" data-view="jobs">
-      <div class="section-head">
-        <div><span class="eyebrow">Planning</span><h1>Interventions</h1></div>
-        <button class="primary" id="newJobBtn">Ajouter</button>
-      </div>
-      <div id="jobList" class="list empty">Aucune intervention.</div>
-    </section>
-
-    <section class="view" data-view="quotes">
-      <div class="section-head">
-        <div><span class="eyebrow">Commercial</span><h1>Devis rapides</h1></div>
-        <button class="primary" id="newQuoteBtn">Créer</button>
-      </div>
-      <div id="quoteList" class="list empty">Aucun devis.</div>
-    </section>
-
-    <section class="view" data-view="prices">
-      <div><span class="eyebrow">Référence</span><h1>Tarifs MADYCLEAR</h1></div>
-      <div class="price-grid">
-        <article class="card"><h3>Minimum intervention</h3><strong>59 €</strong><p>Base commerciale actuelle.</p></article>
-        <article class="card"><h3>Textile</h3><strong>Sur devis</strong><p>Canapés, matelas, fauteuils, tapis, chaises, sièges auto.</p></article>
-        <article class="card"><h3>Panier cible textile</h3><strong>≥ 170 €</strong><p>Repère interne de rentabilité.</p></article>
-      </div>
-    </section>
-
-    <section class="view" data-view="settings">
-      <div><span class="eyebrow">Application</span><h1>Réglages</h1></div>
-      <div class="card form-card">
-        <label>Nom affiché<input id="ownerName" value="Gino" /></label>
-        <label>Téléphone MADYCLEAR<input id="businessPhone" value="0696 017007" /></label>
-        <label>Zone principale<input id="businessZone" value="Martinique" /></label>
-        <button class="primary" id="saveSettings">Enregistrer</button>
-      </div>
-      <div class="card">
-        <h3>Données</h3>
-        <p>Les données sont stockées localement sur cet appareil.</p>
-        <div class="row">
-          <button class="ghost" id="exportBtn">Exporter</button>
-          <label class="ghost file-label">Importer<input id="importInput" type="file" accept="application/json" hidden /></label>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <nav class="bottom-nav" aria-label="Navigation principale">
-    <button class="nav-btn active" data-go="home"><span>⌂</span><small>Accueil</small></button>
-    <button class="nav-btn" data-go="clients"><span>♙</span><small>Clients</small></button>
-    <button class="nav-btn" data-go="jobs"><span>◷</span><small>Planning</small></button>
-    <button class="nav-btn" data-go="quotes"><span>€</span><small>Devis</small></button>
-    <button class="nav-btn" data-go="settings"><span>⚙</span><small>Réglages</small></button>
-  </nav>
-
-  <dialog id="modal">
-    <form method="dialog" id="modalForm">
-      <div class="section-head">
-        <h2 id="modalTitle">Ajouter</h2>
-        <button value="cancel" class="icon-btn" aria-label="Fermer">×</button>
-      </div>
-      <div id="modalFields"></div>
-      <div class="modal-actions">
-        <button value="cancel" class="ghost">Annuler</button>
-        <button id="modalSave" value="default" class="primary">Enregistrer</button>
-      </div>
-    </form>
-  </dialog>
-
-  <script src="./app.js"></script>
-</body>
-</html>
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(()=>{})); }
+window.addEventListener('beforeinstallprompt', (event) => { event.preventDefault(); const tip=document.getElementById('installTip'); if(tip){tip.textContent='Application prête : ouvrez le menu du navigateur puis “Installer l’application” ou “Ajouter à l’écran d’accueil”.'; tip.classList.add('show');} });
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) { const tip=document.getElementById('installTip'); if(tip) tip.remove(); }
+</script></body></html>
