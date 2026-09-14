@@ -1,8 +1,8 @@
 {
-  "name": "MADYCLEAR Personal Cockpit V1.1",
-  "short_name": "MadyCockpit",
-  "description": "Cockpit personnel GINO × MADYCLEAR × DIGISTAFF avec CRM, devis, WhatsApp et mise à jour assistée.",
-  "start_url": "./?source=pwa",
+  "name": "MADYCLEAR Personal Cockpit V1.8.2 Options",
+  "short_name": "MADYCLEAR",
+  "description": "Cockpit privé MADYCLEAR avec options légères : CRM en masse, multimédia pro interne, sauvegardes et PWA renforcée.",
+  "start_url": "./?source=pwa&v=1-8-2-options",
   "scope": "./",
   "display": "standalone",
   "background_color": "#06111a",
@@ -57,5 +57,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "1.1.0"
+  "version": "1.8.2-options"
 }

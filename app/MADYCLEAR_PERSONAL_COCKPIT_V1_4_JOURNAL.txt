@@ -1,0 +1,37 @@
+MADYCLEAR Personal — Cockpit V1.4 — Action Engine
+Date : 13/09/2026
+
+OBJECTIF
+Transformer le système de boutons du cockpit en moteur d’actions centralisé et robuste.
+
+OPTIMISATIONS
+- Action Engine central avec registre unique des actions.
+- Navigation Accueil / MADY / Clients / DIGI / Projets pilotée par le moteur.
+- Ouverture des panneaux pilotée par le moteur.
+- Fallback automatique si une action principale échoue.
+- Journal succès / échecs dans Autonomous Core.
+- Statistiques d’exécution : succès, échecs, dernière action.
+- Macros V1 : « Préparer ma journée » et « Sauvegarde sûre ».
+- Bouton « Préparer ma journée » : scan des priorités puis affichage du CRM.
+- Sauvegarde locale déclenchable via Action Engine.
+- Synchronisation Core déclenchable via Action Engine.
+- Correction d’un doublon d’identifiants DIGISTAFF (digiSearch / digiGo).
+- Cache PWA versionné en 1.4.0.
+- Mode local-first conservé.
+- Aucune clé secrète stockée dans le navigateur.
+
+GARDE-FOUS
+- Actions de navigation et lecture : AUTO.
+- Actions sensibles : architecture prête pour VALIDATION.
+- Si le moteur principal échoue, navigation/panneaux disposent d’un fallback.
+- Les données V1.x utilisent toujours la même clé localStorage afin de conserver CRM, devis et notes.
+
+TESTS À EFFECTUER APRÈS DÉPLOIEMENT
+1. Ouvrir Accueil.
+2. Tester Clients.
+3. Tester MADY.
+4. Tester DIGI.
+5. Tester Projets.
+6. Cliquer « Préparer ma journée ».
+7. Ouvrir Autonomous Core et vérifier le journal.
+8. Exporter une sauvegarde.

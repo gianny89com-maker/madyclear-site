@@ -1,0 +1,8 @@
+MADYCLEAR Personal — Cockpit V1.7.1 AUDITED STABLE
+Date : 13/09/2026
+
+Base V1.7 auditée et corrigée.
+Corrections bloquantes : démarrage JS, helpers WhatsApp, rendu modules, IDs de note, focus sans projet.
+Améliorations : bilan salarié hebdomadaire, trigger horaire réellement exécuté lorsque la PWA est active, descriptions fonctionnelles alignées sur les capacités réelles.
+Tests automatiques : navigation, devis, CRM, notes, objectifs, DIGISTAFF, validations, pointage, portail, trigger, photo simulée, migration ancienne version.
+Voir AUDIT_V1_7_1.md pour les limites PWA et les fonctions restant à connecter.

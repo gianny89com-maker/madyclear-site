@@ -1,0 +1,34 @@
+MADYCLEAR Personal — Cockpit V1.8.1 — Garde-fous
+Date : 13/09/2026
+
+RÈGLE VALIDÉE PAR GINO
+AUTO = uniquement lecture, calcul, classement et actions locales sûres.
+Toute action qui agit sur un service externe = validation Gino obligatoire avant exécution.
+
+APPLICATION TECHNIQUE
+- Politique stockée dans state.core.actionPolicy.
+- Action Engine vérifie scope EXTERNAL.
+- Toute action EXTERNAL est forcée en validation si non approuvée.
+- Synchronisation Core/n8n classée EXTERNAL + VALIDATION.
+- Les actions locales continuent en AUTO.
+- La règle est affichée dans le cockpit.
+
+EXEMPLES
+AUTO :
+- naviguer dans l'application
+- calculer un devis
+- filtrer des clients
+- générer une sauvegarde locale
+- analyser les priorités
+- préparer une proposition locale
+
+VALIDATION OBLIGATOIRE :
+- envoyer un email
+- écrire dans Drive
+- créer/modifier un événement Calendar
+- envoyer un WhatsApp Business
+- publier sur un réseau
+- déclencher un webhook externe
+- modifier une donnée cloud
+- engager une dépense
+- supprimer une donnée distante

@@ -1,0 +1,24 @@
+MADYCLEAR PERSONAL — COCKPIT V1.3.1 — PATCH NAVIGATION
+Date : 13/09/2026
+
+OBJECTIF
+Corriger le cas observé sur Vercel où l’interface V1.3 s’affichait mais les boutons de navigation ne répondaient pas.
+
+CORRECTIONS
+- Navigation de secours intégrée directement dans index.html.
+- Logique complète app.js intégrée aussi dans index.html : l’application ne dépend plus du chargement réseau de app.js pour fonctionner.
+- app.js conservé séparément comme source de maintenance / secours.
+- Cache PWA incrémenté en V1.3.1.
+- Manifest passé en V1.3.1.
+- Indicateur visible dans l’en-tête : “V1.3.1 • moteur chargé” ou “mode secours”.
+- Navigation Accueil / MADY / Clients / DIGI / Projets disponible même si le moteur principal rencontre un problème.
+- Ouverture des panneaux/réglages également couverte par le mode secours.
+- Aucune modification des données CRM existantes.
+- Aucune modification de la logique SAP validée : canapé 2 places 140 € / estimation 70 €, canapé 3 places 160 € / estimation 80 €, sous conditions.
+
+PUBLICATION
+Importer le dossier MADYCLEAR_PERSONAL_COCKPIT_V1_3_1 comme nouveau projet ou remplacer la source du projet test, puis ouvrir l’URL Vercel générée.
+Le paramètre de test recommandé est : ?v=1-3-1
+
+GARDE-FOU
+La V1.1 et la V1.3 restent intactes en sauvegarde.
