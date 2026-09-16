@@ -1,10 +1,1 @@
-{
-  "name":"MADYCLEAR",
-  "short_name":"MADYCLEAR",
-  "description":"Service mobile de nettoyage en Martinique",
-  "start_url":"/",
-  "display":"standalone",
-  "background_color":"#ffffff",
-  "theme_color":"#071d38",
-  "icons":[{"src":"/assets/favicon.png","sizes":"128x128","type":"image/png"}]
-}
+{"name":"Madyclear","short_name":"Madyclear","start_url":"/","display":"standalone","background_color":"#ffffff","theme_color":"#0369a1","icons":[]}
