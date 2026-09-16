@@ -1,27 +1,27 @@
-# MADYCLEAR — Site officiel
+# MADYCLEAR — Site final Vercel
 
-Package statique prêt pour GitHub Pages.
+Tarification textile mise à jour : 15/09/2026 (grille finale validée).
 
-## Mise en ligne GitHub Pages
-1. Créer un dépôt public `madyclear-site`.
-2. Téléverser **le contenu de ce dossier** à la racine du dépôt (pas le ZIP lui-même).
-3. Ouvrir **Settings → Pages**.
-4. Source : **Deploy from a branch**.
-5. Branch : **main** / dossier **/(root)** → Save.
-6. Le fichier `CNAME` prépare le domaine `madyclear.fr`.
-7. Configurer ensuite les DNS chez Viaduc sans toucher aux enregistrements email.
+Site statique multi-pages, sans dépendance externe.
 
-## Fichiers essentiels
-- `index.html` : site
-- `assets/styles.css` : design responsive
-- `assets/script.js` : menu + formulaire WhatsApp
-- `CNAME` : domaine personnalisé
-- `.nojekyll` : compatibilité GitHub Pages
-- `robots.txt` + `sitemap.xml` : SEO de base
+## Production
+- Domaine public : https://madyclear.fr/
+- Cible : Vercel
+- Ne pas supprimer ni remplacer la route existante https://madyclear.fr/app/ lors du déploiement final.
+- GitHub Pages n'est pas utilisé pour la production de cette version.
 
-## Contact configuré
-- Téléphone / WhatsApp : +596 696 01 70 07
-- Email : contact@madyclear.fr
+## Pages
+- /
+- /automobile/
+- /textile/
+- /vitres/
+- /professionnels/
+- /devis/
 
-## Dépendances
-Aucune. Pas de framework, pas de build, pas de base de données, pas d'abonnement technique requis pour faire fonctionner le site.
+## Fonctionnement
+- panier local via localStorage ; aucune donnée client n'est stockée sur le site ;
+- calcul automatique des offres groupées : 2 éléments = 5 %, 3–4 = 8 %, 5+ = 10 % indicatif avec validation manuelle ;
+- le Pack Voisin est signalé mais n'applique pas de remise aveugle ;
+- les prestations « à partir de » et diagnostics sont signalés comme estimations ;
+- formulaire final préremplit WhatsApp ; photos à joindre ensuite dans la conversation ;
+- paiement prévu sur place après prestation.
