@@ -1,27 +1,26 @@
-# MADYCLEAR — Site officiel
+# MADYCLEAR — RACINE PRODUCTION
 
-Package statique prêt pour GitHub Pages.
+Version visuelle validée + tarification MADYCLEAR en vigueur.
 
-## Mise en ligne GitHub Pages
-1. Créer un dépôt public `madyclear-site`.
-2. Téléverser **le contenu de ce dossier** à la racine du dépôt (pas le ZIP lui-même).
-3. Ouvrir **Settings → Pages**.
-4. Source : **Deploy from a branch**.
-5. Branch : **main** / dossier **/(root)** → Save.
-6. Le fichier `CNAME` prépare le domaine `madyclear.fr`.
-7. Configurer ensuite les DNS chez Viaduc sans toucher aux enregistrements email.
+## Installation
+Décompresser ce ZIP puis copier **le contenu** directement à la racine du dépôt `madyclear-site`.
 
-## Fichiers essentiels
-- `index.html` : site
-- `assets/styles.css` : design responsive
-- `assets/script.js` : menu + formulaire WhatsApp
-- `CNAME` : domaine personnalisé
-- `.nojekyll` : compatibilité GitHub Pages
-- `robots.txt` + `sitemap.xml` : SEO de base
+## Important
+- Ne pas supprimer les fichiers déjà présents qui ne sont pas dans ce ZIP.
+- En particulier : conserver `/app/` et tout fichier de validation Google déjà présent.
+- Le fichier `CNAME` conserve le domaine `madyclear.fr`.
+- Les assets du design validé sont inclus.
 
-## Contact configuré
-- Téléphone / WhatsApp : +596 696 01 70 07
-- Email : contact@madyclear.fr
+## Tarifs textile intégrés
+- Canapé 2 places : 160 €
+- Canapé 3 places : 190 €
+- Canapé angle : 240 €
+- Canapé panoramique / U : 240 €
+- Matelas 1 place : 120 €
+- Matelas 2 places : 160 €
+- Fauteuil : 80 €
+- Chaise rembourrée : 40 €
+- Tapis standard : 100 €
+- Minimum intervention textile : 80 €
 
-## Dépendances
-Aucune. Pas de framework, pas de build, pas de base de données, pas d'abonnement technique requis pour faire fonctionner le site.
+Le crédit d'impôt éventuel est présenté uniquement sous réserve d'éligibilité.

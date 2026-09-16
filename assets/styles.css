@@ -15,39 +15,3 @@
 .tariff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}.tariff{border:1px solid var(--line);background:#fff;border-radius:18px;padding:20px}.tariff h3{font-size:1rem;margin:0 0 9px;color:var(--ink)}.tariff strong{font-size:1.3rem;color:var(--blue-deep)}.tariff small{display:block;font-size:.78rem;color:var(--muted);margin-top:3px}.price-notes{margin-top:18px;padding:20px;border:1px solid #bae6fd;border-radius:18px;background:#f8fdff;display:flex;align-items:center;gap:18px;flex-wrap:wrap}.price-notes span{color:var(--muted)}.price-notes .btn{margin-left:auto}
 @media(max-width:900px){.results-grid{grid-template-columns:1fr}.tariff-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.tariff-grid{grid-template-columns:1fr}.price-notes{align-items:stretch}.price-notes .btn{margin-left:0;width:100%}}
-
-/* Interactive service and tariff choices */
-.quote-choice{position:relative;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;background-clip:padding-box}
-.quote-choice:hover,.quote-choice:focus-visible{transform:translateY(-3px);border-color:#7dd3fc;box-shadow:0 18px 36px rgba(7,89,133,.13);outline:none}
-.quote-choice:focus-visible{box-shadow:0 0 0 4px rgba(14,165,233,.18),0 18px 36px rgba(7,89,133,.13)}
-.choice-hint{display:inline-block;margin-top:16px;font-size:.82rem;font-weight:850;color:var(--blue);letter-spacing:.01em}
-.tariff .choice-hint{display:block;margin-top:10px}
-.quote-choice.selected{border-color:#fb923c;box-shadow:0 0 0 3px rgba(251,146,60,.16),0 18px 36px rgba(7,89,133,.12)}
-.selection-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:70;background:#082f49;color:#fff;padding:12px 18px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.22);font-weight:800;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s ease;max-width:min(92vw,560px);text-align:center}
-.selection-toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:620px){.choice-hint{margin-top:12px}.selection-toast{bottom:92px;border-radius:16px}}
-
-
-/* Images maître ChatGPT intégrées */
-.brand img{width:190px;max-height:58px;object-fit:contain}
-.hero-visual img{width:100%;border-radius:28px;object-fit:cover;aspect-ratio:1.25/1;box-shadow:0 26px 56px rgba(2,25,44,.18)}
-.results-section img{border-radius:28px;box-shadow:0 24px 50px rgba(2,25,44,.16);border:1px solid rgba(216,229,236,.9)}
-@media(max-width:620px){.brand img{width:150px}.hero-visual img{border-radius:20px}}
-
-/* MADYCLEAR hero premium final — 12/09/2026 */
-.hero{
-  position:relative;
-  min-height:720px;
-  display:flex;
-  align-items:center;
-  padding-top:92px;
-  padding-bottom:92px;
-  color:#fff;
-  background:
-    linear-gradient(90deg,rgba(2,25,44,.96) 0%,rgba(3,45,75,.88) 34%,rgba(3,45,75,.46) 55%,rgba(3,45,75,.10) 78%),
-    url("hero-canape-madyclear.webp") center right/cover no-repeat;
-  overflow:hidden;
-}
-.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:140px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff);pointer-events:none}.hero .container{position:relative;z-index:1}.hero-grid{display:block}.hero-copy{max-width:690px}.hero .eyebrow{color:#7dd3fc}.hero h1,.hero-line{color:#fff}.hero .lead{color:#dceef7}.hero-visual{display:none}.btn-ghost{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.34);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.20)}.trust-list{color:#eaf8ff}.trust-list li:before{color:#f59e0b}.site-header{background:rgba(255,255,255,.96)}.brand img{width:210px;max-height:58px;object-fit:contain}.results-grid img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}.quote-choice,.card,.tariff{background:#fff}
-@media(max-width:900px){.hero{min-height:auto;padding-top:76px;padding-bottom:76px;background:linear-gradient(180deg,rgba(2,25,44,.92),rgba(2,25,44,.72)),url("hero-canape-madyclear.webp") center/cover no-repeat}.hero-copy{max-width:100%}.brand img{width:170px}}
-@media(max-width:620px){.hero{padding-top:64px;padding-bottom:64px}.hero h1{font-size:2.45rem}.brand img{width:150px}}
