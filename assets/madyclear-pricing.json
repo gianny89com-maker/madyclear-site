@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-17-commercial-v2",
+  "version": "2026-09-17-commercial-v3",
   "currency": "EUR",
   "source": "MADYCLEAR — site officiel",
   "textile": {
@@ -38,12 +38,31 @@
     "internal_calculations_public": false,
     "conditions": "Forfait soumis à conditions, sur rendez-vous et selon disponibilités. Les prestations supplémentaires ou cas particuliers peuvent faire l’objet d’un complément. Les modalités exactes sont précisées avant souscription."
   },
+  "installments": {
+    "enabled": true,
+    "maximum_payments": 3,
+    "public_threshold": null,
+    "display_threshold": false,
+    "rule": "Paiement fractionné possible jusqu’à 3 fois maximum, selon le montant et après validation MADYCLEAR.",
+    "internal_only_until_threshold_is_set": true
+  },
   "reservation": {
     "type": "arrhes",
     "amount": 30,
     "deducted_from_final_invoice": true,
     "label": "Réservation garantie",
     "applies_to": "rendez-vous ponctuels après validation du devis",
-    "conditions": "Les modalités de report et d’annulation sont précisées avant paiement."
+    "subscription_passages_exempt": true,
+    "conditions": "Les modalités de report et d’annulation sont précisées avant paiement.",
+    "payment": {
+      "provider": "stripe",
+      "mode": "payment_link",
+      "automatic_amount": true,
+      "currency": "EUR",
+      "amount": 30,
+      "enabled": false,
+      "payment_url": null,
+      "activation_status": "awaiting_stripe_connection"
+    }
   }
 }
