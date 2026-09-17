@@ -84,3 +84,11 @@ L’avantage fiscal éventuel de 50 % ne doit être présenté que comme **poten
 ## Déploiement
 
 Le dépôt contient le fichier `CNAME` pour `madyclear.fr`, les fichiers SEO, la validation Google et la PWA. Toute modification de production doit être vérifiée sur le domaine public après déploiement.
+
+## Confidentialité
+
+- page publique : `/politique-confidentialite.html` ;
+- le formulaire ne stocke aucune donnée sur le site ;
+- les informations sont transmises uniquement lorsque le visiteur continue dans WhatsApp ;
+- aucun outil d’analyse d’audience, cookie publicitaire ou traceur marketing n’est actuellement installé ;
+- les informations d’immatriculation seront complétées dans les mentions légales lorsque le SIRET définitif sera disponible.
