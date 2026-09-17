@@ -33,19 +33,28 @@ L’automobile et les vitres sont conservées en extensions futures, mais ne con
 
 ## Tarification officielle
 
-| Prestation | Tarif complet | Indication après 50 % si éligible |
-|---|---:|---:|
-| Canapé 2 places | 160 € | 80 € |
-| Canapé 3 places | 190 € | 95 € |
-| Canapé angle / panoramique | 240 € | 120 € |
-| Fauteuil | 80 € | 40 € |
-| Matelas 1 place | 120 € | 60 € |
-| Matelas 2 places | 160 € | 80 € |
-| Tapis standard | 100 € | 50 € |
-| Chaise textile | 40 € | 20 € |
-| Minimum d’intervention textile | 80 € | — |
+| Prestation | Tarif complet |
+|---|---:|
+| Canapé 2 places | 160 € |
+| Canapé 3 places | 190 € |
+| Canapé angle / panoramique | 240 € |
+| Fauteuil | 80 € |
+| Matelas 1 place | 120 € |
+| Matelas 2 places | 160 € |
+| Tapis standard | 100 € |
+| Chaise textile | 40 € |
+| Minimum d’intervention textile | 80 € |
 
-Le crédit d’impôt éventuel n’est jamais automatique. Il dépend de l’éligibilité de la prestation, du client et du dispositif applicable. Le tarif complet demeure la référence commerciale.
+### Présentation commerciale validée
+
+1. La grille affiche uniquement les tarifs unitaires complets.
+2. Le client peut composer librement un pack avec plusieurs textiles.
+3. Le pack est toujours sur mesure et uniquement sur devis.
+4. Aucun prix de pack, pourcentage ou montant de réduction n’est affiché.
+5. Le crédit d’impôt est expliqué une seule fois dans un encadré distinct.
+6. Un seul exemple indicatif peut être utilisé : 160 € facturés peuvent représenter 80 € après crédit d’impôt si toutes les conditions sont remplies.
+
+Le crédit d’impôt éventuel n’est jamais automatique. Il dépend de l’éligibilité de la prestation, du client et du dispositif applicable. Il ne constitue pas une remise commerciale et le tarif complet demeure la référence.
 
 ## Horaires
 
