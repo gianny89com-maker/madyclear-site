@@ -11,7 +11,7 @@ Version métier de référence : **Dossier maître MADYCLEAR — 17/09/2026**.
 - Parcours réservation : `https://www.madyclear.fr/reservation/`
 - Domaine unique : `madyclear.fr`
 - Base centrale : Supabase MADYCLEAR
-- Cockpit : **V1.9.1 PRICING SYNC**
+- Cockpit : **V1.9.2 LAUNCH**
 - MADYCLEAR = client pilote n°1 de DIGISTAFF
 
 ## Règle de production
@@ -85,9 +85,20 @@ L’avantage fiscal éventuel ne doit être présenté que comme **potentiel et 
 - Les 30 € sont déduits de la facture finale.
 - Les modalités de report et d’annulation sont communiquées avant paiement.
 - Les passages d’un forfait actif ne nécessitent pas 30 € d’arrhes à chaque rendez-vous.
-- Le parcours `/reservation/` est préparé pour un paiement sécurisé en ligne.
+- Le parcours `/reservation/` est préparé pour une future automatisation du paiement.
 - Le montant de 30 € est centralisé dans `/assets/madyclear-pricing.json` afin d’éviter les divergences.
-- Le paiement automatique reste désactivé tant que le compte Stripe MADYCLEAR et le lien de paiement officiel ne sont pas connectés.
+- **Stripe est mis de côté pour le moment : aucun encaissement automatique n’est actif.**
+- Les arrhes sont donc encaissées manuellement jusqu’à décision contraire.
+
+## Mise en activité terrain V1
+
+Objectif de démarrage : **10 prestations réelles payées** avant accélération.
+
+Pipeline opérationnel de référence :
+
+`Nouveau → Qualifié → Devis envoyé → Devis accepté → Arrhes reçues → RDV confirmé → Réalisé → Payé → À relancer`
+
+Le cockpit V1.9.2 expose ces statuts et rappelle les règles forfait / arrhes directement dans l’application.
 
 ## Horaires validés
 
@@ -109,7 +120,8 @@ L’avantage fiscal éventuel ne doit être présenté que comme **potentiel et 
 3. WhatsApp s’ouvre ensuite avec le message prérempli.
 4. Le prospect est suivi dans le cockpit/CRM.
 5. Le tarif et le créneau sont confirmés avant intervention.
-6. Après validation du devis, le client peut être dirigé vers `/reservation/` pour verser les 30 € d’arrhes dès que le paiement Stripe officiel est activé.
+6. Après validation du devis, les **30 € d’arrhes sont encaissées manuellement** pour confirmer le créneau.
+7. Une fois les arrhes reçues, le statut passe à **RDV confirmé**.
 
 ## Cockpit MADYCLEAR
 
@@ -142,9 +154,12 @@ Le cockpit est local-first et reste utilisable hors ligne. La synchronisation Su
 - Google Calendar
 - Google Drive
 - Metricool
-- Stripe pour les arrhes de réservation
 - alertes e-mail propriétaire
 - confirmation et relance WhatsApp
+
+### En pause
+
+- Stripe / paiement automatique des arrhes
 
 Les automatisations WhatsApp restent inactives avant le lancement officiel et nécessitent un connecteur autorisé, de type Peach Core ou API Meta Cloud.
 
