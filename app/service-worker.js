@@ -1,16 +1,16 @@
-const APP_VERSION='1.8.3-sync';
+const APP_VERSION='1.8.4-clean';
 const CACHE=`madyclear-personal-${APP_VERSION}`;
-const ASSETS=['./','./index.html','./app.css','./app.js','./v1_8_2_options.js','./manifest.webmanifest','./logo.png','./icons/icon-72.png','./icons/icon-96.png','./icons/icon-128.png','./icons/icon-144.png','./icons/icon-152.png','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-384.png','./icons/icon-512.png'];
+const ASSETS=['./','./index.html','./app.css','./manifest.webmanifest','./logo.png','./icons/icon-72.png','./icons/icon-96.png','./icons/icon-128.png','./icons/icon-144.png','./icons/icon-152.png','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-384.png','./icons/icon-512.png'];
 
 function patchHtml(source){
   let html=String(source||'');
 
   // Identité de version — sans changer la clé localStorage ni la structure du cockpit.
-  html=html.replaceAll('V1.8.2','V1.8.3');
-  html=html.replaceAll('1.8.2-options','1.8.3-sync');
-  html=html.replace("const APP_VERSION='1.8.2';","const APP_VERSION='1.8.3';");
-  html=html.replace('version:1.82,','version:1.83,');
-  html=html.replace('V1.8.3 • Priorité','V1.8.3 • Lancement');
+  html=html.replaceAll('V1.8.2','V1.8.4');
+  html=html.replaceAll('1.8.2-options','1.8.4-clean');
+  html=html.replace("const APP_VERSION='1.8.2';","const APP_VERSION='1.8.4';");
+  html=html.replace('version:1.82,','version:1.84,');
+  html=html.replace('V1.8.4 • Priorité','V1.8.4 • Lancement');
   html=html.replace('Textile SAP','Textile domicile');
   html=html.replace('<strong>70 €</strong><small>reste estimé 2P*</small>','<strong>160 €</strong><small>tarif officiel 2P</small>');
 

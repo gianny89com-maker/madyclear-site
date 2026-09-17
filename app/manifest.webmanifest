@@ -1,8 +1,8 @@
 {
-  "name": "MADYCLEAR Personal Cockpit V1.8.3",
+  "name": "MADYCLEAR Personal Cockpit V1.8.4",
   "short_name": "MADYCLEAR",
-  "description": "Cockpit privé MADYCLEAR local-first : CRM, devis alignés sur la grille officielle, suivi du lancement, sauvegardes et outils opérationnels.",
-  "start_url": "./?source=pwa&v=1-8-3-sync",
+  "description": "Cockpit privé MADYCLEAR, base officielle DIGISTAFF : CRM, devis, suivi du lancement, sauvegardes et moteur local-first.",
+  "start_url": "./?source=pwa&v=1-8-4-clean",
   "scope": "./",
   "display": "standalone",
   "background_color": "#06111a",
@@ -57,5 +57,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "1.8.3-sync"
+  "version": "1.8.4-clean"
 }
