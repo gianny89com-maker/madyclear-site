@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "owner": "Gino",
+  "default": "VALIDATION",
+  "levels": {
+    "AUTO": {
+      "allowed": [
+        "read",
+        "search",
+        "calculate",
+        "classify",
+        "deduplicate",
+        "summarize",
+        "prepare_draft",
+        "create_internal_task",
+        "update_local_cache",
+        "write_audit_log"
+      ],
+      "external_side_effects": false
+    },
+    "VALIDATION": {
+      "requires_human_approval": true,
+      "actions": [
+        "send_email",
+        "send_whatsapp",
+        "publish_social",
+        "create_external_calendar_event",
+        "archive_to_external_drive",
+        "apply_discount",
+        "change_public_content",
+        "change_automation_rule"
+      ]
+    },
+    "CRITIQUE": {
+      "requires_human_approval": true,
+      "second_check": true,
+      "actions": [
+        "delete_cloud_record",
+        "payment",
+        "bank_action",
+        "security_change",
+        "permission_change",
+        "rotate_secret",
+        "irreversible_bulk_action"
+      ]
+    }
+  },
+  "hard_rules": {
+    "never_expose_service_role_in_pwa": true,
+    "never_send_without_logged_decision": true,
+    "never_publish_client_media_without_consent": true,
+    "never_delete_cloud_data_from_local_delete_only": true,
+    "whatsapp_automation_before_official_launch": false
+  }
+}
