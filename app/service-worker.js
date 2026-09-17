@@ -68,6 +68,10 @@ function htmlResponse(response,text){
   return new Response(patchHtml(text),{status:response.status,statusText:response.statusText,headers});
 }
 
+function isAppClient(url){
+  try{return /\/app\/(?:index\.html)?$/.test(new URL(url).pathname)}catch(e){return false}
+}
+
 self.addEventListener('install',event=>{
   event.waitUntil(
     caches.open(CACHE)
@@ -77,11 +81,13 @@ self.addEventListener('install',event=>{
 });
 
 self.addEventListener('activate',event=>{
-  event.waitUntil(
-    caches.keys()
-      .then(keys=>Promise.all(keys.filter(k=>k.startsWith('madyclear-personal-')&&k!==CACHE).map(k=>caches.delete(k))))
-      .then(()=>self.clients.claim())
-  );
+  event.waitUntil((async()=>{
+    const keys=await caches.keys();
+    await Promise.all(keys.filter(k=>k.startsWith('madyclear-personal-')&&k!==CACHE).map(k=>caches.delete(k)));
+    await self.clients.claim();
+    const windows=await self.clients.matchAll({type:'window',includeUncontrolled:true});
+    await Promise.all(windows.filter(c=>isAppClient(c.url)).map(c=>c.navigate(c.url).catch(()=>null)));
+  })());
 });
 
 self.addEventListener('message',event=>{
