@@ -224,7 +224,7 @@
         <div>
           <p class="eyebrow">Devis gratuit</p>
           <h2>Envoyez votre demande en moins d’une minute.</h2>
-          <p>Le formulaire prépare un message WhatsApp avec les informations utiles. Vous pourrez ensuite ajouter les photos du textile directement dans la conversation.</p>
+          <p>Votre demande est enregistrée par MADYCLEAR avant l’ouverture de WhatsApp afin que nous puissions vous recontacter. Vous pourrez ensuite ajouter les photos du textile directement dans la conversation.</p>
           <div class="contact-lines">
             <a href="tel:+596696017007">06 96 01 70 07</a>
             <a href="mailto:contact@madyclear.fr">contact@madyclear.fr</a>
@@ -233,6 +233,7 @@
         <form id="quote-form" class="quote-form">
           <label>Nom <input name="nom" required autocomplete="name"></label>
           <label>Téléphone <input name="telephone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="06 96 …"></label>
+          <label>E-mail (facultatif) <input name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
           <label>Commune <input name="commune" autocomplete="address-level2" placeholder="Ex. Sainte-Luce"></label>
           <label>Textile à nettoyer
             <select name="service" required>
@@ -249,8 +250,11 @@
             </select>
           </label>
           <label>Votre besoin <textarea name="details" rows="4" placeholder="Dimensions, taches, odeurs, quantité…"></textarea></label>
-          <button class="btn btn-primary btn-full" type="submit">Continuer sur WhatsApp</button>
-          <p class="form-note">Les informations saisies ne sont pas enregistrées sur ce site. Elles servent uniquement à préparer votre demande dans WhatsApp. En continuant, vous choisissez de les transmettre à MADYCLEAR via WhatsApp. <a href="politique-confidentialite.html">Politique de confidentialité</a>.</p>
+          <div aria-hidden="true" style="position:absolute;left:-9999px"><label>Site internet <input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <label class="form-note"><input name="privacy_ack" type="checkbox" required> J’ai lu la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et j’accepte que MADYCLEAR utilise ces informations pour traiter ma demande de devis.</label>
+          <button class="btn btn-primary btn-full" type="submit">Envoyer ma demande</button>
+          <p id="quote-status" class="form-note" role="status" aria-live="polite"></p>
+          <p class="form-note">Les informations sont enregistrées dans l’outil client sécurisé de MADYCLEAR pour traiter votre devis et assurer son suivi. WhatsApp s’ouvre ensuite afin que vous puissiez transmettre vos photos.</p>
         </form>
       </div>
     </section>
