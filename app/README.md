@@ -1,4 +1,4 @@
-# MADYCLEAR Personal — Cockpit V1.9 SYNC
+# MADYCLEAR Personal — Cockpit V1.9.1 PRICING SYNC
 
 Application PWA privée publiée dans `madyclear.fr/app/` et interface officielle du pilote DIGISTAFF × MADYCLEAR.
 
@@ -9,6 +9,7 @@ Application PWA privée publiée dans `madyclear.fr/app/` et interface officiell
 - Base centrale : Supabase MADYCLEAR.
 - Synchronisation : `/app/sync.js` → Edge Function `madyclear-sync`.
 - Capture publique : site → `madyclear-capture` → CRM Supabase.
+- Tarification commune site/app : `/assets/madyclear-pricing.json`.
 - Un seul service worker : `/app/service-worker.js`.
 
 ## Synchronisation V1
@@ -23,6 +24,30 @@ Après connexion du propriétaire, le cockpit peut synchroniser manuellement :
 
 La fusion utilise en priorité les identifiants de synchronisation, puis le téléphone ou l'e-mail normalisés afin de limiter les doublons. Les correspondances sont conservées dans `madyclear_external_refs`.
 
+## Synchronisation des tarifs
+
+La grille officielle n'est plus maintenue séparément entre le site et l'application.
+
+Source unique :
+
+`/assets/madyclear-pricing.json`
+
+Le site public charge cette grille avec un HTML de secours identique. Le service worker de l'application charge la même grille et la rend disponible au moteur de devis, y compris hors ligne grâce au cache.
+
+Grille officielle :
+
+- Canapé 2 places : 160 €
+- Canapé 3 places : 190 €
+- Canapé angle / panoramique : 240 €
+- Fauteuil : 80 €
+- Matelas 1 place : 120 €
+- Matelas 2 places : 160 €
+- Tapis standard : 100 €
+- Chaise textile : 40 €
+- Minimum d’intervention textile : 80 €
+
+Le minimum d’intervention est un plancher de facture, pas une prestation à additionner. Les packs restent personnalisés et uniquement sur devis.
+
 ## Sécurité
 
 - Authentification Supabase obligatoire pour `madyclear-sync` (`verify_jwt=true`).
@@ -35,11 +60,11 @@ La fusion utilise en priorité les identifiants de synchronisation, puis le tél
 
 ## Ce qui n'est pas synchronisé automatiquement en V1
 
-- réglages commerciaux globaux et tarifs ;
 - photos/vidéos ;
 - paiements ;
 - publications sociales ;
-- messages ou relances clients.
+- messages ou relances clients ;
+- modifications engageantes de paramètres ou d'automatisations.
 
 Ces éléments restent soumis aux garde-fous DIGISTAFF et seront branchés par phases.
 
@@ -63,3 +88,7 @@ Les anciens doublons `app.js`, `v1_8_2_options.js` et `sw.js` restent supprimés
 5. L'application fusionne les données et se recharge pour afficher les nouveaux prospects.
 
 Aucune relance WhatsApp, publication ou dépense n'est déclenchée par cette synchronisation.
+
+## Version
+
+Cockpit : `1.9.1-pricing-sync`.
