@@ -91,3 +91,12 @@ MADYCLEAR est un spécialiste mobile du nettoyage textile en Martinique. L’ent
 3. Publier des photos réelles avant/après avec accord client.
 4. Obtenir et répondre aux premiers avis Google authentiques.
 5. Conserver la cohérence du nom, du téléphone, des horaires et du domaine.
+
+## Confidentialité et données personnelles
+
+- Le formulaire du site ne stocke pas les informations saisies.
+- Il prépare un message que le visiteur choisit ensuite de transmettre dans WhatsApp.
+- Les données servent aux devis, diagnostics, rendez-vous, prestations et suivi client.
+- Aucun cookie publicitaire, outil d’analyse d’audience ou traceur marketing n’est actuellement installé.
+- La politique publique est accessible à l’adresse https://madyclear.fr/politique-confidentialite.html.
+- Les informations d’immatriculation et les mentions légales complètes seront ajoutées lorsque le SIRET définitif sera disponible.
