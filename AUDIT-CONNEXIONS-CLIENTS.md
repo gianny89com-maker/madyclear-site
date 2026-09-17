@@ -123,3 +123,45 @@ Les photographies ne doivent pas être stockées automatiquement dans la premiè
 - Relances client autorisées.
 - WhatsApp Business API.
 - Mesure complète des conversions par réseau.
+
+
+---
+
+## Compte rendu d’exécution — 17 septembre 2026
+
+### Travail réalisé
+
+- Audit du site public, du formulaire de devis, des liens téléphone, e-mail et WhatsApp.
+- Vérification du projet Supabase principal MADYCLEAR et de ses tables CRM.
+- Confirmation de l’existence des modules prospects, clients, notifications, automatisations, agenda, devis, factures et suivi des interventions.
+- Vérification des fonctions actives `madyclear-capture` et `madyclear-meta-webhook`.
+- Raccordement du formulaire public à `madyclear-capture` avant l’ouverture de WhatsApp.
+- Ajout de l’adresse e-mail facultative, du consentement de confidentialité, d’un piège antispam et d’un message d’état accessible.
+- Mise à jour de la politique de confidentialité pour décrire l’enregistrement CRM et les prestataires techniques.
+- Correction du registre des intégrations : GitHub Pages est désormais le site officiel actif ; Wix est marqué comme remplacé.
+- Préparation de trois règles inactives : alerte e-mail au propriétaire, confirmation WhatsApp et relance WhatsApp.
+- Vérification en production de la nouvelle version du formulaire sur `https://www.madyclear.fr/`.
+
+### État au terme de l’intervention
+
+| Élément | État |
+|---|---|
+| Site officiel GitHub Pages | Actif en production |
+| Formulaire vers CRM | Actif |
+| Ouverture de WhatsApp après capture | Active |
+| Téléphone et e-mail directs | Actifs |
+| Google Business Profile | Actif |
+| Google Search Console | Actif |
+| Gmail, Agenda, Drive, Metricool | Disponibles via passerelle, automatisation permanente non activée |
+| Réception Meta/WhatsApp | Fonction technique prête, accès fournisseur non finalisé |
+| Peach | Compte CoPilot actuel ; Peach Core retenu pour le lancement officiel |
+| Alertes e-mail automatiques | Préparées, inactives |
+| Confirmations et relances WhatsApp | Préparées, inactives |
+
+### Décision validée avant lancement
+
+Le site et la capture CRM restent actifs. Les échanges WhatsApp restent manuels. Aucun abonnement Peach Core, aucun envoi automatique et aucune relance client automatique ne sont activés avant le lancement officiel.
+
+### Condition de reprise
+
+Après activation de Peach Core, reprendre avec : connexion du numéro `+596 696 01 70 07`, validation des modèles WhatsApp, activation de l’alerte vers `contact@madyclear.fr`, test complet avec une demande contrôlée, puis activation progressive des relances avec arrêt automatique en cas de réponse, refus ou réservation.
