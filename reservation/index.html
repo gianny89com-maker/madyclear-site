@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Confirmer mon rendez-vous | MADYCLEAR</title>
+  <meta name="description" content="Confirmation sécurisée d’un rendez-vous MADYCLEAR après validation du devis.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#075985">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    .reservation-shell{max-width:760px;margin:0 auto}.reservation-panel{background:#fff;border:1px solid var(--line);border-radius:28px;padding:clamp(24px,5vw,44px);box-shadow:var(--shadow)}
+    .reservation-amount{display:flex;align-items:end;gap:10px;margin:24px 0 8px}.reservation-amount strong{font-size:clamp(3rem,10vw,5.4rem);line-height:.9;letter-spacing:-.055em;color:var(--blue-deep)}.reservation-amount span{font-weight:800;color:var(--muted);padding-bottom:7px}
+    .reservation-checks{display:grid;gap:10px;padding:0;margin:28px 0;list-style:none}.reservation-checks li{display:flex;gap:10px;align-items:flex-start;color:var(--ink)}.reservation-checks li:before{content:"✓";color:#16a34a;font-weight:900}
+    .reservation-status{padding:16px 18px;border:1px solid #bae6fd;background:#f8fdff;border-radius:16px;color:var(--blue-deep);font-weight:700}.reservation-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.reservation-actions .btn{flex:1 1 240px}
+    .reservation-small{font-size:.82rem;color:var(--muted);margin-top:18px}.reservation-warning{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="/" class="brand" aria-label="MADYCLEAR — Accueil"><img src="/assets/logo-madyclear.svg" alt="MADYCLEAR" width="190" height="56"></a>
+      <a class="btn btn-ghost" href="/">Retour au site</a>
+    </div>
+  </header>
+
+  <main class="section-pad soft-section">
+    <div class="container reservation-shell">
+      <div class="reservation-panel">
+        <p class="eyebrow">Réservation garantie</p>
+        <h1>Confirmez votre créneau MADYCLEAR.</h1>
+        <p class="lead">Cette page est utilisée uniquement après validation de votre devis et confirmation de la disponibilité du rendez-vous.</p>
+
+        <div class="reservation-amount"><strong data-reservation-amount>30 €</strong><span>d’arrhes</span></div>
+        <p>Le versement confirme le créneau et est <strong>déduit de la facture finale</strong>.</p>
+
+        <ul class="reservation-checks">
+          <li>Montant fixe de réservation : <strong data-reservation-amount>30 €</strong></li>
+          <li>Paiement demandé uniquement après validation du devis</li>
+          <li>Aucun nouvel acompte demandé à chaque passage d’un forfait actif</li>
+          <li>Modalités de report et d’annulation communiquées avant paiement</li>
+        </ul>
+
+        <p class="reservation-status" data-reservation-payment-status>Vérification du paiement sécurisé…</p>
+
+        <div class="reservation-actions">
+          <a hidden class="btn btn-primary" data-reservation-pay href="#" rel="noopener">Verser <span data-reservation-amount>30 €</span> et confirmer mon créneau</a>
+          <a class="btn btn-ghost" href="https://wa.me/596696017007?text=Bonjour%20MADYCLEAR%2C%20je%20souhaite%20confirmer%20mon%20rendez-vous." target="_blank" rel="noopener">Contacter MADYCLEAR</a>
+        </div>
+
+        <p class="reservation-warning" data-reservation-conditions>Les modalités de report et d’annulation sont précisées avant paiement.</p>
+        <p class="reservation-small">Ne payez jamais depuis un lien reçu d’une source inconnue. Vérifiez que vous êtes bien sur <strong>madyclear.fr</strong>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container copyright">© <span id="year"></span> MADYCLEAR — Martinique. Tous droits réservés.</div>
+  </footer>
+  <script src="/assets/script.js" defer></script>
+</body>
+</html>
