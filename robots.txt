@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /app/
 Disallow: /DIGISTAFF/
 Disallow: /MADYCLEAR_GITHUB_READY/
 Disallow: /AUDIT-CONNEXIONS-CLIENTS.md
