@@ -1,10 +1,10 @@
-const APP_VERSION='1.9.1-pricing-sync';
+const APP_VERSION='1.9.2-launch';
 const CACHE=`madyclear-personal-${APP_VERSION}`;
 const PRICING_URL='../assets/madyclear-pricing.json';
 const ASSETS=['./','./index.html','./app.css','./sync.js','./manifest.webmanifest','./logo.png','./icons/icon-72.png','./icons/icon-96.png','./icons/icon-128.png','./icons/icon-144.png','./icons/icon-152.png','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-384.png','./icons/icon-512.png',PRICING_URL];
 
 const FALLBACK_PRICING={
-  version:'2026-09-17',
+  version:'2026-09-17-commercial-v2',
   textile:{
     minimum_intervention:80,
     items:[
@@ -19,7 +19,23 @@ const FALLBACK_PRICING={
     ]
   },
   packs:{mode:'quote_only',display_discount_percentage:false,label:'Pack sur mesure — uniquement sur devis'},
-  sap:{rate_max:0.5,automatic:false,commercial_discount:false}
+  sap:{rate_max:0.5,automatic:false,commercial_discount:false},
+  forfaits:{
+    display:true,
+    label:'Forfaits entretien',
+    starting_price_monthly:130,
+    frequency:'2 passages par mois selon la formule',
+    internal_calculations_public:false
+  },
+  reservation:{
+    type:'arrhes',
+    amount:30,
+    deducted_from_final_invoice:true,
+    label:'Réservation garantie',
+    applies_to:'rendez-vous ponctuels après validation du devis',
+    conditions:'Les modalités de report et d’annulation sont précisées avant paiement.',
+    automatic_payment:false
+  }
 };
 
 async function loadPricingConfig(){
@@ -48,14 +64,17 @@ function patchHtml(source,config=FALLBACK_PRICING){
   const minimum=Math.max(0,Number(textile.minimum_intervention||80));
   const items=Array.isArray(textile.items)&&textile.items.length?textile.items:FALLBACK_PRICING.textile.items;
   const sapRate=Math.min(1,Math.max(0,Number(config?.sap?.rate_max??0.5)));
+  const forfaitPrice=Math.max(0,Number(config?.forfaits?.starting_price_monthly??130));
+  const forfaitFrequency=String(config?.forfaits?.frequency||'2 passages par mois selon la formule');
+  const reservationAmount=Math.max(0,Number(config?.reservation?.amount??30));
 
   // Identité de version — sans changer la clé localStorage ni la structure du cockpit.
-  html=html.replaceAll('V1.8.2','V1.9.1');
-  html=html.replaceAll('1.8.2-options','1.9.1-pricing-sync');
-  html=html.replace("const APP_VERSION='1.8.2';","const APP_VERSION='1.9.1';");
-  html=html.replace('version:1.82,','version:1.91,');
-  html=html.replace('V1.9.1 • Priorité','V1.9.1 • Tarifs synchronisés');
-  html=html.replace('Textile SAP','Textile domicile');
+  html=html.replaceAll('V1.8.2','V1.9.2');
+  html=html.replaceAll('1.8.2-options','1.9.2-launch');
+  html=html.replace("const APP_VERSION='1.8.2';","const APP_VERSION='1.9.2';");
+  html=html.replace('version:1.82,','version:1.92,');
+  html=html.replace('V1.9.2 • Priorité','V1.9.2 • Lancement terrain');
+  html=html.replace('Textile SAP','Textile lancement');
   html=html.replace('<strong>70 €</strong><small>reste estimé 2P*</small>','<strong>160 €</strong><small>tarif officiel 2P</small>');
 
   // Le site officiel devient la source de vérité : le cockpit reçoit la même grille.
@@ -63,7 +82,7 @@ function patchHtml(source,config=FALLBACK_PRICING){
     const detail=item.id==='chaise'?'Tarif officiel • par unité':'Tarif officiel MADYCLEAR';
     return `  {id:${JSON.stringify(String(item.id||''))},name:${JSON.stringify(String(item.name||''))},price:${Number(item.price||0)},sap:${item.sap_potential!==false},detail:${JSON.stringify(detail)}}`;
   }).join(',\n');
-  const pricingBlock=`const TEXTILE_MINIMUM=${minimum};\nconst MADYCLEAR_PRICING_VERSION=${JSON.stringify(String(config?.version||''))};\nconst pricing={\n textile:[\n${appItems}\n ],\n auto:`;
+  const pricingBlock=`const TEXTILE_MINIMUM=${minimum};\nconst MADYCLEAR_PRICING_VERSION=${JSON.stringify(String(config?.version||''))};\nconst MADYCLEAR_FORFAIT_MONTHLY=${forfaitPrice};\nconst MADYCLEAR_FORFAIT_FREQUENCY=${JSON.stringify(forfaitFrequency)};\nconst MADYCLEAR_RESERVATION_AMOUNT=${reservationAmount};\nconst pricing={\n textile:[\n${appItems}\n ],\n auto:`;
   html=html.replace(/const pricing=\{\s*textile:\[[\s\S]*?\n \],\n auto:/,pricingBlock);
 
   // Conditions tarifaires : minimum = plancher de facture, jamais une ligne à ajouter.
@@ -76,6 +95,11 @@ function patchHtml(source,config=FALLBACK_PRICING){
   html=html.replace('Reste à charge indicatif après crédit d\'impôt potentiel :','Coût indicatif après crédit d\'impôt potentiel, uniquement si éligible :');
   html=html.replace('Reste estimé : ${money(q.net).replace(\',00\',\'\')} • part SAP potentielle :','Coût indicatif si éligible : ${money(q.net).replace(\',00\',\'\')} • montant potentiellement éligible :');
 
+  // Pipeline terrain : on conserve les anciens statuts pour ne perdre aucun contact existant.
+  const legacyStatus='<label>Statut<select id="contactStatus"><option>Prospect</option><option>À contacter</option><option>Relance</option><option>Devis envoyé</option><option>RDV</option><option>Client</option><option>Gagné</option><option>Perdu</option></select></label>';
+  const launchStatus=`<label>Statut<select id="contactStatus"><option>Prospect</option><option>Nouveau</option><option>À contacter</option><option>Qualifié</option><option>Devis envoyé</option><option>Devis accepté</option><option>Arrhes ${reservationAmount} € reçues</option><option>RDV</option><option>RDV confirmé</option><option>Réalisé</option><option>Payé</option><option>Relance</option><option>À relancer</option><option>Client</option><option>Gagné</option><option>Perdu</option></select></label>`;
+  html=html.replace(legacyStatus,launchStatus);
+
   // État réel des connexions.
   html=html.replace("{id:'supabase',label:'Supabase',detail:'Synchronisation multi-appareils / base centrale',next:'Créer/relier le projet Supabase et ses tables métier.'}","{id:'supabase',label:'Supabase',detail:'CRM public + synchronisation cockpit disponibles',next:'Utiliser le bouton SYNC pour connecter le compte propriétaire puis lancer la synchronisation.'}");
   html=html.replace("{id:'gmail',label:'Gmail',detail:'Lecture, classement, brouillons',next:'Autoriser Gmail puis relier les workflows via n8n.'}","{id:'gmail',label:'Gmail',detail:'Compte disponible • automatisation permanente inactive',next:'Activer les alertes seulement au lancement officiel.'}");
@@ -83,28 +107,38 @@ function patchHtml(source,config=FALLBACK_PRICING){
   html=html.replace("{id:'drive',label:'Google Drive',detail:'Photos, devis et documents',next:'Autoriser Drive et choisir les dossiers MADYCLEAR.'}","{id:'drive',label:'Google Drive',detail:'Compte disponible • archivage auto inactif',next:'Choisir les dossiers MADYCLEAR avant toute synchronisation automatique.'}");
   html=html.replace("{id:'whatsapp',label:'WhatsApp Business',detail:'Messages automatisés et notifications',next:'Relier l’API officielle WhatsApp Business après validation.'}","{id:'whatsapp',label:'WhatsApp Business',detail:'Échanges manuels • automatisation préparée',next:'Activer Peach Core uniquement au lancement officiel.'}");
 
-  // Carte d’état consolidée ajoutée autour de l’existant, sans supprimer de module.
-  if(!html.includes('id="launch-state-v191"')){
+  // Carte mise en activité : objectif 10 prestations + parcours commercial validé.
+  if(!html.includes('id="launch-state-v192"')){
     const marker='<article class="glass operational-focus">';
-    const launch=`<article class="glass operational-focus" id="launch-state-v191">
+    const launch=`<article class="glass operational-focus" id="launch-state-v192">
           <div class="section-head compact">
-            <div><span class="eyebrow">État du lancement</span><h2>Système MADYCLEAR aujourd’hui</h2></div>
-            <span class="ops-state connected">À JOUR</span>
+            <div><span class="eyebrow">Mise en activité terrain V1</span><h2>Objectif : 10 prestations payées</h2></div>
+            <span class="ops-state connected">ACTIF</span>
           </div>
-          <p class="lead-small">Le site public et l’application utilisent maintenant la même grille tarifaire officielle. Le cockpit peut aussi synchroniser ses données avec la base centrale après connexion du compte propriétaire.</p>
+          <p class="lead-small">Lancement centré sur le textile. Chaque prospect doit avancer dans le même tunnel jusqu’au paiement et à la relance.</p>
           <div class="ops-list">
             <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Tarifs site ↔ appli</strong><small>Source officielle unique • version ${String(config?.version||'courante')}</small></div><span class="ops-state connected">ACTIF</span></div>
-            <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Site officiel</strong><small>madyclear.fr • production</small></div><span class="ops-state connected">ACTIF</span></div>
+            <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Pipeline client</strong><small>Nouveau → Qualifié → Devis → Arrhes → RDV → Réalisé → Payé → Relance</small></div><span class="ops-state connected">ACTIF</span></div>
+            <div class="ops-row"><span class="ops-dot ready"></span><div><strong>Réservation garantie</strong><small>${reservationAmount} € d’arrhes après validation du devis • déduites du solde</small></div><span class="ops-state prepared">MANUEL</span></div>
+            <div class="ops-row"><span class="ops-dot ready"></span><div><strong>Forfait entretien</strong><small>À partir de ${forfaitPrice} €/mois • ${forfaitFrequency}</small></div><span class="ops-state prepared">ACTIF</span></div>
             <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Site → CRM</strong><small>Demande enregistrée avant ouverture de WhatsApp</small></div><span class="ops-state connected">ACTIF</span></div>
             <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Cockpit ↔ Supabase</strong><small>Clients, prospects et brouillons de devis • connexion propriétaire requise</small></div><span class="ops-state prepared">SYNC</span></div>
-            <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Google</strong><small>Business Profile + Search Console</small></div><span class="ops-state connected">ACTIF</span></div>
-            <div class="ops-row"><span class="ops-dot ready"></span><div><strong>WhatsApp client</strong><small>Ouverture après capture CRM • échanges manuels</small></div><span class="ops-state prepared">MANUEL</span></div>
-            <div class="ops-row"><span class="ops-dot wait"></span><div><strong>Alertes & relances automatiques</strong><small>Préparées mais volontairement inactives avant lancement</small></div><span class="ops-state waiting">PAUSE</span></div>
+            <div class="ops-row"><span class="ops-dot wait"></span><div><strong>Paiement automatique</strong><small>Stripe mis de côté • aucun encaissement automatique actif</small></div><span class="ops-state waiting">PAUSE</span></div>
           </div>
         </article>
 
         ${marker}`;
     html=html.replace(marker,launch);
+  }
+
+  // Bloc commercial dans l’écran devis, sans supprimer les modules historiques.
+  if(!html.includes('id="launch-offer-v192"')){
+    const quoteHeader='<div class="page-title"><span class="eyebrow">MADYCLEAR</span><h1>Devis terrain</h1><p>Tu sélectionnes. L’appli calcule. Tu gardes la décision finale.</p></div>';
+    const launchOffer=`${quoteHeader}
+        <article class="glass quote-status" id="launch-offer-v192">
+          <div><span class="chip waiting">Lancement textile</span><p><strong>Forfait entretien :</strong> à partir de ${forfaitPrice} €/mois • ${forfaitFrequency}.</p><p><strong>Réservation :</strong> ${reservationAmount} € d’arrhes après acceptation du devis, encaissées manuellement pour le moment et déduites du solde.</p></div>
+        </article>`;
+    html=html.replace(quoteHeader,launchOffer);
   }
 
   // Module de synchronisation : ajouté une seule fois au runtime officiel.
