@@ -95,6 +95,8 @@
         document.querySelectorAll('[data-forfait-price]').forEach((node) => {
           node.textContent = `${forfaitPrice} €`;
         });
+        const heroForfait = document.querySelector('.snapshot-item.forfait strong');
+        if (heroForfait) heroForfait.textContent = `dès ${forfaitPrice} €/mois`;
         document.querySelectorAll('[data-forfait-frequency]').forEach((node) => {
           node.textContent = config.forfaits.frequency || '2 passages par mois selon la formule';
         });
