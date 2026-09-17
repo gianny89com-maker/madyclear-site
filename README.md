@@ -53,9 +53,9 @@ L’avantage fiscal éventuel de 50 % ne doit être présenté que comme **poten
 
 ## Horaires validés
 
-- Lundi à samedi : **7 h–22 h**
-- Dimanche : **7 h–12 h**
-- Interventions sur rendez-vous et selon les disponibilités.
+- Demandes et devis du lundi au samedi : **7 h–22 h**
+- Demandes et devis le dimanche : **7 h–12 h**
+- Interventions : **uniquement sur rendez-vous**, selon les disponibilités.
 
 ## Coordonnées publiques
 
