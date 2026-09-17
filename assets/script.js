@@ -27,10 +27,10 @@
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
-  // Source unique des tarifs : le site et le cockpit MADYCLEAR lisent le même fichier.
+  // Source unique des tarifs et règles commerciales : site + cockpit MADYCLEAR.
   const loadOfficialPricing = async () => {
     try {
-      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-17-commercial-v2', {cache: 'no-store'});
+      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-17-commercial-v3', {cache: 'no-store'});
       if (!response.ok) throw new Error(`pricing_http_${response.status}`);
       const config = await response.json();
       const textile = config && config.textile;
@@ -112,6 +112,18 @@
         const reservationConditions = document.querySelector('[data-reservation-conditions]');
         if (reservationConditions && config.reservation.conditions) {
           reservationConditions.textContent = config.reservation.conditions;
+        }
+
+        const payment = config.reservation.payment || {};
+        window.MADYCLEAR_BOOKING_PAYMENT = payment;
+        const payButton = document.querySelector('[data-reservation-pay]');
+        const payStatus = document.querySelector('[data-reservation-payment-status]');
+        if (payButton && payment.enabled === true && payment.payment_url) {
+          payButton.href = payment.payment_url;
+          payButton.hidden = false;
+          if (payStatus) payStatus.textContent = `Paiement sécurisé de ${arrhes} € disponible. Cette somme sera déduite de la facture finale.`;
+        } else if (payStatus) {
+          payStatus.textContent = 'Le paiement sécurisé en ligne est en cours d’activation. Aucun versement ne doit être effectué tant que MADYCLEAR ne vous a pas confirmé le devis et le créneau.';
         }
       }
     } catch (error) {
