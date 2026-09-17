@@ -1,80 +1,61 @@
 # AUDIT DES CONNEXIONS CLIENTS — MADYCLEAR
 
-Date : 17 septembre 2026  
+Date de mise à jour : 16 septembre 2026  
 Site audité : https://www.madyclear.fr/
 
 ## Résultat exécutif
 
-Le site public fonctionne correctement comme vitrine et comme préparateur de message WhatsApp. Il ne possède toutefois aucun backend de collecte, aucune base de prospects, aucun système d’alerte email indépendant et aucune relance automatisée.
+Le site public est désormais raccordé au CRM MADYCLEAR : le formulaire crée une demande dans Supabase via `madyclear-capture` **avant** l’ouverture de WhatsApp. MADYCLEAR ne dépend donc plus uniquement du fait que le prospect termine manuellement son message WhatsApp pour connaître son existence.
 
-Un prospect n’est actuellement connu de MADYCLEAR que s’il termine lui-même l’envoi du message dans WhatsApp.
+Le cockpit privé `https://www.madyclear.fr/app/` constitue l’interface opérationnelle officielle. Il dispose d’une synchronisation Supabase authentifiée et manuelle en V1. Les automatisations externes sensibles restent volontairement limitées avant le lancement officiel.
 
 ## Connexions actuellement actives
 
 | Canal | État | Fonctionnement réel |
 |---|---|---|
+| Site officiel | Actif | GitHub Pages sur `madyclear.fr`. |
+| Formulaire → CRM | Actif | Capture sécurisée dans Supabase via `madyclear-capture`. |
 | Téléphone | Actif | Le lien lance l’appel vers 06 96 01 70 07. |
-| WhatsApp | Partiel | Le site prépare un message et ouvre WhatsApp. Aucun message n’est envoyé automatiquement. |
-| Email | Partiel | Le lien ouvre la messagerie du visiteur. Aucun email automatique n’est généré par le formulaire. |
-| Google Business Profile | Actif | La fiche renvoie vers madyclear.fr. |
+| WhatsApp | Actif manuel | Après capture CRM, le site ouvre WhatsApp avec un message prérempli. Aucun envoi automatique. |
+| Email direct | Actif | Le visiteur peut ouvrir sa messagerie vers `contact@madyclear.fr`. |
+| Google Business Profile | Actif | La fiche renvoie vers `madyclear.fr`. |
 | Google Search Console | Actif | Le domaine et le sitemap sont reconnus. |
-| GitHub Pages | Actif | Le site officiel est publié depuis la branche main. |
-| CRM MADYCLEAR | Non connecté | L’application locale ne reçoit pas les demandes du site. |
-| Instagram | Non connecté au site | Aucun lien ni remontée de prospects. |
-| Facebook | Non connecté au site | Aucun lien ni remontée de prospects. |
-| TikTok | Non connecté au site | Aucun lien ni remontée de prospects. |
-| YouTube | Non connecté au site | Aucun lien ni remontée de prospects. |
-| Agenda | Non connecté | Aucun créneau ni rendez-vous n’est créé automatiquement. |
-| Relances | Absentes | Aucun rappel interne ou message client automatique. |
-| Mesure des conversions | Absente | Aucun suivi des clics, demandes, devis ou transformations. |
+| Cockpit MADYCLEAR | Actif | PWA officielle dans `/app/`. |
+| Cockpit ↔ Supabase | Préparé / manuel | Authentification + `madyclear-sync`. Premier test propriétaire à valider sur appareil. |
+| Gmail | Disponible via passerelle | Pas d’alerte permanente automatique activée. |
+| Google Calendar | Disponible via passerelle | Écritures externes à brancher progressivement. |
+| Google Drive | Disponible via passerelle | Archivage automatisé non généralisé. |
+| Metricool | Disponible via passerelle | Hub social retenu ; publication avec validation. |
+| Alertes e-mail propriétaire | Préparées | Règle prête mais inactive avant activation contrôlée. |
+| Confirmation WhatsApp | Préparée | Inactive avant lancement officiel. |
+| Relance WhatsApp | Préparée | Inactive avant lancement officiel. |
+| Réception Meta / WhatsApp | Technique prête | Fournisseur officiel non finalisé pour l’automatisation complète. |
 
-## Risque principal
-
-Le formulaire actuel utilise uniquement JavaScript dans le navigateur. Après validation, il construit une URL `wa.me` et ouvre WhatsApp. Il ne transmet rien à MADYCLEAR tant que le client n’appuie pas lui-même sur Envoyer dans WhatsApp.
-
-Conséquences :
-- abandon invisible ;
-- aucune copie email ;
-- aucune fiche prospect ;
-- aucune date de relance ;
-- aucune statistique de conversion ;
-- impossibilité de savoir quelle source a apporté le client.
-
-## Architecture cible MADYCLEAR — Employé Client V1
+## Parcours client actuel
 
 1. Le client remplit le formulaire du site.
-2. Le formulaire crée un prospect sécurisé dans la base CRM.
-3. MADYCLEAR reçoit immédiatement un email sur contact@madyclear.fr.
-4. La notification email apparaît sur le téléphone via l’application Gmail.
-5. WhatsApp s’ouvre avec le message prérempli pour permettre l’envoi des photos.
-6. Le prospect reçoit un statut : Nouveau, À qualifier, Devis envoyé, Relance, Rendez-vous, Gagné ou Perdu.
-7. Une date de prochaine action est enregistrée.
-8. Le système rappelle à Gino les prospects sans réponse.
-9. Les relances destinées au client ne sont envoyées automatiquement que si le canal, le consentement et les règles WhatsApp le permettent.
-10. Les demandes provenant de Google, Instagram, Facebook ou du site utilisent une source distincte pour mesurer les résultats.
+2. Le formulaire enregistre la demande dans le CRM Supabase.
+3. La source, le besoin et les coordonnées exploitables sont conservés pour le suivi.
+4. Le site ouvre WhatsApp avec un message prérempli.
+5. Les photos peuvent ensuite être envoyées manuellement dans WhatsApp.
+6. Le prospect peut être repris dans le cockpit MADYCLEAR via la synchronisation CRM.
+7. Le suivi commercial reste humainement contrôlé avant toute automatisation client.
 
-## Socle technique recommandé
+## Architecture officielle
 
-- Site officiel : GitHub Pages conservé.
+- Site officiel : GitHub Pages.
+- Domaine : `madyclear.fr`.
 - Base CRM : Supabase.
-- Réception instantanée : fonction sécurisée côté serveur.
-- Notification principale : email vers contact@madyclear.fr.
-- Alerte téléphone : notification Gmail sur le téléphone.
-- WhatsApp initial : lien direct conservé.
-- Automatisation : n8n ou fonctions planifiées une fois les comptes connectés.
-- Agenda : Google Calendar après connexion.
-- Tableau de suivi : CRM MADYCLEAR connecté à la même base.
+- Capture publique : `madyclear-capture`.
+- Cockpit privé : `madyclear.fr/app/`.
+- Synchronisation : `/app/sync.js` → `madyclear-sync`.
+- WhatsApp initial : lien direct conservé après capture CRM.
+- Hub réseaux : Metricool.
+- Agenda : Google Calendar via passerelle.
+- Documents : Google Drive via passerelle.
+- DIGISTAFF : couche d’intelligence et d’orchestration, sans création d’un second CRM.
 
-## Règles de relance recommandées
-
-- Immédiat : accusé de réception uniquement après demande réellement enregistrée.
-- 24 heures : rappel interne si le prospect n’a pas reçu de devis.
-- 48 heures après devis : tâche de relance interne.
-- 7 jours : dernière relance, puis classement sans suite.
-- Arrêt immédiat des relances en cas de refus, demande de suppression ou rendez-vous confirmé.
-- Aucun envoi promotionnel sans consentement approprié.
-
-## Données minimales à enregistrer
+## Données minimales suivies
 
 - identifiant du prospect ;
 - date et heure ;
@@ -90,78 +71,70 @@ Conséquences :
 - prochaine action ;
 - historique des échanges.
 
-Les photographies ne doivent pas être stockées automatiquement dans la première version. Elles restent dans WhatsApp tant qu’un stockage sécurisé séparé n’est pas validé.
+Les photographies ne sont pas stockées automatiquement dans le CRM public. Elles restent dans le canal utilisé tant qu’un stockage sécurisé séparé n’est pas validé.
 
-## Branchements requis avant activation
+## Relances
 
-1. Connexion ou création du projet Supabase de production.
-2. Validation de l’adresse qui recevra les alertes.
-3. Configuration d’un service d’envoi email.
-4. Vérification de WhatsApp Business et décision concernant l’API officielle Meta.
-5. Connexion Google Calendar.
-6. URLs officielles Instagram, Facebook, TikTok et YouTube.
-7. Mise à jour de la politique de confidentialité avant toute nouvelle collecte.
-8. Test complet avec un faux prospect avant ouverture publique.
+Règles opérationnelles recommandées :
 
-## Ordre de mise en œuvre
+- immédiat : demande enregistrée et visible dans le CRM ;
+- 24 h : rappel interne si le prospect n’a pas reçu de réponse ou de devis ;
+- 48 h après devis : tâche de relance interne ;
+- 7 jours : dernière relance contrôlée puis classement ;
+- arrêt immédiat en cas de refus, demande de suppression ou rendez-vous confirmé.
 
-### Phase 1 — Fiabilité
-- Enregistrement sécurisé des demandes.
-- Email instantané.
-- Notification sur téléphone.
-- Tableau prospects.
-- Source du prospect.
+Aucune relance WhatsApp automatique n’est activée avant validation du canal officiel, du consentement et des règles de lancement.
 
-### Phase 2 — Organisation
-- Statuts commerciaux.
-- Dates de relance.
-- Rappels internes.
-- Agenda.
+## WhatsApp : état réel
 
-### Phase 3 — Automatisation externe
-- Accusés de réception.
-- Relances client autorisées.
-- WhatsApp Business API.
-- Mesure complète des conversions par réseau.
+Le compte/connecteur actuel n’est pas retenu comme base suffisante pour l’automatisation complète. La cible reste :
 
+- Peach Core, ou
+- API officielle Meta Cloud.
 
----
+Avant activation :
 
-## Compte rendu d’exécution — 17 septembre 2026
+1. connecter le numéro officiel `+596 696 01 70 07` ;
+2. valider les modèles de messages ;
+3. tester un faux prospect contrôlé ;
+4. vérifier l’arrêt automatique des relances en cas de réponse/refus/réservation ;
+5. activer progressivement.
 
-### Travail réalisé
+## DIGISTAFF et actions externes
 
-- Audit du site public, du formulaire de devis, des liens téléphone, e-mail et WhatsApp.
-- Vérification du projet Supabase principal MADYCLEAR et de ses tables CRM.
-- Confirmation de l’existence des modules prospects, clients, notifications, automatisations, agenda, devis, factures et suivi des interventions.
-- Vérification des fonctions actives `madyclear-capture` et `madyclear-meta-webhook`.
-- Raccordement du formulaire public à `madyclear-capture` avant l’ouverture de WhatsApp.
-- Ajout de l’adresse e-mail facultative, du consentement de confidentialité, d’un piège antispam et d’un message d’état accessible.
-- Mise à jour de la politique de confidentialité pour décrire l’enregistrement CRM et les prestataires techniques.
-- Correction du registre des intégrations : GitHub Pages est désormais le site officiel actif ; Wix est marqué comme remplacé.
-- Préparation de trois règles inactives : alerte e-mail au propriétaire, confirmation WhatsApp et relance WhatsApp.
-- Vérification en production de la nouvelle version du formulaire sur `https://www.madyclear.fr/`.
+DIGISTAFF doit appliquer les règles suivantes :
 
-### État au terme de l’intervention
+- **AUTO** : lecture, classement, calcul, préparation, déduplication, journalisation ;
+- **VALIDATION** : email client, WhatsApp, publication, agenda externe, modification commerciale ;
+- **CRITIQUE** : paiement, suppression sensible, sécurité, permissions, action irréversible.
 
-| Élément | État |
-|---|---|
-| Site officiel GitHub Pages | Actif en production |
-| Formulaire vers CRM | Actif |
-| Ouverture de WhatsApp après capture | Active |
-| Téléphone et e-mail directs | Actifs |
-| Google Business Profile | Actif |
-| Google Search Console | Actif |
-| Gmail, Agenda, Drive, Metricool | Disponibles via passerelle, automatisation permanente non activée |
-| Réception Meta/WhatsApp | Fonction technique prête, accès fournisseur non finalisé |
-| Peach | Compte CoPilot actuel ; Peach Core retenu pour le lancement officiel |
-| Alertes e-mail automatiques | Préparées, inactives |
-| Confirmations et relances WhatsApp | Préparées, inactives |
+Aucun secret serveur ou `service_role` ne doit être exposé dans la PWA.
 
-### Décision validée avant lancement
+## État de lancement
 
-Le site et la capture CRM restent actifs. Les échanges WhatsApp restent manuels. Aucun abonnement Peach Core, aucun envoi automatique et aucune relance client automatique ne sont activés avant le lancement officiel.
+### Actif maintenant
 
-### Condition de reprise
+- site public ;
+- capture CRM ;
+- téléphone ;
+- email direct ;
+- WhatsApp manuel ;
+- Google Business Profile ;
+- Google Search Console ;
+- cockpit MADYCLEAR ;
+- grille tarifaire commune site/app.
 
-Après activation de Peach Core, reprendre avec : connexion du numéro `+596 696 01 70 07`, validation des modèles WhatsApp, activation de l’alerte vers `contact@madyclear.fr`, test complet avec une demande contrôlée, puis activation progressive des relances avec arrêt automatique en cas de réponse, refus ou réservation.
+### Préparé mais non automatisé en permanence
+
+- synchronisation cockpit ↔ Supabase ;
+- Gmail ;
+- Calendar ;
+- Drive ;
+- Metricool ;
+- alertes e-mail ;
+- confirmations WhatsApp ;
+- relances WhatsApp.
+
+### Décision avant lancement officiel
+
+Le site et la capture CRM restent actifs. Les échanges WhatsApp restent manuels. Aucun abonnement ou envoi automatique client n’est activé tant que le flux complet n’a pas été testé et validé.
