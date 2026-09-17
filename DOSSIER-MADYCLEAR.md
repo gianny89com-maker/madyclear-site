@@ -83,6 +83,10 @@ MADYCLEAR est un spécialiste mobile du nettoyage textile en Martinique. L’ent
 - N’utiliser « désinfection », « anti-acariens » ou « élimination des allergènes » que si le produit et le protocole permettent de le prouver.
 - Identifier comme illustrations les images qui ne proviennent pas d’une intervention réelle.
 - Ne jamais publier l’adresse personnelle.
+- Respecter strictement l’intimité du client et la confidentialité de son domicile.
+- Ne partager aucune information vue ou entendue pendant une intervention.
+- Conserver les photographies de diagnostic confidentielles.
+- Obtenir l’autorisation explicite du client avant toute publication de photo ou de résultat avant/après.
 
 ## Priorités SEO local
 
