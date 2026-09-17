@@ -1,8 +1,8 @@
 {
-  "name": "MADYCLEAR Personal Cockpit V1.8.2 Options",
+  "name": "MADYCLEAR Personal Cockpit V1.8.3",
   "short_name": "MADYCLEAR",
-  "description": "Cockpit privé MADYCLEAR avec options légères : CRM en masse, multimédia pro interne, sauvegardes et PWA renforcée.",
-  "start_url": "./?source=pwa&v=1-8-2-options",
+  "description": "Cockpit privé MADYCLEAR local-first : CRM, devis alignés sur la grille officielle, suivi du lancement, sauvegardes et outils opérationnels.",
+  "start_url": "./?source=pwa&v=1-8-3-sync",
   "scope": "./",
   "display": "standalone",
   "background_color": "#06111a",
@@ -57,5 +57,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "1.8.2-options"
+  "version": "1.8.3-sync"
 }
