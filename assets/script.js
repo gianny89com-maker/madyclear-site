@@ -30,7 +30,7 @@
   // Source unique des tarifs : le site et le cockpit MADYCLEAR lisent le même fichier.
   const loadOfficialPricing = async () => {
     try {
-      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-17', {cache: 'no-store'});
+      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-17-commercial-v2', {cache: 'no-store'});
       if (!response.ok) throw new Error(`pricing_http_${response.status}`);
       const config = await response.json();
       const textile = config && config.textile;
@@ -38,6 +38,11 @@
 
       window.MADYCLEAR_PRICING = config;
       document.documentElement.dataset.pricingVersion = String(config.version || '');
+
+      const canape2Price = Number(textile.items.find((item) => item.id === 'canape2')?.price || 160);
+      document.querySelectorAll('[data-canape2-price]').forEach((node) => {
+        node.textContent = `${canape2Price} €`;
+      });
 
       const grid = document.querySelector('#tarifs .tariff-grid');
       if (grid) {
@@ -71,21 +76,59 @@
 
       const sapNote = notes.find((node) => /Avantage fiscal/i.test(node.querySelector('strong')?.textContent || ''));
       if (sapNote && config.sap) {
-        const span = sapNote.querySelector('span');
+        const span = sapNote.querySelector('.tax-copy > span') || sapNote.querySelector('span');
+        const rate = Number(config.sap.rate_max || 0);
+        const exampleNet = Math.round(canape2Price * (1 - rate));
         if (span) {
-          const exampleBase = Number(textile.items.find((item) => item.id === 'canape2')?.price || 160);
-          const rate = Number(config.sap.rate_max || 0);
-          const exampleNet = Math.round(exampleBase * (1 - rate));
-          span.textContent = `${config.sap.description || ''} Exemple indicatif : une prestation facturée ${exampleBase} € peut représenter un coût de ${exampleNet} € après crédit d’impôt si toutes les conditions sont remplies.`.trim();
+          span.textContent = `${config.sap.description || ''} L’exemple ci-contre est uniquement indicatif.`.trim();
+        }
+        sapNote.querySelectorAll('[data-tax-base]').forEach((node) => {
+          node.textContent = `${canape2Price} €`;
+        });
+        sapNote.querySelectorAll('[data-tax-net]').forEach((node) => {
+          node.textContent = `${exampleNet} €`;
+        });
+      }
+
+      if (config.forfaits) {
+        const forfaitPrice = Number(config.forfaits.starting_price_monthly || 130);
+        document.querySelectorAll('[data-forfait-price]').forEach((node) => {
+          node.textContent = `${forfaitPrice} €`;
+        });
+        document.querySelectorAll('[data-forfait-frequency]').forEach((node) => {
+          node.textContent = config.forfaits.frequency || '2 passages par mois selon la formule';
+        });
+        const conditions = document.querySelector('[data-forfait-conditions]');
+        if (conditions && config.forfaits.conditions) conditions.textContent = config.forfaits.conditions;
+      }
+
+      if (config.reservation) {
+        const arrhes = Number(config.reservation.amount || 30);
+        document.querySelectorAll('[data-reservation-amount]').forEach((node) => {
+          node.textContent = `${arrhes} €`;
+        });
+        const reservationConditions = document.querySelector('[data-reservation-conditions]');
+        if (reservationConditions && config.reservation.conditions) {
+          reservationConditions.textContent = config.reservation.conditions;
         }
       }
     } catch (error) {
-      // Le HTML contient volontairement la même grille en secours : aucune page ne casse si le JSON est indisponible.
+      // Le HTML contient volontairement les mêmes valeurs en secours : aucune page ne casse si le JSON est indisponible.
       console.warn('MADYCLEAR pricing fallback actif', error);
     }
   };
 
   loadOfficialPricing();
+
+  document.querySelectorAll('[data-select-service]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const select = document.querySelector('#quote-form select[name="service"]');
+      if (!select) return;
+      const requested = String(link.dataset.selectService || '').trim();
+      const option = Array.from(select.options).find((item) => item.value === requested || item.textContent.trim() === requested);
+      if (option) select.value = option.value || option.textContent.trim();
+    });
+  });
 
   const form = document.getElementById('quote-form');
   const endpoint = 'https://trvmbwpwnpimrxrmvrgd.supabase.co/functions/v1/madyclear-capture';
