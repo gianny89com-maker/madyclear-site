@@ -2,12 +2,13 @@
 
 **Source unique de production : branche `main` de ce dépôt.**
 
-Version métier de référence : **Dossier maître MADYCLEAR — 16/09/2026**.
+Version métier de référence : **Dossier maître MADYCLEAR — 17/09/2026**.
 
 ## Production officielle
 
 - Site : `https://www.madyclear.fr/`
 - Cockpit privé : `https://www.madyclear.fr/app/`
+- Parcours réservation : `https://www.madyclear.fr/reservation/`
 - Domaine unique : `madyclear.fr`
 - Base centrale : Supabase MADYCLEAR
 - Cockpit : **V1.9.1 PRICING SYNC**
@@ -62,6 +63,32 @@ Le minimum est un plancher de facture. Les packs restent personnalisés et uniqu
 
 L’avantage fiscal éventuel ne doit être présenté que comme **potentiel et sous conditions d’éligibilité**.
 
+## Règles commerciales validées — 17/09/2026
+
+### Forfaits entretien
+
+- Prix public : **à partir de 130 €/mois**.
+- Base actuelle : **2 passages par mois selon la formule**.
+- Les calculs internes de marge et de coût par passage restent confidentiels et ne doivent pas être affichés publiquement.
+- Présentation publique séparée de la grille ponctuelle : **« Vos forfaits, sans stress »**.
+- Forfait soumis à conditions, rendez-vous, disponibilités et éventuels compléments pour prestations particulières.
+
+### Paiement fractionné
+
+- Paiement fractionné possible jusqu’à **3 fois maximum**.
+- Le seuil public n’est pas affiché tant qu’il n’est pas définitivement fixé.
+- Toute proposition de 3× reste soumise à validation MADYCLEAR selon le montant.
+
+### Réservation garantie
+
+- Après validation du devis, un versement de **30 € d’arrhes** confirme le créneau.
+- Les 30 € sont déduits de la facture finale.
+- Les modalités de report et d’annulation sont communiquées avant paiement.
+- Les passages d’un forfait actif ne nécessitent pas 30 € d’arrhes à chaque rendez-vous.
+- Le parcours `/reservation/` est préparé pour un paiement sécurisé en ligne.
+- Le montant de 30 € est centralisé dans `/assets/madyclear-pricing.json` afin d’éviter les divergences.
+- Le paiement automatique reste désactivé tant que le compte Stripe MADYCLEAR et le lien de paiement officiel ne sont pas connectés.
+
 ## Horaires validés
 
 - Demandes et devis du lundi au samedi : **7 h–22 h**
@@ -82,6 +109,7 @@ L’avantage fiscal éventuel ne doit être présenté que comme **potentiel et 
 3. WhatsApp s’ouvre ensuite avec le message prérempli.
 4. Le prospect est suivi dans le cockpit/CRM.
 5. Le tarif et le créneau sont confirmés avant intervention.
+6. Après validation du devis, le client peut être dirigé vers `/reservation/` pour verser les 30 € d’arrhes dès que le paiement Stripe officiel est activé.
 
 ## Cockpit MADYCLEAR
 
@@ -94,7 +122,7 @@ Runtime officiel :
 - `/app/service-worker.js`
 - `/app/icons/*`
 
-Le cockpit est local-first et reste utilisable hors ligne. La synchronisation Supabase est authentifiée et manuelle par défaut. Aucun message client, publication sociale ou paiement n’est déclenché automatiquement par la synchronisation.
+Le cockpit est local-first et reste utilisable hors ligne. La synchronisation Supabase est authentifiée et manuelle par défaut. Aucun message client, publication sociale ou paiement n’est déclenché automatiquement par la synchronisation tant qu’une automatisation n’est pas explicitement activée.
 
 ## Connexions
 
@@ -114,6 +142,7 @@ Le cockpit est local-first et reste utilisable hors ligne. La synchronisation Su
 - Google Calendar
 - Google Drive
 - Metricool
+- Stripe pour les arrhes de réservation
 - alertes e-mail propriétaire
 - confirmation et relance WhatsApp
 
