@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071521">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Installer MADYCLEAR</title>
+  <link rel="manifest" href="./manifest.webmanifest?v=1.9.2-install">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+  <style>
+    :root{color-scheme:dark;--bg:#06111a;--card:#0b2130;--line:#1f4d5f;--text:#f4fbfd;--muted:#a9c0c9;--cyan:#16b9b0;--orange:#ff8a34}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at 80% 0,#0d4052 0,transparent 35%),var(--bg);color:var(--text);display:grid;place-items:center;padding:22px}
+    main{width:min(560px,100%);background:linear-gradient(180deg,#0b2230ee,#081923ee);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 24px 80px #0008}
+    .brand{display:flex;align-items:center;gap:14px}.brand img{width:64px;height:64px;border-radius:18px}.eyebrow{color:#69ddd7;font-weight:800;font-size:12px;letter-spacing:.12em}.brand h1{margin:3px 0 0;font-size:28px}
+    p{color:var(--muted);line-height:1.55}.status{margin:20px 0;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:#071b27}.status strong{display:block;color:#fff;margin-bottom:4px}
+    #installBtn{width:100%;border:0;border-radius:18px;padding:17px 18px;font-size:17px;font-weight:900;background:linear-gradient(135deg,var(--orange),#ffad45);color:#1b1007;cursor:pointer;box-shadow:0 10px 30px #ff8a3430}
+    #installBtn:disabled{opacity:.65;cursor:default}.secondary{display:block;text-align:center;margin-top:12px;padding:13px;color:#d8f5f3;text-decoration:none;border:1px solid #285164;border-radius:14px}.help{margin-top:18px;padding-top:16px;border-top:1px solid #183947;font-size:13px}.help ol{color:var(--muted);padding-left:20px;line-height:1.65}.ok{color:#57e0a9!important}.warn{color:#ffc36c!important}
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand">
+    <img src="./icons/icon-192.png" alt="MADYCLEAR">
+    <div><div class="eyebrow">MADYCLEAR • APPLICATION</div><h1>Installer le cockpit</h1></div>
+  </div>
+  <p>Cette page prépare l’installation de MADYCLEAR comme application sur ton téléphone Android, avec icône et ouverture en plein écran.</p>
+  <div class="status" id="status"><strong>Vérification…</strong><span>Contrôle du navigateur et du service worker.</span></div>
+  <button id="installBtn" type="button">INSTALLER MADYCLEAR</button>
+  <a class="secondary" href="./">Ouvrir l’application</a>
+  <div class="help" id="help" hidden>
+    <strong>Si Android n’affiche pas la fenêtre d’installation :</strong>
+    <ol>
+      <li>ouvre cette page dans <b>Google Chrome</b> ;</li>
+      <li>appuie de nouveau sur <b>INSTALLER MADYCLEAR</b> ;</li>
+      <li>si Chrome ne propose toujours rien, ouvre le menu ⋮ puis <b>Ajouter à l’écran d’accueil</b>.</li>
+    </ol>
+  </div>
+</main>
+<script>
+(() => {
+  'use strict';
+  let installPrompt = null;
+  const btn = document.getElementById('installBtn');
+  const status = document.getElementById('status');
+  const help = document.getElementById('help');
+  const standalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const setStatus = (title, text, cls='') => { status.innerHTML = `<strong class="${cls}">${title}</strong><span>${text}</span>`; };
+
+  if (standalone()) {
+    setStatus('MADYCLEAR est déjà installée', 'Tu peux l’ouvrir depuis l’icône de ton écran d’accueil.', 'ok');
+    btn.textContent = 'APPLICATION DÉJÀ INSTALLÉE';
+    btn.disabled = true;
+  } else {
+    setStatus('Préparation de l’installation', 'Le bouton reste visible même si Chrome tarde à proposer l’installation.');
+  }
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installPrompt = event;
+    setStatus('Prêt à installer', 'Appuie sur le bouton ci-dessous.', 'ok');
+    btn.textContent = 'INSTALLER MADYCLEAR';
+    btn.disabled = false;
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installPrompt = null;
+    setStatus('Installation terminée', 'MADYCLEAR est maintenant disponible depuis ton écran d’accueil.', 'ok');
+    btn.textContent = 'INSTALLÉ ✓';
+    btn.disabled = true;
+    help.hidden = true;
+  });
+
+  btn.addEventListener('click', async () => {
+    if (standalone()) return;
+    if (installPrompt) {
+      const prompt = installPrompt;
+      installPrompt = null;
+      await prompt.prompt();
+      const choice = await prompt.userChoice.catch(() => null);
+      if (choice?.outcome === 'accepted') {
+        setStatus('Installation lancée', 'Android finalise l’ajout de MADYCLEAR.', 'ok');
+      } else {
+        setStatus('Installation non confirmée', 'Tu peux rappuyer sur le bouton quand tu veux.', 'warn');
+        help.hidden = false;
+      }
+      return;
+    }
+    setStatus('Chrome ne fournit pas encore la fenêtre native', 'Le service worker est prêt. Utilise Chrome puis réessaie le bouton.', 'warn');
+    help.hidden = false;
+    try {
+      if ('serviceWorker' in navigator) {
+        const reg = await navigator.serviceWorker.register('./service-worker.js?v=1.9.2-install', {scope:'./'});
+        await navigator.serviceWorker.ready;
+        reg.update().catch(()=>{});
+      }
+    } catch (_) {}
+  });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+      try {
+        const reg = await navigator.serviceWorker.register('./service-worker.js?v=1.9.2-install', {scope:'./'});
+        await navigator.serviceWorker.ready;
+        reg.update().catch(()=>{});
+        if (!standalone() && !installPrompt) setStatus('Application prête', 'Appuie sur INSTALLER MADYCLEAR. Si Chrome autorise l’installation, la fenêtre Android s’ouvrira.');
+      } catch (err) {
+        setStatus('Installation PWA bloquée', 'Le service worker n’a pas pu être activé dans ce navigateur.', 'warn');
+        help.hidden = false;
+      }
+    });
+  } else {
+    setStatus('Navigateur non compatible', 'Ouvre cette page dans Google Chrome sur Android.', 'warn');
+    help.hidden = false;
+  }
+})();
+</script>
+</body>
+</html>
