@@ -1,8 +1,8 @@
 {
-  "name": "MADYCLEAR Personal Cockpit V1.9 Sync",
+  "name": "MADYCLEAR Personal Cockpit V1.9.1",
   "short_name": "MADYCLEAR",
-  "description": "Cockpit privé MADYCLEAR, base officielle DIGISTAFF : CRM local-first, synchronisation Supabase sécurisée, devis et suivi opérationnel.",
-  "start_url": "./?source=pwa&v=1-9-0-sync",
+  "description": "Cockpit privé MADYCLEAR, base officielle DIGISTAFF : CRM local-first, synchronisation Supabase sécurisée, devis et tarifs officiels synchronisés avec le site.",
+  "start_url": "./?source=pwa&v=1-9-1-pricing-sync",
   "scope": "./",
   "display": "standalone",
   "background_color": "#06111a",
@@ -19,5 +19,5 @@
     {"src":"icons/icon-384.png","sizes":"384x384","type":"image/png"},
     {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ],
-  "version": "1.9.0-sync"
+  "version": "1.9.1-pricing-sync"
 }

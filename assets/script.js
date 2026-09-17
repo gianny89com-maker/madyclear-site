@@ -27,6 +27,66 @@
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
+  // Source unique des tarifs : le site et le cockpit MADYCLEAR lisent le même fichier.
+  const loadOfficialPricing = async () => {
+    try {
+      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-17', {cache: 'no-store'});
+      if (!response.ok) throw new Error(`pricing_http_${response.status}`);
+      const config = await response.json();
+      const textile = config && config.textile;
+      if (!textile || !Array.isArray(textile.items)) throw new Error('pricing_invalid');
+
+      window.MADYCLEAR_PRICING = config;
+      document.documentElement.dataset.pricingVersion = String(config.version || '');
+
+      const grid = document.querySelector('#tarifs .tariff-grid');
+      if (grid) {
+        const rows = textile.items.concat([{
+          id: 'minimum-textile',
+          name: "Minimum d’intervention textile",
+          price: Number(textile.minimum_intervention || 0),
+          condition: true
+        }]);
+        const fragment = document.createDocumentFragment();
+        rows.forEach((item) => {
+          const article = document.createElement('article');
+          article.className = 'tariff';
+          article.dataset.tariffId = item.id || '';
+          const title = document.createElement('h3');
+          title.textContent = item.name;
+          const price = document.createElement('strong');
+          price.textContent = `${Number(item.price || 0)} €`;
+          article.append(title, price);
+          fragment.appendChild(article);
+        });
+        grid.replaceChildren(fragment);
+      }
+
+      const notes = Array.from(document.querySelectorAll('#tarifs .price-notes'));
+      const packNote = notes.find((node) => /Composez votre pack/i.test(node.querySelector('strong')?.textContent || ''));
+      if (packNote && config.packs) {
+        const span = packNote.querySelector('span');
+        if (span) span.textContent = `${config.packs.description || ''} ${config.packs.label || ''}`.trim();
+      }
+
+      const sapNote = notes.find((node) => /Avantage fiscal/i.test(node.querySelector('strong')?.textContent || ''));
+      if (sapNote && config.sap) {
+        const span = sapNote.querySelector('span');
+        if (span) {
+          const exampleBase = Number(textile.items.find((item) => item.id === 'canape2')?.price || 160);
+          const rate = Number(config.sap.rate_max || 0);
+          const exampleNet = Math.round(exampleBase * (1 - rate));
+          span.textContent = `${config.sap.description || ''} Exemple indicatif : une prestation facturée ${exampleBase} € peut représenter un coût de ${exampleNet} € après crédit d’impôt si toutes les conditions sont remplies.`.trim();
+        }
+      }
+    } catch (error) {
+      // Le HTML contient volontairement la même grille en secours : aucune page ne casse si le JSON est indisponible.
+      console.warn('MADYCLEAR pricing fallback actif', error);
+    }
+  };
+
+  loadOfficialPricing();
+
   const form = document.getElementById('quote-form');
   const endpoint = 'https://trvmbwpwnpimrxrmvrgd.supabase.co/functions/v1/madyclear-capture';
 

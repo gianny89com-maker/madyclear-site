@@ -1,32 +1,80 @@
-const APP_VERSION='1.9.0-sync';
+const APP_VERSION='1.9.1-pricing-sync';
 const CACHE=`madyclear-personal-${APP_VERSION}`;
-const ASSETS=['./','./index.html','./app.css','./sync.js','./manifest.webmanifest','./logo.png','./icons/icon-72.png','./icons/icon-96.png','./icons/icon-128.png','./icons/icon-144.png','./icons/icon-152.png','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-384.png','./icons/icon-512.png'];
+const PRICING_URL='../assets/madyclear-pricing.json';
+const ASSETS=['./','./index.html','./app.css','./sync.js','./manifest.webmanifest','./logo.png','./icons/icon-72.png','./icons/icon-96.png','./icons/icon-128.png','./icons/icon-144.png','./icons/icon-152.png','./icons/icon-180.png','./icons/icon-192.png','./icons/icon-384.png','./icons/icon-512.png',PRICING_URL];
 
-function patchHtml(source){
+const FALLBACK_PRICING={
+  version:'2026-09-17',
+  textile:{
+    minimum_intervention:80,
+    items:[
+      {id:'canape2',name:'Canapé 2 places',price:160,sap_potential:true},
+      {id:'canape3',name:'Canapé 3 places',price:190,sap_potential:true},
+      {id:'angle',name:'Canapé angle / panoramique',price:240,sap_potential:true},
+      {id:'fauteuil',name:'Fauteuil',price:80,sap_potential:true},
+      {id:'mat1',name:'Matelas 1 place',price:120,sap_potential:true},
+      {id:'mat2',name:'Matelas 2 places',price:160,sap_potential:true},
+      {id:'tapis',name:'Tapis standard',price:100,sap_potential:true},
+      {id:'chaise',name:'Chaise textile',price:40,sap_potential:true}
+    ]
+  },
+  packs:{mode:'quote_only',display_discount_percentage:false,label:'Pack sur mesure — uniquement sur devis'},
+  sap:{rate_max:0.5,automatic:false,commercial_discount:false}
+};
+
+async function loadPricingConfig(){
+  try{
+    const response=await fetch(PRICING_URL,{cache:'no-store'});
+    if(response.ok){
+      const copy=response.clone();
+      caches.open(CACHE).then(cache=>cache.put(PRICING_URL,copy)).catch(()=>null);
+      const json=await response.json();
+      if(json?.textile?.items?.length)return json;
+    }
+  }catch(e){}
+  try{
+    const cached=await caches.match(PRICING_URL)||await caches.match(`${PRICING_URL}?v=${APP_VERSION}`);
+    if(cached){
+      const json=await cached.json();
+      if(json?.textile?.items?.length)return json;
+    }
+  }catch(e){}
+  return FALLBACK_PRICING;
+}
+
+function patchHtml(source,config=FALLBACK_PRICING){
   let html=String(source||'');
+  const textile=config?.textile||FALLBACK_PRICING.textile;
+  const minimum=Math.max(0,Number(textile.minimum_intervention||80));
+  const items=Array.isArray(textile.items)&&textile.items.length?textile.items:FALLBACK_PRICING.textile.items;
+  const sapRate=Math.min(1,Math.max(0,Number(config?.sap?.rate_max??0.5)));
 
   // Identité de version — sans changer la clé localStorage ni la structure du cockpit.
-  html=html.replaceAll('V1.8.2','V1.9.0');
-  html=html.replaceAll('1.8.2-options','1.9.0-sync');
-  html=html.replace("const APP_VERSION='1.8.2';","const APP_VERSION='1.9.0';");
-  html=html.replace('version:1.82,','version:1.9,');
-  html=html.replace('V1.9.0 • Priorité','V1.9.0 • Synchronisation');
+  html=html.replaceAll('V1.8.2','V1.9.1');
+  html=html.replaceAll('1.8.2-options','1.9.1-pricing-sync');
+  html=html.replace("const APP_VERSION='1.8.2';","const APP_VERSION='1.9.1';");
+  html=html.replace('version:1.82,','version:1.91,');
+  html=html.replace('V1.9.1 • Priorité','V1.9.1 • Tarifs synchronisés');
   html=html.replace('Textile SAP','Textile domicile');
   html=html.replace('<strong>70 €</strong><small>reste estimé 2P*</small>','<strong>160 €</strong><small>tarif officiel 2P</small>');
 
-  // Grille textile officielle MADYCLEAR publiée sur madyclear.fr.
-  html=html.replace("  {id:'pouf',name:'Pouf',price:50,sap:true,detail:'Domicile • textile'},\n",'');
-  html=html.replace("  {id:'chaise',name:'Chaise rembourrée',price:40,sap:true,detail:'Par unité'},","  {id:'chaise',name:'Chaise textile',price:40,sap:true,detail:'Tarif officiel • par unité'},");
-  html=html.replace("  {id:'fauteuil',name:'Fauteuil 1 place',price:80,sap:true,detail:'Domicile'},","  {id:'fauteuil',name:'Fauteuil',price:80,sap:true,detail:'Tarif officiel'},");
-  html=html.replace("  {id:'canape2',name:'Canapé 2 places',price:140,sap:true,detail:'Référence centrale • ≈ 70 € après avantage*'},","  {id:'canape2',name:'Canapé 2 places',price:160,sap:true,detail:'Tarif officiel MADYCLEAR'},");
-  html=html.replace("  {id:'canape3',name:'Canapé 3 places',price:160,sap:true,detail:'≈ 80 € après avantage*'},","  {id:'canape3',name:'Canapé 3 places',price:190,sap:true,detail:'Tarif officiel MADYCLEAR'},");
-  html=html.replace("  {id:'angle',name:'Canapé angle / 4–5 places',price:220,sap:true,detail:'À partir de'},","  {id:'angle',name:'Canapé angle / panoramique',price:240,sap:true,detail:'Tarif officiel MADYCLEAR'},");
-  html=html.replace("  {id:'grand',name:'Grand canapé / U',price:280,sap:true,detail:'À partir de'},\n",'');
-  html=html.replace("  {id:'mat1',name:'Matelas 1 place',price:100,sap:true,detail:'Domicile'},","  {id:'mat1',name:'Matelas 1 place',price:120,sap:true,detail:'Tarif officiel MADYCLEAR'},");
-  html=html.replace("  {id:'mat2',name:'Matelas 2 places',price:130,sap:true,detail:'Domicile'},","  {id:'mat2',name:'Matelas 2 places',price:160,sap:true,detail:'Tarif officiel MADYCLEAR'},");
-  html=html.replace("  {id:'queen',name:'Matelas Queen',price:150,sap:true,detail:'Domicile'},\n",'');
-  html=html.replace("  {id:'king',name:'Matelas King',price:170,sap:true,detail:'Domicile'},\n",'');
-  html=html.replace("  {id:'tapis',name:'Tapis synthétique — minimum',price:100,sap:true,detail:'30 €/m² • minimum affiché'}","  {id:'tapis',name:'Tapis standard',price:100,sap:true,detail:'Tarif officiel MADYCLEAR'},\n  {id:'minimum-textile',name:'Minimum d’intervention textile',price:80,sap:true,detail:'Minimum par intervention textile'}");
+  // Le site officiel devient la source de vérité : le cockpit reçoit la même grille.
+  const appItems=items.map(item=>{
+    const detail=item.id==='chaise'?'Tarif officiel • par unité':'Tarif officiel MADYCLEAR';
+    return `  {id:${JSON.stringify(String(item.id||''))},name:${JSON.stringify(String(item.name||''))},price:${Number(item.price||0)},sap:${item.sap_potential!==false},detail:${JSON.stringify(detail)}}`;
+  }).join(',\n');
+  const pricingBlock=`const TEXTILE_MINIMUM=${minimum};\nconst MADYCLEAR_PRICING_VERSION=${JSON.stringify(String(config?.version||''))};\nconst pricing={\n textile:[\n${appItems}\n ],\n auto:`;
+  html=html.replace(/const pricing=\{\s*textile:\[[\s\S]*?\n \],\n auto:/,pricingBlock);
+
+  // Conditions tarifaires : minimum = plancher de facture, jamais une ligne à ajouter.
+  const calcQuote=`function calcQuote(){let subtotal=0,sap=0,labels=[];Object.entries(state.quote.qty).forEach(([id,q])=>{const x=Object.values(pricing).flat().find(y=>y.id===id);if(!x||!q)return;subtotal+=x.price*q;if(x.sap)sap+=x.price*q;labels.push(\`${'${q}'}× ${'${x.name}'}\`)});let total=subtotal;const textileQuote=state.quote.tab==='textile';if(textileQuote&&subtotal>0&&subtotal<TEXTILE_MINIMUM){total=TEXTILE_MINIMUM;labels.push(\`Minimum intervention textile : ${'${TEXTILE_MINIMUM}'} €\`)}if(textileQuote&&total>0)sap=total;const net=(total-sap)+(sap*(1-${sapRate}));document.getElementById('quoteTotal').textContent=money(total).replace(',00','');document.getElementById('quoteSap').textContent=money(sap).replace(',00','');document.getElementById('quoteNet').textContent=money(net).replace(',00','');document.getElementById('quoteNote').textContent=total?\`${'${labels.join(\' • \')}'} . Tarif public avant avantage fiscal. Crédit d’impôt seulement si toutes les conditions sont remplies. Packs : tarif final sur devis, sans remise automatique.\`:'Ajoute une prestation pour commencer.';return{total,sap,net,labels}}`;
+  html=html.replace(/function calcQuote\(\)\{[\s\S]*?return\{total,sap,net,labels\}\}/,calcQuote);
+  html=html.replace("<p>${esc(x.detail)}${x.sap?' • SAP potentiel':''}</p>","<p>${esc(x.detail)}</p>");
+  html=html.replace('<span class="chip waiting">SAP • préparation</span><p>SIRET → déclaration NOVA → activation de l’avantage fiscal.</p>','<span class="chip waiting">SAP • sous conditions</span><p>Le prix public reste le prix facturé. L’estimation fiscale ne s’applique que si les conditions sont remplies.</p>');
+  html=html.replace('Part potentiellement SAP','Montant potentiellement éligible');
+  html=html.replace('Reste à charge estimé*','Coût indicatif après crédit*');
+  html=html.replace('Reste à charge indicatif après crédit d\'impôt potentiel :','Coût indicatif après crédit d\'impôt potentiel, uniquement si éligible :');
+  html=html.replace('Reste estimé : ${money(q.net).replace(\',00\',\'\')} • part SAP potentielle :','Coût indicatif si éligible : ${money(q.net).replace(\',00\',\'\')} • montant potentiellement éligible :');
 
   // État réel des connexions.
   html=html.replace("{id:'supabase',label:'Supabase',detail:'Synchronisation multi-appareils / base centrale',next:'Créer/relier le projet Supabase et ses tables métier.'}","{id:'supabase',label:'Supabase',detail:'CRM public + synchronisation cockpit disponibles',next:'Utiliser le bouton SYNC pour connecter le compte propriétaire puis lancer la synchronisation.'}");
@@ -36,15 +84,16 @@ function patchHtml(source){
   html=html.replace("{id:'whatsapp',label:'WhatsApp Business',detail:'Messages automatisés et notifications',next:'Relier l’API officielle WhatsApp Business après validation.'}","{id:'whatsapp',label:'WhatsApp Business',detail:'Échanges manuels • automatisation préparée',next:'Activer Peach Core uniquement au lancement officiel.'}");
 
   // Carte d’état consolidée ajoutée autour de l’existant, sans supprimer de module.
-  if(!html.includes('id="launch-state-v190"')){
+  if(!html.includes('id="launch-state-v191"')){
     const marker='<article class="glass operational-focus">';
-    const launch=`<article class="glass operational-focus" id="launch-state-v190">
+    const launch=`<article class="glass operational-focus" id="launch-state-v191">
           <div class="section-head compact">
             <div><span class="eyebrow">État du lancement</span><h2>Système MADYCLEAR aujourd’hui</h2></div>
             <span class="ops-state connected">À JOUR</span>
           </div>
-          <p class="lead-small">Le site public capte déjà les demandes. Le cockpit peut maintenant les synchroniser avec la base centrale après connexion du compte propriétaire.</p>
+          <p class="lead-small">Le site public et l’application utilisent maintenant la même grille tarifaire officielle. Le cockpit peut aussi synchroniser ses données avec la base centrale après connexion du compte propriétaire.</p>
           <div class="ops-list">
+            <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Tarifs site ↔ appli</strong><small>Source officielle unique • version ${String(config?.version||'courante')}</small></div><span class="ops-state connected">ACTIF</span></div>
             <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Site officiel</strong><small>madyclear.fr • production</small></div><span class="ops-state connected">ACTIF</span></div>
             <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Site → CRM</strong><small>Demande enregistrée avant ouverture de WhatsApp</small></div><span class="ops-state connected">ACTIF</span></div>
             <div class="ops-row"><span class="ops-dot ok"></span><div><strong>Cockpit ↔ Supabase</strong><small>Clients, prospects et brouillons de devis • connexion propriétaire requise</small></div><span class="ops-state prepared">SYNC</span></div>
@@ -66,11 +115,11 @@ function patchHtml(source){
   return html;
 }
 
-function htmlResponse(response,text){
+function htmlResponse(response,text,config){
   const headers=new Headers(response.headers);
   headers.set('content-type','text/html; charset=utf-8');
   headers.delete('content-length');
-  return new Response(patchHtml(text),{status:response.status,statusText:response.statusText,headers});
+  return new Response(patchHtml(text,config),{status:response.status,statusText:response.statusText,headers});
 }
 
 function isAppClient(url){
@@ -106,15 +155,17 @@ self.addEventListener('fetch',event=>{
 
   const isAppDocument=event.request.mode==='navigate' && /\/app\/(?:index\.html)?$/.test(url.pathname);
   if(isAppDocument){
-    event.respondWith(
-      fetch(event.request,{cache:'no-store'})
-        .then(async response=>htmlResponse(response,await response.text()))
-        .catch(async()=>{
-          const cached=await caches.match('./index.html')||await caches.match('./index.html?v='+APP_VERSION);
-          if(!cached)return new Response('MADYCLEAR indisponible hors ligne.',{status:503,headers:{'content-type':'text/plain; charset=utf-8'}});
-          return htmlResponse(cached,await cached.text());
-        })
-    );
+    event.respondWith((async()=>{
+      const config=await loadPricingConfig();
+      try{
+        const response=await fetch(event.request,{cache:'no-store'});
+        return htmlResponse(response,await response.text(),config);
+      }catch(e){
+        const cached=await caches.match('./index.html')||await caches.match('./index.html?v='+APP_VERSION);
+        if(!cached)return new Response('MADYCLEAR indisponible hors ligne.',{status:503,headers:{'content-type':'text/plain; charset=utf-8'}});
+        return htmlResponse(cached,await cached.text(),config);
+      }
+    })());
     return;
   }
 

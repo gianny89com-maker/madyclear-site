@@ -1,0 +1,33 @@
+{
+  "version": "2026-09-17",
+  "currency": "EUR",
+  "source": "MADYCLEAR — site officiel",
+  "textile": {
+    "minimum_intervention": 80,
+    "items": [
+      {"id": "canape2", "name": "Canapé 2 places", "price": 160, "sap_potential": true},
+      {"id": "canape3", "name": "Canapé 3 places", "price": 190, "sap_potential": true},
+      {"id": "angle", "name": "Canapé angle / panoramique", "price": 240, "sap_potential": true},
+      {"id": "fauteuil", "name": "Fauteuil", "price": 80, "sap_potential": true},
+      {"id": "mat1", "name": "Matelas 1 place", "price": 120, "sap_potential": true},
+      {"id": "mat2", "name": "Matelas 2 places", "price": 160, "sap_potential": true},
+      {"id": "tapis", "name": "Tapis standard", "price": 100, "sap_potential": true},
+      {"id": "chaise", "name": "Chaise textile", "price": 40, "sap_potential": true}
+    ]
+  },
+  "packs": {
+    "mode": "quote_only",
+    "display_discount_percentage": false,
+    "label": "Pack sur mesure — uniquement sur devis",
+    "description": "Plusieurs textiles peuvent être regroupés dans une même intervention. Le tarif global est personnalisé après diagnostic et photos."
+  },
+  "sap": {
+    "status": "possible_under_conditions",
+    "rate_max": 0.5,
+    "display_mode": "single_notice",
+    "automatic": false,
+    "commercial_discount": false,
+    "label": "Avantage fiscal possible",
+    "description": "Certaines prestations réalisées au domicile d’un particulier peuvent ouvrir droit à un crédit d’impôt pouvant atteindre 50 %, sous réserve de l’éligibilité du client, de la prestation et du dispositif applicable. Cet avantage n’est pas automatique et ne constitue pas une remise commerciale."
+  }
+}
