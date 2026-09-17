@@ -92,3 +92,10 @@ Le dépôt contient le fichier `CNAME` pour `madyclear.fr`, les fichiers SEO, la
 - les informations sont transmises uniquement lorsque le visiteur continue dans WhatsApp ;
 - aucun outil d’analyse d’audience, cookie publicitaire ou traceur marketing n’est actuellement installé ;
 - les informations d’immatriculation seront complétées dans les mentions légales lorsque le SIRET définitif sera disponible.
+
+## Discrétion au domicile
+
+- chaque intervention respecte l’intimité du client et la confidentialité du domicile ;
+- aucune information sur le logement n’est partagée sans autorisation explicite ;
+- les photos de diagnostic restent confidentielles ;
+- toute publication avant/après exige l’accord préalable du client.
