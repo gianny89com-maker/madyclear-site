@@ -2,31 +2,37 @@
 
 ## Phase 0 — Nettoyage et source unique
 
-État : EN COURS / préparé sur branche `digistaff-core-prep-v1`.
+État : **TERMINÉ**.
 
-- garder `madyclear.fr/app/` comme cockpit officiel ;
-- garder `app/service-worker.js` comme seul service worker ;
-- retirer les fichiers runtime orphelins ;
-- déprécier l’ancienne Edge Function `madyclear-app` ;
-- conserver les données `madyclear_*` ;
-- ne pas toucher aux tables non-MADYCLEAR appartenant potentiellement à d’autres projets.
+- `madyclear.fr/app/` est le cockpit officiel ;
+- `app/service-worker.js` est le seul service worker ;
+- les fichiers runtime orphelins ont été retirés ;
+- l’ancienne Edge Function `madyclear-app` est dépréciée ;
+- les données `madyclear_*` sont conservées ;
+- les tables non-MADYCLEAR ne sont pas modifiées.
 
-Critère de sortie : une seule application et aucun cache ne réclame un fichier supprimé.
+Critère de sortie validé : une seule application runtime et aucun cache ne réclame un fichier supprimé.
 
 ## Phase 1 — Authentification et synchronisation cockpit ↔ Supabase
 
-Objectif : conserver l’expérience locale tout en ajoutant une source centrale sûre.
+État : **V1 RÉALISÉE — activation utilisateur requise pour le premier test authentifié**.
 
-À construire :
+Réalisé :
 
-1. authentification privée du cockpit ;
-2. module `sync` avec état `LOCAL`, `SYNCING`, `ONLINE`, `DEGRADED` ;
-3. mapping local ↔ distant pour clients, leads, tâches, devis, réservations ;
-4. migration douce des données locales ;
-5. synchronisation manuelle d’abord ;
-6. synchronisation automatique seulement après tests.
+1. authentification privée du cockpit avec Supabase Auth ;
+2. session locale persistante et rafraîchissement de jeton ;
+3. Edge Function `madyclear-sync` protégée par JWT et RLS ;
+4. module PWA `/app/sync.js` ;
+5. synchronisation manuelle clients/prospects et brouillons de devis ;
+6. remontée des leads captés par le site vers le cockpit ;
+7. mapping local ↔ cloud via `madyclear_external_refs` ;
+8. rapprochement secondaire par téléphone/e-mail normalisés ;
+9. snapshot cloud des tâches et réservations ;
+10. journal d’audit de synchronisation ;
+11. conservation du fonctionnement local et hors ligne ;
+12. aucune synchronisation automatique activée par défaut.
 
-Aucun secret serveur dans la PWA.
+À valider sur appareil : connexion du compte propriétaire puis première synchronisation réelle. Le mot de passe reste saisi uniquement dans l’application et n’est pas transmis à l’équipe de développement.
 
 ## Phase 2 — DIGISTAFF Core
 
@@ -119,15 +125,16 @@ Seulement après validation MADYCLEAR :
 
 ## Ordre de priorité technique
 
-1. source unique / nettoyage ;
-2. authentification ;
-3. sync CRM ;
-4. Core ;
-5. Client + Commercial ;
-6. Calendar/Gmail/Drive ;
-7. WhatsApp ;
-8. Réseaux ;
-9. Pilotage multi-entreprises.
+1. source unique / nettoyage — **fait** ;
+2. authentification — **fait** ;
+3. sync CRM — **V1 faite** ;
+4. test réel propriétaire — **prochaine action** ;
+5. Core ;
+6. Client + Commercial ;
+7. Calendar/Gmail/Drive ;
+8. WhatsApp ;
+9. Réseaux ;
+10. Pilotage multi-entreprises.
 
 ## Règle anti-surenchère
 
