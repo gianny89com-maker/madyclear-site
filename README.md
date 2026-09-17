@@ -2,16 +2,26 @@
 
 **Source unique de production : branche `main` de ce dépôt.**
 
-Version métier de référence : **Dossier maître MADYCLEAR — 17/09/2026**.
+Version métier de référence : **Dossier maître MADYCLEAR — 16/09/2026**.
+
+## Production officielle
+
+- Site : `https://www.madyclear.fr/`
+- Cockpit privé : `https://www.madyclear.fr/app/`
+- Domaine unique : `madyclear.fr`
+- Base centrale : Supabase MADYCLEAR
+- Cockpit : **V1.9.1 PRICING SYNC**
+- MADYCLEAR = client pilote n°1 de DIGISTAFF
 
 ## Règle de production
 
 - `main` = site public officiel MADYCLEAR.
 - Ne pas remettre en production une ancienne archive, un ancien ZIP ou une ancienne grille tarifaire.
-- Toute évolution future doit modifier cette base au lieu de créer un nouveau site parallèle.
-- Conserver `/app/` et les fichiers de validation déjà présents.
-- Domaine officiel exclusif : `https://www.madyclear.fr/`.
+- Toute évolution doit modifier cette base au lieu de créer un nouveau site parallèle.
+- Ne pas créer un deuxième CRM ou une deuxième application MADYCLEAR.
+- Conserver `/app/`, les fichiers SEO, les validations Google et le domaine actuel.
 - Ne pas remplacer le design validé sans décision explicite.
+- Préserver la clé locale `madyclear-personal-v1`.
 
 ## Activité actuellement mise en avant
 
@@ -19,17 +29,24 @@ Priorité : **nettoyage textile à domicile et sur site professionnel en Martini
 
 Méthode principale : **injection-extraction**, après diagnostic du textile.
 
-Prestations actives :
-- canapés ;
-- matelas ;
-- fauteuils ;
-- tapis ;
-- chaises textiles ;
-- demandes textiles professionnelles.
+Prestations actives : canapés, matelas, fauteuils, tapis, chaises textiles et demandes textiles professionnelles.
 
 Le nettoyage automobile et les vitres restent des extensions futures du projet MADYCLEAR et ne doivent pas être présentés comme l’offre principale actuelle.
 
+## Financement de lancement
+
+- Besoin opérationnel : **2 000 €**
+- Mensualité : **125 €**
+- Durée : **18 mois**
+- Enveloppe prudente retenue pour le pilotage : **2 400 € maximum**
+
+L’ancien scénario global à 7 000 € est conservé comme historique d’extension, pas comme besoin prioritaire de lancement.
+
 ## Tarification officielle
+
+La grille commune site/app est centralisée dans :
+
+`/assets/madyclear-pricing.json`
 
 - Canapé 2 places : **160 €**
 - Canapé 3 places : **190 €**
@@ -41,61 +58,90 @@ Le nettoyage automobile et les vitres restent des extensions futures du projet M
 - Chaise textile : **40 €**
 - Minimum intervention textile : **80 €**
 
-L’avantage fiscal éventuel de 50 % ne doit être présenté que comme **potentiel et sous conditions d’éligibilité**.
+Le minimum est un plancher de facture. Les packs restent personnalisés et uniquement sur devis. Aucun pourcentage de réduction ni prix fixe de pack ne doit être publié.
 
-### Présentation des prix validée
-
-- afficher uniquement les tarifs unitaires dans la grille ;
-- proposer un pack libre composé par le client ;
-- pack sur mesure et uniquement sur devis ;
-- ne publier aucun prix de pack, pourcentage ou montant de réduction ;
-- regrouper l’information SAP dans un seul encadré avec au maximum un exemple indicatif.
+L’avantage fiscal éventuel ne doit être présenté que comme **potentiel et sous conditions d’éligibilité**.
 
 ## Horaires validés
 
 - Demandes et devis du lundi au samedi : **7 h–22 h**
 - Demandes et devis le dimanche : **7 h–12 h**
-- Interventions : **uniquement sur rendez-vous**, selon les disponibilités.
+- Interventions : **uniquement sur rendez-vous**, selon les disponibilités
 
 ## Coordonnées publiques
 
-- Site : `https://www.madyclear.fr/`
 - Email : `contact@madyclear.fr`
 - Téléphone et WhatsApp : `06 96 01 70 07`
 - Zone d’intervention : Martinique entière
 - Adresse personnelle : non affichée publiquement
 
-## Identité visuelle
+## Parcours client actuel
 
-- univers premium ;
-- bleu / turquoise ;
-- CTA orange ;
-- grande image professionnelle de canapé ;
-- navigation simple ;
-- devis et WhatsApp immédiatement accessibles.
+1. Le visiteur remplit le formulaire sur le site.
+2. La demande est enregistrée dans le CRM Supabase via `madyclear-capture`.
+3. WhatsApp s’ouvre ensuite avec le message prérempli.
+4. Le prospect est suivi dans le cockpit/CRM.
+5. Le tarif et le créneau sont confirmés avant intervention.
 
-## Référencement local
+## Cockpit MADYCLEAR
 
-- conserver exactement le même nom, téléphone, domaine et horaires sur le site, Google Business Profile et les annuaires ;
-- utiliser les termes « nettoyage canapé Martinique », « nettoyage matelas », « nettoyage tapis à domicile » et « injection-extraction » naturellement ;
-- privilégier de vraies photos avant/après et des avis clients authentiques ;
-- ne jamais promettre l’élimination de toutes les taches, des acariens ou des allergènes sans protocole et preuve adaptés.
+Runtime officiel :
 
-## Déploiement
+- `/app/index.html`
+- `/app/app.css`
+- `/app/sync.js`
+- `/app/manifest.webmanifest`
+- `/app/service-worker.js`
+- `/app/icons/*`
 
-Le dépôt contient le fichier `CNAME` pour `madyclear.fr`, les fichiers SEO, la validation Google et la PWA. Toute modification de production doit être vérifiée sur le domaine public après déploiement.
+Le cockpit est local-first et reste utilisable hors ligne. La synchronisation Supabase est authentifiée et manuelle par défaut. Aucun message client, publication sociale ou paiement n’est déclenché automatiquement par la synchronisation.
+
+## Connexions
+
+### Actives
+
+- GitHub Pages
+- formulaire → CRM Supabase
+- téléphone
+- email direct
+- ouverture WhatsApp
+- Google Business Profile
+- Google Search Console
+
+### Disponibles / préparées
+
+- Gmail
+- Google Calendar
+- Google Drive
+- Metricool
+- alertes e-mail propriétaire
+- confirmation et relance WhatsApp
+
+Les automatisations WhatsApp restent inactives avant le lancement officiel et nécessitent un connecteur autorisé, de type Peach Core ou API Meta Cloud.
+
+## DIGISTAFF
+
+Architecture cible :
+
+`Cockpit MADYCLEAR ↔ DIGISTAFF Core ↔ Supabase ↔ Action Outbox ↔ Connecteurs`
+
+Les agents prévus sont : Employé Client, Commercial, Admin, Réseaux et Pilotage.
+
+Règle d’autonomie : **AUTO / VALIDATION / CRITIQUE**. Les actions externes ou engageantes restent soumises à validation humaine tant qu’elles ne sont pas explicitement autorisées.
 
 ## Confidentialité
 
 - page publique : `/politique-confidentialite.html` ;
-- le formulaire ne stocke aucune donnée sur le site ;
-- les informations sont transmises uniquement lorsque le visiteur continue dans WhatsApp ;
-- aucun outil d’analyse d’audience, cookie publicitaire ou traceur marketing n’est actuellement installé ;
-- les informations d’immatriculation seront complétées dans les mentions légales lorsque le SIRET définitif sera disponible.
-
-## Discrétion au domicile
-
-- chaque intervention respecte l’intimité du client et la confidentialité du domicile ;
-- aucune information sur le logement n’est partagée sans autorisation explicite ;
+- les demandes du formulaire sont enregistrées dans le CRM pour le suivi commercial ;
 - les photos de diagnostic restent confidentielles ;
-- toute publication avant/après exige l’accord préalable du client.
+- aucune publication avant/après sans accord explicite ;
+- aucune information sur le domicile ou la vie privée du client ne doit être partagée.
+
+## Référencement local
+
+- conserver le même nom, téléphone, domaine et horaires sur le site, Google Business Profile et les annuaires ;
+- utiliser naturellement les termes « nettoyage canapé Martinique », « nettoyage matelas », « nettoyage tapis à domicile » et « injection-extraction » ;
+- privilégier les vraies photos avant/après et les avis clients authentiques ;
+- ne jamais promettre un résultat impossible à garantir.
+
+Pour l’état complet du projet, consulter `DOSSIER-MADYCLEAR.md`.
