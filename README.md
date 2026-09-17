@@ -43,6 +43,14 @@ Le nettoyage automobile et les vitres restent des extensions futures du projet M
 
 L’avantage fiscal éventuel de 50 % ne doit être présenté que comme **potentiel et sous conditions d’éligibilité**.
 
+### Présentation des prix validée
+
+- afficher uniquement les tarifs unitaires dans la grille ;
+- proposer un pack libre composé par le client ;
+- pack sur mesure et uniquement sur devis ;
+- ne publier aucun prix de pack, pourcentage ou montant de réduction ;
+- regrouper l’information SAP dans un seul encadré avec au maximum un exemple indicatif.
+
 ## Horaires validés
 
 - Lundi à samedi : **7 h–22 h**
