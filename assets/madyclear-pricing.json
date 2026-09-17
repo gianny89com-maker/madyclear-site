@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-17",
+  "version": "2026-09-17-commercial-v2",
   "currency": "EUR",
   "source": "MADYCLEAR — site officiel",
   "textile": {
@@ -29,5 +29,21 @@
     "commercial_discount": false,
     "label": "Avantage fiscal possible",
     "description": "Certaines prestations réalisées au domicile d’un particulier peuvent ouvrir droit à un crédit d’impôt pouvant atteindre 50 %, sous réserve de l’éligibilité du client, de la prestation et du dispositif applicable. Cet avantage n’est pas automatique et ne constitue pas une remise commerciale."
+  },
+  "forfaits": {
+    "display": true,
+    "label": "Forfaits entretien",
+    "starting_price_monthly": 130,
+    "frequency": "2 passages par mois selon la formule",
+    "internal_calculations_public": false,
+    "conditions": "Forfait soumis à conditions, sur rendez-vous et selon disponibilités. Les prestations supplémentaires ou cas particuliers peuvent faire l’objet d’un complément. Les modalités exactes sont précisées avant souscription."
+  },
+  "reservation": {
+    "type": "arrhes",
+    "amount": 30,
+    "deducted_from_final_invoice": true,
+    "label": "Réservation garantie",
+    "applies_to": "rendez-vous ponctuels après validation du devis",
+    "conditions": "Les modalités de report et d’annulation sont précisées avant paiement."
   }
 }
