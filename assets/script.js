@@ -198,13 +198,13 @@
           })
         });
         if (!response.ok) throw new Error('capture_failed');
-        if (status) status.textContent = 'Demande enregistrée. Ouverture de WhatsApp pour vos photos…';
+        if (status) status.textContent = '✅ Demande enregistrée. Vous allez maintenant être redirigé vers WhatsApp pour nous envoyer les photos de votre textile.';
       } catch (error) {
         if (status) status.textContent = 'WhatsApp va s’ouvrir. Si nécessaire, envoyez directement votre demande : elle sera traitée manuellement.';
       } finally {
         button.disabled = false;
         button.textContent = 'Envoyer ma demande';
-        window.location.href = whatsappUrl;
+        setTimeout(() => { window.location.href = whatsappUrl; }, 1200);
       }
     });
   }
