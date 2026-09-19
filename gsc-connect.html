@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="same-origin">
+  <meta name="theme-color" content="#071521">
+  <title>Connexion Google Search Console | MADYCLEAR</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root{color-scheme:dark;--bg:#06111a;--panel:#0b202d;--line:#20404e;--text:#eff9fb;--muted:#a8bac3;--teal:#16a89f;--ok:#36c6a8;--warn:#f7b955;--danger:#ff7580}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#123e4d 0,#071822 35%,var(--bg) 75%);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding:24px}
+    .shell{width:min(920px,100%);margin:auto}.brand{display:flex;align-items:center;gap:14px;margin:8px 0 22px}.brand img{width:190px}.badge{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#7ddbd4}
+    .card{background:linear-gradient(180deg,#0d2532ee,#081923f5);border:1px solid var(--line);border-radius:24px;padding:24px;margin:14px 0;box-shadow:0 25px 70px #0007}
+    h1{font-size:clamp(2rem,6vw,3.8rem);line-height:1;margin:8px 0 14px}h2{font-size:1.25rem;margin:0 0 12px}.lead,p{color:var(--muted);line-height:1.55}
+    .status{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#071721;margin:14px 0;font-weight:700}.status.ok{border-color:#245e58;color:#a5f3e3}.status.err{border-color:#6d3540;color:#ffb4bc}.status.warn{border-color:#6c572a;color:#ffd786}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.step{padding:16px;border:1px solid var(--line);border-radius:18px;background:#081923}.step strong{display:block;margin-bottom:6px}
+    label{display:block;font-size:13px;font-weight:800;margin:13px 0 6px}.field{width:100%;padding:13px 14px;border-radius:13px;border:1px solid #2b4d5b;background:#061620;color:#fff;font:inherit}
+    .btn{display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:0 18px;border-radius:13px;border:0;text-decoration:none;font-weight:900;cursor:pointer;font:inherit}.primary{background:linear-gradient(135deg,var(--teal),#0c746d);color:white}.secondary{background:#15313d;color:#eaf8fa;border:1px solid #294b58}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.copy{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#05131b;border:1px solid #24434f;padding:11px 12px;border-radius:12px;overflow:auto;color:#d8f6f3;font-size:12px}
+    .small{font-size:12px}.hidden{display:none!important}ul{color:var(--muted);line-height:1.65;padding-left:20px}.danger{color:#ffb4bc}
+    @media(max-width:720px){body{padding:14px}.grid{grid-template-columns:1fr}.card{padding:19px}.actions .btn{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="brand"><img src="/assets/logo-madyclear.svg" alt="MADYCLEAR"><span class="badge">Connexion privée</span></div>
+
+    <section class="card">
+      <div class="badge">Google Search Console ↔ MADYCLEAR</div>
+      <h1>Connexion directe.</h1>
+      <p class="lead">Cette page relie Google Search Console au backend privé MADYCLEAR. Une fois connectée, les données SEO sont synchronisées dans Supabase et peuvent être analysées directement depuis ChatGPT via le connecteur Supabase, sans passer par un navigateur d’automatisation.</p>
+      <div id="status" class="status">Vérification de ta session MADYCLEAR…</div>
+      <div class="actions">
+        <a class="btn secondary" href="/app/">Ouvrir MADYCLEAR Personal</a>
+        <button id="statusBtn" class="btn secondary" type="button">Actualiser l’état</button>
+        <button id="syncBtn" class="btn primary hidden" type="button">Synchroniser Search Console</button>
+      </div>
+    </section>
+
+    <section id="setupCard" class="card hidden">
+      <h2>1. Créer l’accès OAuth Google</h2>
+      <p>Dans Google Cloud, active <strong>Google Search Console API</strong>, configure l’écran de consentement OAuth en mode test si nécessaire, puis crée un client OAuth de type <strong>Application Web</strong>.</p>
+      <div class="grid">
+        <div class="step"><strong>Origine autorisée</strong><div class="copy">https://www.madyclear.fr</div></div>
+        <div class="step"><strong>URI de redirection autorisée</strong><div id="redirectUri" class="copy">Chargement…</div></div>
+      </div>
+      <p class="small">Portée utilisée : <code>https://www.googleapis.com/auth/webmasters</code>. Elle permet de lire les performances Search Console et de soumettre le sitemap.</p>
+      <p class="small danger">Ne colle jamais le secret OAuth dans le chat. Saisis-le uniquement ci-dessous : il sera envoyé directement au backend MADYCLEAR et stocké dans Supabase Vault.</p>
+
+      <label for="clientId">Google OAuth Client ID</label>
+      <input id="clientId" class="field" autocomplete="off" placeholder="…apps.googleusercontent.com">
+
+      <label for="clientSecret">Google OAuth Client Secret</label>
+      <input id="clientSecret" class="field" type="password" autocomplete="new-password" placeholder="GOCSPX-…">
+
+      <div class="actions">
+        <button id="connectBtn" class="btn primary" type="button">Enregistrer et connecter Google</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ce qui sera synchronisé</h2>
+      <ul>
+        <li>clics, impressions, CTR et position par jour sur environ 90 jours ;</li>
+        <li>les principales requêtes Google sur 28 jours ;</li>
+        <li>les principales pages vues dans Google sur 28 jours ;</li>
+        <li>le sitemap officiel <strong>https://www.madyclear.fr/sitemap.xml</strong>.</li>
+      </ul>
+      <p class="small">La demande manuelle « Demander une indexation » reste une action de l’interface Search Console ; elle n’est pas exposée par l’API Search Console standard.</p>
+    </section>
+  </main>
+
+<script>
+(()=>{
+'use strict';
+const SUPABASE_URL='https://trvmbwpwnpimrxrmvrgd.supabase.co';
+const PUBLISHABLE_KEY='sb_publishable_t5KTbJLqhvDuMnb_ZYva-w_dRLmsSZ5';
+const ENDPOINT=SUPABASE_URL+'/functions/v1/madyclear-gsc';
+const AUTH_STORE='madyclear-supabase-auth-v1';
+const $=id=>document.getElementById(id);
+const publicHeaders=()=>({'apikey':PUBLISHABLE_KEY,'Content-Type':'application/json'});
+const readAuth=()=>{try{return JSON.parse(localStorage.getItem(AUTH_STORE)||'null')}catch{return null}};
+const writeAuth=s=>s?localStorage.setItem(AUTH_STORE,JSON.stringify(s)):localStorage.removeItem(AUTH_STORE);
+const setStatus=(t,type='')=>{const el=$('status');el.textContent=t;el.className='status'+(type?' '+type:'')};
+
+async function refreshSession(s){
+  if(!s?.refresh_token) throw new Error('Connexion MADYCLEAR requise.');
+  const r=await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=refresh_token',{
+    method:'POST',headers:publicHeaders(),body:JSON.stringify({refresh_token:s.refresh_token})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||!d.access_token) throw new Error('Session expirée.');
+  const fresh={access_token:d.access_token,refresh_token:d.refresh_token,expires_at:Date.now()+Number(d.expires_in||3600)*1000,email:d.user?.email||s.email||'',user_id:d.user?.id||s.user_id||''};
+  writeAuth(fresh);return fresh;
+}
+async function session(){
+  let s=readAuth();
+  if(!s?.access_token) return null;
+  if(!s.expires_at||Number(s.expires_at)-Date.now()<60000){
+    try{s=await refreshSession(s)}catch{writeAuth(null);return null}
+  }
+  return s;
+}
+async function api(action,extra={}){
+  const s=await session();
+  if(!s) throw new Error('Connecte-toi d’abord à MADYCLEAR Personal.');
+  const r=await fetch(ENDPOINT,{
+    method:'POST',
+    headers:{'apikey':PUBLISHABLE_KEY,'Authorization':'Bearer '+s.access_token,'Content-Type':'application/json'},
+    body:JSON.stringify({action,...extra})
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(d.detail||d.error||('HTTP '+r.status));
+  return d;
+}
+async function loadStatus(){
+  const s=await session();
+  if(!s){
+    setStatus('Connexion MADYCLEAR requise. Ouvre MADYCLEAR Personal et connecte-toi, puis reviens ici.','warn');
+    $('setupCard').classList.add('hidden');$('syncBtn').classList.add('hidden');return;
+  }
+  try{
+    const d=await api('status');
+    $('redirectUri').textContent=d.redirect_uri||'';
+    if(d.status==='connected'){
+      setStatus('✅ Google Search Console est connecté à MADYCLEAR.'+(d.last_sync_at?' Dernière synchronisation : '+new Date(d.last_sync_at).toLocaleString('fr-FR')+'.':''),'ok');
+      $('setupCard').classList.add('hidden');$('syncBtn').classList.remove('hidden');
+    }else{
+      setStatus('Connexion Google Search Console à terminer.','warn');
+      $('setupCard').classList.remove('hidden');$('syncBtn').classList.add('hidden');
+    }
+  }catch(e){setStatus(String(e.message||e),'err')}
+}
+$('statusBtn').addEventListener('click',loadStatus);
+$('connectBtn').addEventListener('click',async()=>{
+  const client_id=$('clientId').value.trim(),client_secret=$('clientSecret').value.trim();
+  if(!client_id||!client_secret){setStatus('Renseigne le Client ID et le Client Secret Google.','warn');return}
+  try{
+    setStatus('Enregistrement sécurisé puis ouverture de Google…');
+    const d=await api('save_credentials',{client_id,client_secret});
+    $('clientSecret').value='';
+    location.href=d.auth_url;
+  }catch(e){setStatus(String(e.message||e),'err')}
+});
+$('syncBtn').addEventListener('click',async()=>{
+  try{
+    setStatus('Synchronisation Search Console en cours…');
+    const d=await api('sync');
+    setStatus('✅ Synchronisation terminée : '+d.daily_rows+' jours, '+d.query_rows+' requêtes, '+d.page_rows+' pages. Sitemap : '+(d.sitemap_submitted?'envoyé':'à vérifier')+'.','ok');
+  }catch(e){setStatus(String(e.message||e),'err')}
+});
+const params=new URLSearchParams(location.search);
+if(params.get('gsc')==='connected') setStatus('✅ Autorisation Google reçue. Vérification de la connexion…','ok');
+else if(params.get('gsc')==='property_missing') setStatus('Google est autorisé, mais la propriété https://www.madyclear.fr/ n’est pas encore accessible dans Search Console. Vérifie la propriété puis recommence.','warn');
+else if(params.get('gsc')==='error') setStatus('Connexion Google interrompue : '+(params.get('reason')||'erreur inconnue')+'.','err');
+loadStatus();
+})();
+</script>
+</body>
+</html>
