@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#075985">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="format-detection" content="telephone=yes">
-  <link rel="canonical" href="https://madyclear.fr/">
+  <link rel="canonical" href="https://www.madyclear.fr/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/favicon.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -20,8 +20,8 @@
   <meta property="og:site_name" content="MADYCLEAR">
   <meta property="og:title" content="MADYCLEAR — Nettoyage textile à domicile en Martinique">
   <meta property="og:description" content="Canapés, matelas, fauteuils, tapis et chaises. Tarifs affichés et devis gratuit par WhatsApp.">
-  <meta property="og:url" content="https://madyclear.fr/">
-  <meta property="og:image" content="https://madyclear.fr/assets/hero-canape-madyclear.jpg">
+  <meta property="og:url" content="https://www.madyclear.fr/">
+  <meta property="og:image" content="https://www.madyclear.fr/assets/hero-canape-madyclear.jpg">
   <meta property="og:image:alt" content="Nettoyage professionnel d'un canapé par MADYCLEAR en Martinique">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -31,20 +31,16 @@
     "@graph":[
       {
         "@type":"CleaningService",
-        "@id":"https://madyclear.fr/#entreprise",
+        "@id":"https://www.madyclear.fr/#entreprise",
         "name":"MADYCLEAR",
-        "url":"https://madyclear.fr/",
-        "logo":"https://madyclear.fr/assets/logo-madyclear.svg",
-        "image":"https://madyclear.fr/assets/hero-canape-madyclear.jpg",
+        "url":"https://www.madyclear.fr/",
+        "logo":"https://www.madyclear.fr/assets/logo-madyclear.svg",
+        "image":"https://www.madyclear.fr/assets/hero-canape-madyclear.jpg",
         "telephone":"+596696017007",
         "email":"contact@madyclear.fr",
         "description":"Nettoyage professionnel de canapés, matelas, tapis, fauteuils et chaises par injection-extraction à domicile et sur site professionnel en Martinique.",
         "areaServed":{"@type":"AdministrativeArea","name":"Martinique"},
         "priceRange":"€€",
-        "openingHoursSpecification":[
-          {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"07:00","closes":"22:00"},
-          {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"07:00","closes":"12:00"}
-        ],
         "hasOfferCatalog":{
           "@type":"OfferCatalog",
           "name":"Nettoyage textile en Martinique",
@@ -58,7 +54,7 @@
       },
       {
         "@type":"FAQPage",
-        "@id":"https://madyclear.fr/#faq",
+        "@id":"https://www.madyclear.fr/#faq",
         "mainEntity":[
           {"@type":"Question","name":"Où intervient MADYCLEAR ?","acceptedAnswer":{"@type":"Answer","text":"MADYCLEAR intervient à domicile ou sur site professionnel partout en Martinique, sur rendez-vous et selon les disponibilités."}},
           {"@type":"Question","name":"Quels sont les horaires de MADYCLEAR ?","acceptedAnswer":{"@type":"Answer","text":"Les demandes et devis sont traités du lundi au samedi de 7 h à 22 h et le dimanche de 7 h à 12 h. Les interventions ont lieu uniquement sur rendez-vous, selon les disponibilités."}},
@@ -289,7 +285,7 @@
           <label>Nom <input name="nom" required autocomplete="name"></label>
           <label>Téléphone <input name="telephone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="06 96 …"></label>
           <label>E-mail (facultatif) <input name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
-          <label>Commune <input name="commune" autocomplete="address-level2" placeholder="Ex. Sainte-Luce"></label>
+          <label>Commune <input name="commune" required autocomplete="address-level2" placeholder="Ex. Sainte-Luce"></label>
           <label>Textile à nettoyer
             <select name="service" required>
               <option value="">Choisir</option>
@@ -307,7 +303,7 @@
           </label>
           <label>Votre besoin <textarea name="details" rows="4" placeholder="Dimensions, taches, odeurs, quantité…"></textarea></label>
           <div aria-hidden="true" style="position:absolute;left:-9999px"><label>Site internet <input name="website" tabindex="-1" autocomplete="off"></label></div>
-          <label class="form-note"><input name="privacy_ack" type="checkbox" required> J’ai lu la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et j’accepte que MADYCLEAR utilise ces informations pour traiter ma demande de devis.</label>
+          <label class="form-note"><input name="privacy_ack" type="checkbox" required> J’ai lu la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et je comprends que MADYCLEAR utilise ces informations pour traiter ma demande de devis.</label>
           <div class="quote-reservation"><strong>Réservation du créneau :</strong> après acceptation du devis, <span data-reservation-amount>30 €</span> d’arrhes confirment le rendez-vous et sont déduits de la facture finale.</div>
           <button class="btn btn-primary btn-full" type="submit">Envoyer ma demande</button>
           <p id="quote-status" class="form-note" role="status" aria-live="polite"></p>
