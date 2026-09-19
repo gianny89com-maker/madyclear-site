@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /DIGISTAFF/
-Disallow: /MADYCLEAR_GITHUB_READY/
-Disallow: /AUDIT-CONNEXIONS-CLIENTS.md
-Disallow: /DOSSIER-MADYCLEAR.md
-Disallow: /README.md
+
 Sitemap: https://www.madyclear.fr/sitemap.xml
