@@ -30,7 +30,7 @@
   // Source unique des tarifs et règles commerciales : site + cockpit MADYCLEAR.
   const loadOfficialPricing = async () => {
     try {
-      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-17-commercial-v3', {cache: 'no-store'});
+      const response = await fetch('/assets/madyclear-pricing.json?v=2026-09-20-commercial-v4', {cache: 'no-store'});
       if (!response.ok) throw new Error(`pricing_http_${response.status}`);
       const config = await response.json();
       const textile = config && config.textile;
@@ -77,17 +77,7 @@
       const sapNote = notes.find((node) => /Avantage fiscal/i.test(node.querySelector('strong')?.textContent || ''));
       if (sapNote && config.sap) {
         const span = sapNote.querySelector('.tax-copy > span') || sapNote.querySelector('span');
-        const rate = Number(config.sap.rate_max || 0);
-        const exampleNet = Math.round(canape2Price * (1 - rate));
-        if (span) {
-          span.textContent = `${config.sap.description || ''} L’exemple ci-contre est uniquement indicatif.`.trim();
-        }
-        sapNote.querySelectorAll('[data-tax-base]').forEach((node) => {
-          node.textContent = `${canape2Price} €`;
-        });
-        sapNote.querySelectorAll('[data-tax-net]').forEach((node) => {
-          node.textContent = `${exampleNet} €`;
-        });
+        if (span) span.textContent = config.sap.description || '';
       }
 
       if (config.forfaits) {
