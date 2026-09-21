@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="120" viewBox="0 0 520 120" role="img" aria-label="MADYCLEAR">
+  <g fill="none" fill-rule="evenodd">
+    <path d="M52 18C39 37 27 50 27 68c0 18 14 32 32 32s32-14 32-32c0-18-12-31-32-50-3-3-5-3-7 0Z" fill="#C9A86A"/>
+    <path d="M42 70c9 8 22 9 34 1" stroke="#171512" stroke-width="4.5" stroke-linecap="round" opacity=".92"/>
+    <text x="112" y="69" font-family="Georgia,Times New Roman,serif" font-size="45" font-weight="600" letter-spacing="2.2" fill="#F7F1E7">MADYCLEAR</text>
+    <text x="115" y="92" font-family="Arial,Helvetica,sans-serif" font-size="11.5" font-weight="700" letter-spacing="3.4" fill="#D8BC85">CONFORT · SOIN · SÉRÉNITÉ</text>
+  </g>
+</svg>
