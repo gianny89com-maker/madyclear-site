@@ -57,6 +57,7 @@
       <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
         <a href="#textile">Textile</a>
         <a href="#benefices">Bénéfices</a>
+        <a href="#tarifs">Tarif</a>
         <a href="#devis">Estimation</a>
         <a class="nav-cta" href="#devis">Estimer mon intervention</a>
       </nav>
@@ -173,6 +174,29 @@
       </div>
     </section>
 
+    <section id="tarifs" class="section-pad price-section">
+      <div class="container price-panel">
+        <div>
+          <p class="eyebrow">Repère tarifaire</p>
+          <h2>Intervention Textile à partir de 80 €</h2>
+          <p>Le montant exact est confirmé avant intervention selon les textiles concernés et les caractéristiques de la demande.</p>
+          <p class="pack-note"><strong>Plusieurs éléments ?</strong> Une proposition personnalisée peut être établie sur devis.</p>
+          <div class="price-notes tax-note">
+            <div class="tax-copy">
+              <strong>Avantage fiscal SAP possible selon conditions d’éligibilité — sur devis.</strong>
+              <span>Selon votre situation et la nature de la prestation, un avantage fiscal peut être applicable. L’éligibilité et le montant éventuel sont confirmés sur devis.</span>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="mini-label">Votre besoin est unique</span>
+          <p>Décrivez simplement les textiles dont vous souhaitez prendre soin.</p>
+          <a class="btn btn-primary" href="#devis">Estimer mon intervention</a>
+        </div>
+        <div class="tariff-grid" hidden aria-hidden="true"></div>
+      </div>
+    </section>
+
     <section id="devis" class="section-pad contact-section">
       <div class="container contact-grid">
         <div>
@@ -212,7 +236,7 @@
           <label>Votre besoin <textarea name="details" rows="4" placeholder="Quantité, dimensions, état, taches éventuelles, ce que vous souhaitez améliorer…"></textarea></label>
           <div aria-hidden="true" style="position:absolute;left:-9999px"><label>Site internet <input name="website" tabindex="-1" autocomplete="off"></label></div>
           <label class="privacy-line"><input name="privacy_ack" type="checkbox" required> <span>J’ai lu la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et j’accepte l’utilisation de ces informations pour traiter ma demande.</span></label>
-          <div class="quote-reservation"><strong>Réservation du créneau :</strong> après acceptation du devis, des arrhes peuvent être demandées pour confirmer le rendez-vous. Elles sont déduites de la facture finale.</div>
+          <div class="quote-reservation"><strong>Réservation du créneau :</strong> après acceptation du devis, <span data-reservation-amount>30 €</span> d’arrhes confirment le rendez-vous et sont déduits de la facture finale.</div>
           <button class="btn btn-primary btn-full" type="submit">Envoyer ma demande</button>
           <p id="quote-status" class="form-note" role="status" aria-live="polite"></p>
           <p class="form-note">Vos informations sont utilisées uniquement pour traiter votre demande et assurer son suivi.</p>
@@ -269,6 +293,7 @@
       <div>
         <strong>Navigation</strong>
         <a href="#textile">Textile</a>
+        <a href="#tarifs">Tarif</a>
         <a href="#devis">Estimation</a>
         <a href="politique-confidentialite.html">Confidentialité</a>
       </div>
