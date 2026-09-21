@@ -70,7 +70,6 @@ p{margin-top:0}
 .textile-section{background:var(--ivory)}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .service-card{min-height:210px;padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 12px 34px rgba(65,52,33,.05);display:flex;flex-direction:column}
-.service-card>span{font-size:.78rem;font-weight:900;letter-spacing:.12em;color:var(--champagne-deep)}
 .service-card h3{margin-top:auto}
 .service-card p{color:var(--muted);margin:10px 0 0}
 
@@ -86,7 +85,6 @@ p{margin-top:0}
 .benefits-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:38px}
 .benefits-grid article{padding:0 18px 0 0}
 .benefits-grid article+article{padding-left:22px;border-left:1px solid var(--line)}
-.benefits-grid span{display:block;margin-bottom:25px;font-size:.76rem;font-weight:900;letter-spacing:.13em;color:var(--champagne-deep)}
 .benefits-grid p{color:var(--muted);margin:12px 0 0}
 
 .price-section{background:var(--cream)}
