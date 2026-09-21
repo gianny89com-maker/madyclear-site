@@ -218,3 +218,20 @@ p{margin-top:0}
 .service-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(65,52,33,.10);border-color:#d8c6ad}
 @media(max-width:960px){.services-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.services-grid{grid-template-columns:1fr}.service-card{min-height:auto;padding:26px 24px}.service-card:before{left:24px;right:24px}}
+
+
+/* MADYCLEAR image refresh 2026-09-21 */
+.comfort-illustration{
+  background:
+    linear-gradient(180deg,rgba(252,250,246,.03),rgba(23,21,18,.08)),
+    url("https://images.pexels.com/photos/8135275/pexels-photo-8135275.jpeg?dpr=1&h=750&w=1260") center 52%/cover no-repeat;
+}
+.comfort-illustration:before{
+  background:linear-gradient(180deg,rgba(255,250,242,.04),rgba(23,21,18,.10));
+}
+.comfort-illustration .placeholder-sofa,
+.comfort-illustration .placeholder-cushion,
+.comfort-illustration .placeholder-rug,
+.comfort-illustration .placeholder-glow{
+  display:none;
+}
