@@ -201,3 +201,6 @@ p{margin-top:0}
 .placeholder-glow{position:absolute;right:6%;top:8%;width:34%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,248,236,.82),rgba(255,248,236,0) 70%)}
 @media(max-width:960px){.showcase-placeholder{min-height:420px}}
 @media(max-width:640px){.showcase-placeholder{min-height:300px}}
+
+.price-panel h2{white-space:nowrap;font-size:clamp(1.75rem,3vw,2.8rem)}
+@media(max-width:640px){.price-panel h2{font-size:1.55rem;white-space:nowrap;letter-spacing:-.025em}}
