@@ -107,7 +107,14 @@
       if (!select) return;
       const requested = String(link.dataset.selectService || '').trim();
       const option = Array.from(select.options).find((item) => item.value === requested || item.textContent.trim() === requested);
-      if (option) select.value = option.value || option.textContent.trim();
+      if (option) {
+        select.value = option.value || option.textContent.trim();
+        select.classList.add('field-highlight');
+        window.setTimeout(() => {
+          select.focus({preventScroll: true});
+          select.classList.remove('field-highlight');
+        }, 450);
+      }
     });
   });
 
