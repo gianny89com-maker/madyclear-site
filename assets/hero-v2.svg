@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1080" viewBox="0 0 1440 1080" role="img" aria-label="Intérieur premium chaleureux avec canapé textile">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8F1E7"/>
+      <stop offset="1" stop-color="#EFE2D1"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF9EF" stop-opacity=".96"/>
+      <stop offset="1" stop-color="#E9D3AA" stop-opacity=".38"/>
+    </linearGradient>
+    <linearGradient id="sofa" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D7C5AE"/>
+      <stop offset="1" stop-color="#BDA78E"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#44382B" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1080" fill="url(#wall)"/>
+  <rect x="0" y="742" width="1440" height="338" fill="#CDBA9F"/>
+  <rect x="865" y="86" width="420" height="410" rx="8" fill="#E8D8C1"/>
+  <rect x="890" y="110" width="370" height="360" rx="4" fill="url(#sun)"/>
+  <g opacity=".22" stroke="#B49B79" stroke-width="8">
+    <path d="M1010 110v360M1135 110v360M890 286h370"/>
+  </g>
+  <ellipse cx="708" cy="880" rx="460" ry="128" fill="#E9DED0"/>
+  <rect x="280" y="552" width="750" height="275" rx="54" fill="url(#sofa)" filter="url(#shadow)"/>
+  <rect x="250" y="626" width="170" height="220" rx="52" fill="#B9A187"/>
+  <rect x="890" y="626" width="170" height="220" rx="52" fill="#B9A187"/>
+  <rect x="360" y="484" width="270" height="190" rx="34" fill="#D8C8B5"/>
+  <rect x="650" y="484" width="270" height="190" rx="34" fill="#CCB69D"/>
+  <path d="M410 572c90 30 170 34 245 0" fill="none" stroke="#B29B82" stroke-width="5" opacity=".5"/>
+  <path d="M697 570c88 28 162 31 224 0" fill="none" stroke="#A89078" stroke-width="5" opacity=".48"/>
+  <rect x="325" y="825" width="690" height="44" rx="22" fill="#A58D73" opacity=".75"/>
+  <g transform="translate(1130 520)">
+    <rect x="32" y="155" width="16" height="200" rx="8" fill="#6F5F4F"/>
+    <ellipse cx="40" cy="146" rx="92" ry="34" fill="#D6C4A9"/>
+    <path d="M40 142C16 81 2 45 0 0c40 34 62 72 67 126" fill="#67705A"/>
+    <path d="M48 144c20-58 49-95 88-124-10 54-37 97-75 135" fill="#7C8168"/>
+    <path d="M43 142c-1-60 12-103 37-141 17 51 10 99-17 150" fill="#59664F"/>
+  </g>
+  <g transform="translate(120 315)">
+    <rect x="0" y="0" width="190" height="250" rx="6" fill="#EDE3D6"/>
+    <rect x="20" y="20" width="150" height="210" rx="3" fill="#D7C3A6"/>
+    <path d="M60 176c46-58 72-97 82-139" stroke="#8F7656" stroke-width="9" fill="none" opacity=".62"/>
+    <circle cx="78" cy="78" r="32" fill="#F4EADA" opacity=".8"/>
+  </g>
+  <g opacity=".18">
+    <circle cx="1140" cy="350" r="170" fill="#FFF8E9"/>
+    <circle cx="1070" cy="430" r="115" fill="#FFF8E9"/>
+  </g>
+</svg>
