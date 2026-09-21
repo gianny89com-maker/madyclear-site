@@ -154,7 +154,7 @@
       const status = document.getElementById('quote-status');
 
       const message = [
-        'Bonjour MADYCLEAR, je souhaite un devis pour un nettoyage textile.',
+        'Bonjour MADYCLEAR, je souhaite une estimation pour l’entretien de mes textiles.',
         '',
         `Nom : ${nom}`,
         `Téléphone : ${telephone}`,
