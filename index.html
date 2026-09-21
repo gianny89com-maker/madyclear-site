@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=refonte-v2-20260920-6">
+  <link rel="stylesheet" href="assets/styles.css?v=refonte-v2-20260920-7">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
@@ -110,36 +110,42 @@
         </div>
 
         <div class="services-grid">
-          <article class="service-card">
+          <a class="service-card service-card-link" href="#devis" data-select-service="Canapé — à préciser" aria-label="Choisir Canapé pour mon estimation">
             <h3>Canapés</h3>
             <strong>Le textile le plus sollicité du salon.</strong>
             <p>Usage quotidien, poussière, frottements, petites taches et odeurs finissent par s’installer. Un entretien régulier aide à préserver l’aspect du tissu et le confort de la pièce.</p>
-          </article>
-          <article class="service-card">
+            <span class="service-card-action">Choisir ce textile →</span>
+          </a>
+          <a class="service-card service-card-link" href="#devis" data-select-service="Matelas — à préciser" aria-label="Choisir Matelas pour mon estimation">
             <h3>Matelas</h3>
             <strong>Des heures d’utilisation chaque nuit.</strong>
             <p>Le matelas accumule naturellement poussière, transpiration et traces d’usage. Son entretien contribue à conserver une surface plus fraîche, plus nette et mieux entretenue.</p>
-          </article>
-          <article class="service-card">
+            <span class="service-card-action">Choisir ce textile →</span>
+          </a>
+          <a class="service-card service-card-link" href="#devis" data-select-service="Tapis" aria-label="Choisir Tapis pour mon estimation">
             <h3>Tapis</h3>
             <strong>Une surface qui retient tout ce qui circule dans la pièce.</strong>
             <p>Poussière, passages répétés et petites salissures s’y concentrent rapidement. Un nettoyage adapté aide à raviver son apparence et à prolonger son entretien.</p>
-          </article>
-          <article class="service-card">
+            <span class="service-card-action">Choisir ce textile →</span>
+          </a>
+          <a class="service-card service-card-link" href="#devis" data-select-service="Fauteuil" aria-label="Choisir Fauteuil pour mon estimation">
             <h3>Fauteuils</h3>
             <strong>Une assise très utilisée, souvent oubliée.</strong>
             <p>Les accoudoirs, dossiers et assises marquent avec le temps. Un soin régulier permet de garder un fauteuil plus propre, plus agréable et plus valorisant dans l’intérieur.</p>
-          </article>
-          <article class="service-card">
+            <span class="service-card-action">Choisir ce textile →</span>
+          </a>
+          <a class="service-card service-card-link" href="#devis" data-select-service="Chaise textile" aria-label="Choisir Chaise textile pour mon estimation">
             <h3>Chaises</h3>
             <strong>Les tissus d’assise se salissent plus vite qu’on ne le pense.</strong>
             <p>Repas, vêtements et utilisation répétée laissent progressivement des traces. L’entretien aide à conserver des assises nettes et homogènes plus longtemps.</p>
-          </article>
-          <article class="service-card">
+            <span class="service-card-action">Choisir ce textile →</span>
+          </a>
+          <a class="service-card service-card-link" href="#devis" data-select-service="Moquette" aria-label="Choisir Moquette pour mon estimation">
             <h3>Moquettes</h3>
             <strong>Une grande surface textile soumise aux passages quotidiens.</strong>
             <p>La poussière et les marques d’usage se répartissent sur toute la pièce. Un traitement adapté aide à retrouver un rendu plus uniforme et mieux entretenu.</p>
-          </article>
+            <span class="service-card-action">Choisir ce textile →</span>
+          </a>
         </div>
       </div>
     </section>
@@ -199,12 +205,36 @@
       </div>
     </section>
 
+    <section class="section-pad process-section" aria-labelledby="process-title">
+      <div class="container">
+        <p class="eyebrow">Simple et clair</p>
+        <h2 id="process-title">Comment ça se passe ?</h2>
+        <div class="process-grid">
+          <article>
+            <span class="process-number" aria-hidden="true">1</span>
+            <h3>Décrivez votre besoin</h3>
+            <p>Choisissez votre textile et indiquez simplement ce que vous souhaitez faire nettoyer.</p>
+          </article>
+          <article>
+            <span class="process-number" aria-hidden="true">2</span>
+            <h3>Recevez votre estimation</h3>
+            <p>MADYCLEAR vérifie votre demande, vos photos et vous confirme le montant avant l’intervention.</p>
+          </article>
+          <article>
+            <span class="process-number" aria-hidden="true">3</span>
+            <h3>Intervention à domicile</h3>
+            <p>Nous intervenons sur rendez-vous directement chez vous, partout en Martinique selon disponibilité.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="devis" class="section-pad contact-section">
       <div class="container contact-grid">
         <div>
           <p class="eyebrow">Estimation personnalisée</p>
           <h2>Parlez-nous de vos textiles.</h2>
-          <p>Sélectionnez le textile concerné et décrivez simplement votre besoin. Votre demande est enregistrée par MADYCLEAR, puis WhatsApp s’ouvre afin que vous puissiez transmettre vos photos.</p>
+          <p>En moins d’une minute, indiquez votre textile et votre besoin. MADYCLEAR enregistre votre demande, puis WhatsApp s’ouvre pour l’envoi de vos photos.</p>
           <div class="contact-lines">
             <a href="tel:+596696017007">06 96 01 70 07</a>
             <a href="mailto:contact@madyclear.fr">contact@madyclear.fr</a>
@@ -216,17 +246,16 @@
             <label>Nom <input name="nom" required autocomplete="name"></label>
             <label>Téléphone <input name="telephone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="06 96 …"></label>
           </div>
-          <div class="form-grid">
-            <label>E-mail (facultatif) <input name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
-            <label>Commune <input name="commune" required autocomplete="address-level2" placeholder="Ex. Sainte-Luce"></label>
-          </div>
+          <label>Commune <input name="commune" required autocomplete="address-level2" placeholder="Ex. Sainte-Luce"></label>
           <label>Textile concerné
             <select name="service" required>
               <option value="">Choisir</option>
+              <option>Canapé — à préciser</option>
               <option>Canapé 2 places</option>
               <option>Canapé 3 places</option>
               <option>Canapé angle / panoramique</option>
               <option>Fauteuil</option>
+              <option>Matelas — à préciser</option>
               <option>Matelas 1 place</option>
               <option>Matelas 2 places</option>
               <option>Tapis</option>
@@ -235,7 +264,7 @@
               <option>Demande professionnelle</option>
             </select>
           </label>
-          <label>Votre besoin <textarea name="details" rows="4" placeholder="Quantité, dimensions, état, taches éventuelles, ce que vous souhaitez améliorer…"></textarea></label>
+          <label>Votre besoin <textarea name="details" rows="3" placeholder="Quantité, dimensions, taches éventuelles ou précision utile…"></textarea></label>
           <div aria-hidden="true" style="position:absolute;left:-9999px"><label>Site internet <input name="website" tabindex="-1" autocomplete="off"></label></div>
           <label class="privacy-line"><input name="privacy_ack" type="checkbox" required> <span>J’ai lu la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a> et j’accepte l’utilisation de ces informations pour traiter ma demande.</span></label>
           <div class="quote-reservation"><strong>Réservation du créneau :</strong> après acceptation du devis, <span data-reservation-amount>30 €</span> d’arrhes confirment le rendez-vous et sont déduits de la facture finale.</div>
@@ -303,7 +332,10 @@
     <div class="container copyright">© <span id="year"></span> MADYCLEAR — Martinique. Tous droits réservés.</div>
   </footer>
 
-  <a class="whatsapp-float" href="https://wa.me/596696017007?text=Bonjour%20MADYCLEAR%2C%20je%20souhaite%20une%20estimation%20pour%20l%27entretien%20de%20mes%20textiles." target="_blank" rel="noopener" aria-label="Contacter MADYCLEAR sur WhatsApp">WA</a>
-  <script src="assets/script.js?v=refonte-v2-20260920-2" defer></script>
+  <a class="whatsapp-float" href="https://wa.me/596696017007?text=Bonjour%20MADYCLEAR%2C%20je%20souhaite%20une%20estimation%20pour%20l%27entretien%20de%20mes%20textiles." target="_blank" rel="noopener" aria-label="Contacter MADYCLEAR sur WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.8A9.2 9.2 0 0 1 12 1.5a9.5 9.5 0 0 1 0 19 9.4 9.4 0 0 1-4.5-1.1L2 21l1.6-5.2A9.4 9.4 0 0 1 4.5 4.8Zm4.1 3.4c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.5s1 2.9 1.2 3.1c.1.2 2 3.2 5 4.3 2.4.9 3 .8 3.6.7.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.2-.3-.3-.7-.5l-2.1-1c-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.3-.7.1-.4-.2-1.5-.6-2.8-1.7-1-1-1.7-2.1-1.9-2.5-.2-.3 0-.5.2-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4-.1-.6l-1-2.3Z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+  <script src="assets/script.js?v=refonte-v2-20260920-3" defer></script>
 </body>
 </html>
