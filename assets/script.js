@@ -44,29 +44,6 @@
         node.textContent = `${canape2Price} €`;
       });
 
-      const grid = document.querySelector('#tarifs .tariff-grid');
-      if (grid) {
-        const rows = textile.items.concat([{
-          id: 'minimum-textile',
-          name: "Minimum d’intervention textile",
-          price: Number(textile.minimum_intervention || 0),
-          condition: true
-        }]);
-        const fragment = document.createDocumentFragment();
-        rows.forEach((item) => {
-          const article = document.createElement('article');
-          article.className = 'tariff';
-          article.dataset.tariffId = item.id || '';
-          const title = document.createElement('h3');
-          title.textContent = item.name;
-          const price = document.createElement('strong');
-          price.textContent = `${Number(item.price || 0)} €`;
-          article.append(title, price);
-          fragment.appendChild(article);
-        });
-        grid.replaceChildren(fragment);
-      }
-
       const notes = Array.from(document.querySelectorAll('#tarifs .price-notes'));
       const packNote = notes.find((node) => /Composez votre pack/i.test(node.querySelector('strong')?.textContent || ''));
       if (packNote && config.packs) {
