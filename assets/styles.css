@@ -68,10 +68,10 @@ p{margin-top:0}
 .section-heading{display:grid;grid-template-columns:1.12fr .88fr;gap:64px;align-items:end;margin-bottom:40px}
 .section-heading>p{color:var(--muted);font-size:.98rem;margin-bottom:9px}
 .textile-section{background:var(--ivory)}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.service-card{min-height:270px;padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 12px 34px rgba(65,52,33,.05);display:flex;flex-direction:column}
-.service-card h3{margin:0 0 12px}.service-card strong{display:block;margin-bottom:10px;font-size:.94rem;line-height:1.45;color:var(--ink-soft)}
-.service-card p{color:var(--muted);margin:auto 0 0;font-size:.94rem}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service-card{position:relative;min-height:290px;padding:30px 28px 28px;border:1px solid #e2d6c6;border-radius:24px;background:linear-gradient(180deg,#fffdf9 0%,#fbf6ef 100%);box-shadow:0 12px 34px rgba(65,52,33,.055);display:flex;flex-direction:column;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.service-card h3{margin:0 0 12px;font-size:1.2rem;line-height:1.25}.service-card strong{display:block;margin-bottom:12px;font-size:.95rem;line-height:1.45;color:var(--ink-soft);font-weight:800}
+.service-card p{color:var(--muted);margin:auto 0 0;font-size:.93rem;line-height:1.62}
 
 .showcase-section{padding:26px 0 94px;background:var(--ivory)}
 .showcase-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:stretch;background:var(--cream);border:1px solid var(--line);border-radius:34px;overflow:hidden}
@@ -204,3 +204,8 @@ p{margin-top:0}
 
 .price-panel h2{white-space:nowrap;font-size:clamp(1.75rem,3vw,2.8rem)}
 @media(max-width:640px){.price-panel h2{font-size:1.55rem;white-space:nowrap;letter-spacing:-.025em}}
+
+.service-card:before{content:"";position:absolute;left:28px;right:28px;top:0;height:3px;border-radius:0 0 999px 999px;background:linear-gradient(90deg,var(--champagne),rgba(201,168,106,.22))}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px rgba(65,52,33,.10);border-color:#d8c6ad}
+@media(max-width:960px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.services-grid{grid-template-columns:1fr}.service-card{min-height:auto;padding:26px 24px}.service-card:before{left:24px;right:24px}}
