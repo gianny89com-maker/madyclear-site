@@ -29,8 +29,13 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 .proof{padding:76px 0;background:var(--ink);color:white}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12)}.proof-grid div{padding:28px;background:var(--ink)}.proof-grid strong{display:block;color:#fff}.proof-grid span{color:#cfc7bc;font-size:.88rem}
 .cta{padding:88px 0;background:linear-gradient(135deg,#f5eadb,#fffaf2)}.cta-inner{text-align:center;max-width:780px;margin:auto}.cta h2{font-size:clamp(1.9rem,3.4vw,3rem);margin:0 0 14px}.cta p{color:var(--muted)}.cta .btn-primary{background:var(--ink);color:white}
 .note{padding:18px 0;background:#11100e;color:#aaa197;text-align:center;font-size:.78rem}
+.quick-contact{position:fixed;right:18px;bottom:18px;z-index:20;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+.quick-contact a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 15px;border-radius:999px;text-decoration:none;font-size:.82rem;font-weight:850;box-shadow:0 12px 28px rgba(0,0,0,.18);backdrop-filter:blur(8px)}
+.quick-contact .wa{background:#171512;color:#fff;border:1px solid var(--gold)}
+.quick-contact .form{background:rgba(252,250,246,.96);color:var(--ink);border:1px solid var(--line)}
+.quick-contact svg{width:18px;height:18px;fill:currentColor}
 @media(max-width:850px){.hero{min-height:72vh;background-position:60% center}.intro-grid,.band-grid{grid-template-columns:1fr}.band-grid.reverse .visual{order:0}.visual{min-height:300px}.proof-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.hero-inner{padding:70px 0 58px}.actions{flex-direction:column}.btn{width:100%}.proof-grid{grid-template-columns:1fr}.pro-nav img{width:150px}}
+@media(max-width:560px){.hero-inner{padding:70px 0 58px}.actions{flex-direction:column}.btn{width:100%}.proof-grid{grid-template-columns:1fr}.pro-nav img{width:150px}.quick-contact{right:12px;bottom:12px}.quick-contact a{min-height:42px;padding:0 13px;font-size:.78rem}}
 </style>
 </head>
 <body>
@@ -80,5 +85,12 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
   <a class="btn btn-primary" href="https://wa.me/596696017007?text=Bonjour%20MADYCLEAR%2C%20je%20souhaite%20vous%20présenter%20un%20besoin%20professionnel." target="_blank" rel="noopener">Présenter mon besoin professionnel</a>
 </div></section>
 </main>
+<div class="quick-contact" aria-label="Contacts rapides MADYCLEAR">
+  <a class="form" href="index.html#devis">Formulaire</a>
+  <a class="wa" href="https://wa.me/596696017007?text=Bonjour%20MADYCLEAR%2C%20je%20souhaite%20vous%20présenter%20un%20besoin%20professionnel." target="_blank" rel="noopener" aria-label="Contacter MADYCLEAR sur WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.8A9.2 9.2 0 0 1 12 1.5a9.5 9.5 0 0 1 0 19 9.4 9.4 0 0 1-4.5-1.1L2 21l1.6-5.2A9.4 9.4 0 0 1 4.5 4.8Zm4.1 3.4c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.5s1 2.9 1.2 3.1c.1.2 2 3.2 5 4.3 2.4.9 3 .8 3.6.7.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.2-.3-.3-.7-.5l-2.1-1c-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.3-.7.1-.4-.2-1.5-.6-2.8-1.7-1-1-1.7-2.1-1.9-2.5-.2-.3 0-.5.2-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4-.1-.6l-1-2.3Z"/></svg>
+    WhatsApp
+  </a>
+</div>
 <footer class="note">© MADYCLEAR — Solutions professionnelles en Martinique.</footer>
 </body></html>
