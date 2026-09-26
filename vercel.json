@@ -73,6 +73,19 @@
           "value": "private, no-store, max-age=0"
         }
       ]
+    },
+    {
+      "source": "/demande-professionnelle.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, max-age=0"
+        }
+      ]
     }
   ]
 }

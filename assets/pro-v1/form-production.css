@@ -1,0 +1,8 @@
+.pro-form .privacy-line{display:flex;align-items:flex-start;gap:10px;font-weight:400}
+.pro-form .privacy-line input{width:18px;min-height:18px;height:18px;flex:0 0 18px;margin:4px 0 0;padding:0}
+.pro-form .privacy-line a{text-decoration:underline}
+.pro-form .honeypot{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.pro-form button:disabled{opacity:.65;cursor:default}
+.form-fallback[hidden]{display:none}
+.form-fallback a{display:inline-block;margin-right:16px;margin-bottom:8px}
+.form-confirmation{overflow-wrap:anywhere}
