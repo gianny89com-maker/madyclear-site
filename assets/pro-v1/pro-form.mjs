@@ -39,7 +39,7 @@ if (form) {
       await sendRequest(payload, {origin: location.origin});
       completed = true;
       button.textContent = 'Demande envoyée';
-      announce('Merci pour votre demande. Votre demande professionnelle a bien été enregistrée. MADYCLEAR vous recontactera rapidement afin de préciser votre besoin, vérifier la faisabilité de l’intervention et vous proposer la solution la plus adaptée. Aucun rendez-vous n’est confirmé à ce stade.');
+      announce('Merci pour votre demande. Votre demande professionnelle a bien été envoyée. MADYCLEAR vous recontactera rapidement afin de préciser votre besoin, vérifier la faisabilité de l’intervention et vous proposer la solution la plus adaptée. Aucun rendez-vous n’est confirmé à ce stade.');
     } catch (error) {
       const messages = {
         rate: 'Plusieurs demandes ont été envoyées récemment. Patientez 15 minutes ou contactez-nous directement.',

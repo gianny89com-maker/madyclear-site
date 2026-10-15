@@ -119,12 +119,13 @@
   });
 
   const form = document.getElementById('quote-form');
-  const endpoint = 'https://trvmbwpwnpimrxrmvrgd.supabase.co/functions/v1/madyclear-capture';
+  let sending = false;
+  let completed = false;
 
   if (form) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      if (!form.reportValidity()) return;
+      if (sending || completed || !form.reportValidity()) return;
 
       const data = new FormData(form);
       const nom = String(data.get('nom') || '').trim();
@@ -151,34 +152,33 @@
       ].filter(Boolean).join('\n');
       const whatsappUrl = `https://wa.me/596696017007?text=${encodeURIComponent(message)}`;
 
+      sending = true;
       button.disabled = true;
-      button.textContent = 'Enregistrement…';
-      if (status) status.textContent = 'Votre demande est en cours d’enregistrement sécurisé.';
+      button.textContent = 'Envoi en cours…';
+      if (status) status.textContent = 'Votre demande est en cours d’envoi.';
 
       try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            workspace_slug: 'madyclear',
-            first_name: nom,
-            phone: telephone,
-            email,
-            commune,
-            summary: details ? `${service} — ${details}` : service,
-            source_channel: 'site_web',
-            marketing_consent: false,
-            website
-          })
+        const {sendFormEmail} = await import('/assets/form-email.mjs');
+        await sendFormEmail({
+          first_name: nom, phone: telephone, email, commune,
+          summary: details ? `${service} — ${details}` : service,
+          source_channel: 'site_web_textile', website
         });
-        if (!response.ok) throw new Error('capture_failed');
-        if (status) status.textContent = '✅ Demande enregistrée. Vous allez maintenant être redirigé vers WhatsApp pour nous envoyer les photos de votre textile.';
+        completed = true;
+        if (status) status.textContent = '✅ Demande envoyée. Vous allez maintenant être redirigé vers WhatsApp pour nous envoyer les photos de votre textile.';
       } catch (error) {
-        if (status) status.textContent = 'WhatsApp va s’ouvrir. Si nécessaire, envoyez directement votre demande : elle sera traitée manuellement.';
+        if (status) {
+          status.textContent = 'L’envoi n’a pas pu être confirmé. Vos informations sont conservées. Vous pouvez réessayer ou ';
+          const link = document.createElement('a');
+          link.href = whatsappUrl;
+          link.textContent = 'nous contacter sur WhatsApp';
+          status.append(link);
+        }
       } finally {
-        button.disabled = false;
-        button.textContent = 'Envoyer ma demande';
-        setTimeout(() => { window.location.href = whatsappUrl; }, 1200);
+        sending = false;
+        button.disabled = completed;
+        button.textContent = completed ? 'Demande envoyée' : 'Envoyer ma demande';
+        if (completed) setTimeout(() => { window.location.href = whatsappUrl; }, 1200);
       }
     });
   }

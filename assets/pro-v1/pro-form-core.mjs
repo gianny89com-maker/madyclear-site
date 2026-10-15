@@ -1,5 +1,5 @@
-export const ENDPOINT = 'https://trvmbwpwnpimrxrmvrgd.supabase.co/functions/v1/madyclear-capture';
-export const ALLOWED_ORIGINS = ['https://www.madyclear.fr', 'https://madyclear.fr'];
+import {sendFormEmail, ALLOWED_ORIGINS, ENDPOINT} from '../form-email.mjs';
+export {ALLOWED_ORIGINS, ENDPOINT};
 export const SERVICES = {vitres: 'Vitres', clim: 'Clim', auto: 'Auto', plusieurs: 'Plusieurs services', autre: 'Autre besoin professionnel'};
 const NEEDS = ['Renfort ponctuel', 'Besoin urgent', 'Entretien récurrent', 'Sous-traitance'];
 const LIMITS = {entreprise:120, nom:80, telephone:40, email:160, site:100, creneau:100, message:700};
@@ -33,21 +33,7 @@ export function prepareRequest(values) {
   };
 }
 
-export async function sendRequest(payload, {origin, fetchImpl = globalThis.fetch, timeoutMs = 15000}) {
-  if (!ALLOWED_ORIGINS.includes(origin)) throw new FormError('preview');
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetchImpl(ENDPOINT, {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      credentials: 'omit', signal: controller.signal, body: JSON.stringify(payload)
-    });
-    if (!response.ok) throw new FormError(response.status === 429 ? 'rate' : response.status === 422 ? 'contact' : 'unconfirmed');
-    const result = await response.json();
-    if (result?.ok !== true) throw new FormError('unconfirmed');
-    return result;
-  } catch (error) {
-    if (error instanceof FormError) throw error;
-    throw new FormError('unconfirmed');
-  } finally { clearTimeout(timer); }
+export async function sendRequest(payload, options) {
+  try { return await sendFormEmail(payload, options); }
+  catch (error) { throw new FormError(['preview', 'rate', 'contact'].includes(error.message) ? error.message : 'unconfirmed'); }
 }
