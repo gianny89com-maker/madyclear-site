@@ -158,17 +158,17 @@
       if (status) status.textContent = 'Votre demande est en cours d’envoi.';
 
       try {
-        const {sendFormEmail} = await import('/assets/form-email.mjs');
-        await sendFormEmail({
+        const {sendFormEmail} = await import('/assets/form-email.mjs?v=capture-20261022');
+        const result = await sendFormEmail({
           first_name: nom, phone: telephone, email, commune,
           summary: details ? `${service} — ${details}` : service,
           source_channel: 'site_web_textile', website
         });
         completed = true;
-        if (status) status.textContent = '✅ Demande envoyée. Vous allez maintenant être redirigé vers WhatsApp pour nous envoyer les photos de votre textile.';
+        if (status) status.textContent = `✅ Demande enregistrée. Référence : ${result.reference}. Vous allez maintenant être redirigé vers WhatsApp pour nous envoyer les photos de votre textile.`;
       } catch (error) {
         if (status) {
-          status.textContent = 'L’envoi n’a pas pu être confirmé. Vos informations sont conservées. Vous pouvez réessayer ou ';
+          status.textContent = 'L’enregistrement n’a pas pu être confirmé. Vos informations restent uniquement dans les champs de ce formulaire. Gardez cette page ouverte. Vous pouvez réessayer ou ';
           const link = document.createElement('a');
           link.href = whatsappUrl;
           link.textContent = 'nous contacter sur WhatsApp';

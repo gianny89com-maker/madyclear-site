@@ -1,4 +1,4 @@
-import {ALLOWED_ORIGINS, SERVICES, prepareRequest, sendRequest} from './pro-form-core.mjs';
+import {ALLOWED_ORIGINS, SERVICES, prepareRequest, sendRequest} from './pro-form-core.mjs?v=capture-20261022';
 
 const form = document.getElementById('pro-form');
 if (form) {
@@ -36,15 +36,15 @@ if (form) {
     fallback.hidden = true;
     announce('Votre demande est en cours d’envoi.');
     try {
-      await sendRequest(payload, {origin: location.origin});
+      const result = await sendRequest(payload, {origin: location.origin});
       completed = true;
       button.textContent = 'Demande envoyée';
-      announce('Merci pour votre demande. Votre demande professionnelle a bien été envoyée. MADYCLEAR vous recontactera rapidement afin de préciser votre besoin, vérifier la faisabilité de l’intervention et vous proposer la solution la plus adaptée. Aucun rendez-vous n’est confirmé à ce stade.');
+      announce(`Merci pour votre demande. Votre demande professionnelle est enregistrée. Référence : ${result.reference}. MADYCLEAR vous recontactera rapidement afin de préciser votre besoin et vous proposer la solution la plus adaptée. Aucun rendez-vous n’est confirmé à ce stade.`);
     } catch (error) {
       const messages = {
         rate: 'Plusieurs demandes ont été envoyées récemment. Patientez 15 minutes ou contactez-nous directement.',
         contact: 'Vérifiez vos coordonnées avant de renvoyer la demande.',
-        unconfirmed: 'L’envoi n’a pas pu être confirmé. Vos informations sont conservées dans ce formulaire. Pour éviter un doublon, vérifiez avec MADYCLEAR par téléphone ou sur WhatsApp.'
+        unconfirmed: 'L’enregistrement n’a pas pu être confirmé. Vos informations restent uniquement dans les champs de ce formulaire. Gardez cette page ouverte. Pour éviter un doublon, vérifiez avec MADYCLEAR par téléphone ou sur WhatsApp.'
       };
       announce(messages[error.code] || messages.unconfirmed);
       fallback.hidden = false;

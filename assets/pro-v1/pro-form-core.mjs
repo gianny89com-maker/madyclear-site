@@ -1,4 +1,4 @@
-import {sendFormEmail, ALLOWED_ORIGINS, ENDPOINT} from '../form-email.mjs';
+import {sendFormEmail, ALLOWED_ORIGINS, ENDPOINT} from '../form-email.mjs?v=capture-20261022';
 export {ALLOWED_ORIGINS, ENDPOINT};
 export const SERVICES = {vitres: 'Vitres', clim: 'Clim', auto: 'Auto', plusieurs: 'Plusieurs services', autre: 'Autre besoin professionnel'};
 const NEEDS = ['Renfort ponctuel', 'Besoin urgent', 'Entretien récurrent', 'Sous-traitance'];
